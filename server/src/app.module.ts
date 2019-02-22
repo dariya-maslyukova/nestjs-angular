@@ -6,10 +6,11 @@ import { SharedModule } from './shared/shared.module';
 import { ConfigurationService } from './shared/configuration/configuration/configuration.service';
 import { Configuration } from './shared/configuration/configuration/configuration.enum';
 import { UserModule } from './user/user.module';
+import { TodoModule } from './todo/todo.module';
 
 
 @Module({
-  imports: [SharedModule, MongooseModule.forRoot(ConfigurationService.connectionString), UserModule],
+  imports: [SharedModule, MongooseModule.forRoot(ConfigurationService.connectionString), UserModule, TodoModule],
   controllers: [AppController],
   providers: [AppService],
 })

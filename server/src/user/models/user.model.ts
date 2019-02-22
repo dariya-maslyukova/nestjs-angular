@@ -1,12 +1,12 @@
+import { InstanceType, ModelType, prop } from 'typegoose';
 import { BaseModel, schemaOptions } from '../../shared/base.model';
 import { UserRole } from './user-role.enum';
-import { ModelType, prop } from 'typegoose';
 
-export class User extends BaseModel {
+export class User extends BaseModel<User> {
   @prop({
     required: [true, 'Username is required'],
-    minlength: [6, 'Must be at least 6 characters'],
     unique: true,
+    minlength: [6, 'Must be at least 6 characters'],
   })
   username: string;
 
@@ -16,11 +16,12 @@ export class User extends BaseModel {
   })
   password: string;
 
+  @prop() firstName?: string;
+
+  @prop() lastName?: string;
+
   @prop({ enum: UserRole, default: UserRole.User })
   role?: UserRole;
-
-  @prop() firstName?: string;
-  @prop() lastName?: string;
 
   @prop()
   get fullName(): string {
@@ -33,5 +34,9 @@ export class User extends BaseModel {
 
   static get modelName(): string {
     return this.model.modelName;
+  }
+
+  static createModel(): InstanceType<User> {
+    return new this.model();
   }
 }
