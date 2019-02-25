@@ -11,7 +11,8 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiImplicitQuery, ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiImplicitQuery, ApiOperation, ApiUseTags, ApiBadRequestResponse, ApiOkResponse,
+  ApiCreatedResponse } from '@nestjs/swagger';
 import { isArray, map } from 'lodash';
 
 import { Todo } from './models/todo.model';
@@ -38,10 +39,10 @@ export class TodoController {
   }
 
   @Post()
-  @Roles(UserRole.Admin)
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @ApiResponse({ status: HttpStatus.CREATED, type: TodoVm })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  // @Roles(UserRole.Admin)
+  // @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @ApiCreatedResponse({ type: TodoVm })
+  @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Todo.modelName, 'Create'))
   async create(@Body() params: TodoParams): Promise<TodoVm> {
     const { content } = params;
@@ -59,10 +60,10 @@ export class TodoController {
   }
 
   @Get() // req.query.level
-  @Roles(UserRole.Admin, UserRole.User)
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @ApiResponse({ status: HttpStatus.OK, type: TodoVm, isArray: true })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  // @Roles(UserRole.Admin, UserRole.User)
+  // @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @ApiOkResponse({ type: TodoVm, isArray: true })
+  @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Todo.modelName, 'GetAll'))
   @ApiImplicitQuery({ name: 'level', required: false, isArray: true, collectionFormat: 'multi' })
   @ApiImplicitQuery({ name: 'isCompleted', required: false })
@@ -93,10 +94,10 @@ export class TodoController {
   }
 
   @Put() // req.doc.body in express
-  @Roles(UserRole.Admin, UserRole.User)
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @ApiResponse({ status: HttpStatus.CREATED, type: TodoVm })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  // @Roles(UserRole.Admin, UserRole.User)
+  // @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @ApiCreatedResponse({ type: TodoVm })
+  @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Todo.modelName, 'Update'))
   async update(@Body() vm: TodoVm): Promise<TodoVm> {
     const { id, content, level, isCompleted } = vm;
@@ -128,10 +129,10 @@ export class TodoController {
   }
 
   @Delete(':id') // req.params.id in express; req.params
-  @Roles(UserRole.Admin)
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @ApiResponse({ status: HttpStatus.OK, type: TodoVm })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  // @Roles(UserRole.Admin)
+  // @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @ApiOkResponse({ type: TodoVm, isArray: true })
+  @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Todo.modelName, 'Delete'))
   async delete(@Param('id') id: string): Promise<TodoVm> {
     try {
