@@ -1,10 +1,10 @@
 import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { ApiUseTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { User } from './models/user.model';
-import { UserService } from './user/user.service';
+import { UserService } from './user.service';
 import { UserVm } from './models/view-models/user-vm.model';
 import { ApiException } from '../shared/api-exception.model';
-import { GetOperationId } from '../shared/utilities/get-operation-id';
+import { GetOperationId } from '../shared/utilities/get-operation-id.helper';
 import { RegisterVm } from './models/view-models/register-vm.model';
 import { LoginResponseVm } from './models/view-models/login-response-vm.model';
 import { LoginVm } from './models/view-models/login-vm.model';
@@ -14,7 +14,7 @@ import { LoginVm } from './models/view-models/login-vm.model';
 @ApiUseTags(User.modelName)
 export class UserController {
 
-  constructor(private readonly _userService: UserService) {
+  constructor(private readonly userService: UserService) {
 
   }
 
@@ -36,7 +36,7 @@ export class UserController {
     let exist;
 
     try {
-      exist = await this._userService.findOne({ username });
+      exist = await this.userService.findOne({ username });
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -45,8 +45,8 @@ export class UserController {
       throw new HttpException(`${username} is exist`, HttpStatus.BAD_REQUEST);
     }
 
-    const newUser = await this._userService.register(registerVm);
-    return this._userService.map<UserVm>(newUser);
+    const newUser = await this.userService.register(registerVm);
+    return this.userService.map<UserVm>(newUser);
   }
 
   @Post('login')
@@ -61,6 +61,6 @@ export class UserController {
       }
     });
 
-    return this._userService.login(loginVm);
+    return this.userService.login(loginVm);
   }
 }

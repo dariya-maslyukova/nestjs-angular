@@ -21,18 +21,14 @@ async function bootstrap() {
 
   const swaggerDoc = SwaggerModule.createDocument(app, swaggerOptions);
 
-  app.use('/api/docs/swagger.json', (req, res) => {
-    res.send(swaggerDoc)
-  });
-
-  SwaggerModule.setup('/api/docs', app, null, {
-    swaggerUrl: `${hostDomain}/api/docs/swagger.json`,
+  SwaggerModule.setup('/api/docs', app, swaggerDoc, {
+    swaggerUrl: `${hostDomain}/api/docs-json`,
     explorer: true,
     swaggerOptions: {
       docExpansion: 'list',
       filter: true,
-      showRequestDuration: true
-    }
+      showRequestDuration: true,
+    },
   });
 
   if (module.hot) {

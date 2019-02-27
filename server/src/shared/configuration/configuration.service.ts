@@ -11,7 +11,7 @@ export class ConfigurationService {
     return process.env[name] || get(name);
   }
 
-  get isDevelopment(): boolean{
+  get isDevelopment(): boolean {
     return this.environmentHosting === 'development';
   }
 }

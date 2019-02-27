@@ -2,17 +2,16 @@ import 'automapper-ts/dist/automapper';
 import { Types } from 'mongoose';
 import { InstanceType, ModelType, Typegoose } from 'typegoose';
 
-
 export abstract class BaseService<T extends Typegoose> {
-  protected _model: ModelType<T>;
-  protected _mapper: AutoMapperJs.AutoMapper;
+  protected model: ModelType<T>;
+  protected mapper: AutoMapperJs.AutoMapper;
 
   private get modelName(): string {
-    return this._model.modelName;
+    return this.model.modelName;
   }
 
   private get viewModelName(): string {
-    return `${this._model.modelName}Vm`;
+    return `${this.model.modelName}Vm`;
   }
 
   async map<K>(
@@ -20,35 +19,35 @@ export abstract class BaseService<T extends Typegoose> {
     sourceKey: string = this.modelName,
     destinationKey: string = this.viewModelName,
   ): Promise<K> {
-    return this._mapper.map(sourceKey, destinationKey, object);
+    return this.mapper.map(sourceKey, destinationKey, object);
   }
 
   async findAll(filter = {}): Promise<InstanceType<T>[]> {
-    return this._model.find(filter).exec();
+    return this.model.find(filter).exec();
   }
 
   async findOne(filter = {}): Promise<InstanceType<T>> {
-    return this._model.findOne(filter).exec();
+    return this.model.findOne(filter).exec();
   }
 
   async findById(id: string): Promise<InstanceType<T>> {
-    return this._model.findById(this.toObjectId(id)).exec();
+    return this.model.findById(this.toObjectId(id)).exec();
   }
 
   async create(item: InstanceType<T>): Promise<InstanceType<T>> {
-    return this._model.create(item);
+    return this.model.create(item);
   }
 
   async delete(id: string): Promise<InstanceType<T>> {
-    return this._model.findByIdAndRemove(this.toObjectId(id)).exec();
+    return this.model.findByIdAndRemove(this.toObjectId(id)).exec();
   }
 
   async update(id: string, item: InstanceType<T>): Promise<InstanceType<T>> {
-    return this._model.findByIdAndUpdate(this.toObjectId(id), item, { new: true }).exec();
+    return this.model.findByIdAndUpdate(this.toObjectId(id), item, { new: true }).exec();
   }
 
   async clearCollection(filter = {}): Promise<any> {
-    return this._model.deleteMany(filter).exec();
+    return this.model.deleteMany(filter).exec();
   }
 
   private toObjectId(id: string): Types.ObjectId {

@@ -1,6 +1,6 @@
+import { InstanceType, ModelType, prop } from 'typegoose';
 import { BaseModel, schemaOptions } from '../../shared/base.model';
 import { TodoLevel } from './todo-level.enum';
-import { ModelType, prop } from 'typegoose';
 
 export class Todo extends BaseModel<Todo> {
   @prop({ required: [true, 'Content is required'] })
@@ -16,5 +16,9 @@ export class Todo extends BaseModel<Todo> {
 
   static get modelName(): string {
     return this.model.modelName;
+  }
+
+  static createModel(): InstanceType<Todo> {
+    return new this.model();
   }
 }

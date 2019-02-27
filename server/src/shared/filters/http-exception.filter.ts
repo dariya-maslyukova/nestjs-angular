@@ -8,7 +8,7 @@ export class HttpExceptionFilter {
 
     if (error.getStatus() === HttpStatus.UNAUTHORIZED) {
       if (typeof error.response !== 'string') {
-        error.response['message'] =
+        error.response.message =
           error.response.message || 'You do not have permission to access this resource';
       }
     }
@@ -19,9 +19,8 @@ export class HttpExceptionFilter {
       message: error.response.message || error.message,
       errors: error.response.errors || null,
       timestamp: new Date().toISOString(),
-      path: req ? req.url : null
+      path: req ? req.url : null,
     });
 
   }
-
 }
