@@ -1,0 +1,13 @@
+<header>
+  <ul>
+    <li *ngFor="let navItem of navItems">
+      <a [routerLink]="navItem.route" [routerLinkActive]="'active'">{{ navItem.label }}</a>
+    </li>
+  </ul>
+
+  <ul>
+    <li *ngFor="let item of userMenu">
+      <a [routerLink]="item.route">{{ item.label }}</a>
+    </li>
+  </ul>
+</header>

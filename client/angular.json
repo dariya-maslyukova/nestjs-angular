@@ -44,6 +44,24 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "hmr": {
+              "optimization": false,
+              "outputHashing": "none",
+              "sourceMap": true,
+              "extractCss": false,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+              "tsConfig": "src/tsconfig.dev.json",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hmr.ts"
+                }
+              ]
             }
           }
         },
@@ -56,6 +74,10 @@
           "configurations": {
             "production": {
               "browserTarget": "client:build:production"
+            },
+            "hmr": {
+              "hmr": true,
+              "browserTarget": "client:build:hmr"
             }
           }
         },

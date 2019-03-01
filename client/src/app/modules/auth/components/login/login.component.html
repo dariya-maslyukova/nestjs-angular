@@ -1,0 +1,35 @@
+<form (submit)="onSubmit($event)" class="details-form login-form no-pad" [formGroup]="form">
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="dark-label"> Username </label>
+        <input class="form-control" name="username" type="text" formControlName="username">
+    </div>
+    <div class="form-group">
+      <label class="dark-label"> Password </label>
+        <input class="form-control" id="password" name="password" type="password"
+               formControlName="password">
+    </div>
+    <div class="login-actions">
+      <div class="forgot-password" routerLink="/auth/forgot-password">
+        Forgot password?
+      </div>
+      <div class="logged-in">
+        <!--<app-checkbox formControlName="keepLoggedin" [text]="'Keep me logged in'"></app-checkbox>-->
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer justify-content-between">
+    <div class="login-btn">
+      <button
+        class="btn btn--primary"
+        type="submit"
+        [disabled]="isLoading"
+      >
+        <ng-container *ngIf="!isLoading">
+          Log In
+        </ng-container>
+        <loaders-css [loader]="'ball-pulse'" *ngIf="isLoading"></loaders-css>
+      </button>
+    </div>
+  </div>
+</form>
