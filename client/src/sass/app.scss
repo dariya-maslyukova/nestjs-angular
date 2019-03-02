@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~loaders.css/src/loaders";
+@import "~bootstrap/scss/bootstrap-reboot";
+@import "~bootstrap/scss/bootstrap-grid";
+
+@import "reset";
+@import "variables";
+@import "fonts";
+@import "core";
+
+@import "components/header";
+@import "components/footer";

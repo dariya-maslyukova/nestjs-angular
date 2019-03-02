@@ -1,0 +1,30 @@
+* {
+  font-family: 'Raleway', sans-serif;
+  outline: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: $alabaster;
+}
+
+a {
+  transition: 0.2s linear;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+svg-icon {
+  display: inline-block;
+
+  svg {
+    display: block;
+
+    path,
+    polygon {
+      transition: 0.2s linear;
+    }
+  }
+}

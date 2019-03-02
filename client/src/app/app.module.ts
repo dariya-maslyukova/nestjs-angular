@@ -12,7 +12,6 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
-import { HomeComponent } from './components/home/home.component';
 import { SitemapComponent } from './components/sitemap/sitemap.component';
 import { LoadersCssModule } from 'angular2-loaders-css';
 
@@ -32,7 +31,6 @@ import { LoadersCssModule } from 'angular2-loaders-css';
     HeaderComponent,
     FooterComponent,
     MainLayoutComponent,
-    HomeComponent,
     SitemapComponent
   ],
   providers: [

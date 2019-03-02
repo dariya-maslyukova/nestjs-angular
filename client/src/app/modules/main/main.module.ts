@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MainRoutingModule } from './main-routing.module';
 import { SharedModule } from '../../shared/shared.module';
+import { HomeComponent } from '../../components/home/home.component';
 
 const MODALS = [];
 
@@ -19,7 +20,10 @@ const MODALS = [];
   providers: [
     // ModalService
   ],
-  declarations: MODALS,
+  declarations: [
+    ...MODALS,
+    HomeComponent
+  ],
 })
 export class MainModule {
 }
