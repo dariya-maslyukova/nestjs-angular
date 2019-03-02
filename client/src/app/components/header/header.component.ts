@@ -7,17 +7,25 @@ import { NavItem } from '../../interfaces/nav/nav-item.interface';
 })
 export class HeaderComponent implements OnInit {
 
+  toggleLink = false;
+  toggleButton = false;
+
   userMenu: NavItem[] = [
     {
-      label: 'Sign In/Register',
+      label: 'My Account',
       route: '/auth',
-      // icon: 'assets/img/icons/setup.svg'
+      icon: 'assets/images/icons/user.svg'
     },
     {
       label: 'Wishlist',
       route: '/wishlist',
-      // icon: 'assets/img/icons/settings.svg'
-    }
+      icon: 'assets/images/icons/heart.svg'
+    },
+    {
+      label: 'Cart',
+      route: '/cart',
+      icon: 'assets/images/icons/cart.svg'
+    },
   ];
 
   navItems: NavItem[] = [
@@ -36,11 +44,7 @@ export class HeaderComponent implements OnInit {
     {
       label: 'Sale',
       route: '/sale',
-    },
-    {
-      label: 'Contact',
-      route: '/contact',
-    },
+    }
   ];
 
   constructor() {

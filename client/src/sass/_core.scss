@@ -1,19 +1,57 @@
 * {
-  font-family: 'Raleway', sans-serif;
-  outline: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+*:focus {
+  outline: none;
+}
+html {
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 }
 
 body {
-  min-height: 100vh;
-  background-color: $alabaster;
+  font-size: 1rem;
+  font-family: $f-primary;
+  color: $black;
+  background-color: $white;
 }
 
-a {
-  transition: 0.2s linear;
 
-  &:hover {
+a{
+  transition: 300ms ease-out;
+  color: inherit;
+  &:hover{
+    color:inherit;
     text-decoration: none;
   }
+}
+
+h1, h2, h2, h3, h4, h5{
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+h2{
+  font-size: rem(42);
+  letter-spacing: rem(2.5);
+  font-family: $f-secondary;
+}
+
+h3{
+  font-size: rem(30.7);
+}
+
+h4{
+  font-size: rem(24);
+  &.large{
+    font-size: rem(26);
+  }
+}
+
+h5{
+  font-size: rem(20);
 }
 
 svg-icon {
@@ -21,10 +59,66 @@ svg-icon {
 
   svg {
     display: block;
+    height: 18px;
 
     path,
     polygon {
       transition: 0.2s linear;
     }
   }
+}
+
+
+.large-bold-text{
+  font-size: rem(72.65);
+  line-height: rem(55);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-left: -2.5px;
+}
+
+.medium-text{
+  font-size: rem(51.28);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.medium-large-text{
+  font-size: rem(60.22);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.letter-space{
+  letter-spacing: -1.5px;
+}
+
+.letter-space-m{
+  letter-spacing: -0.7px;
+}
+
+.small-text{
+  font-size: rem(28);
+}
+
+.thin-text{
+  font-weight: 300;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.text-uppercase{
+  text-transform: uppercase;
+}
+
+
+.page-wrapper{
+  padding-top: 100px;
+  background: $white;
+  box-shadow:   0 8px 6px -6px rgba(0, 0, 0, 0.1);
+  min-height: -webkit-calc(100vh - 95px);
+  min-height: -moz-calc(100vh - 95px);
+  min-height: calc(100vh - 95px);
 }

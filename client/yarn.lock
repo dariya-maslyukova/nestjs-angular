@@ -763,6 +763,11 @@ angular2-loaders-css@^2.0.1:
   dependencies:
     loaders.css "^0.1.2"
 
+angular2-toaster@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/angular2-toaster/-/angular2-toaster-7.0.0.tgz#8d72716b6b267cf36576bf77361bb3ab09e9d093"
+  integrity sha512-+nKyzg7X9r9knVghyURR63eXpbvErd/Hm7c7rx/v4gfqI7jNAkWHxO1tikVKEQFoD+au6Fu54LOGhEmXb0ECxg==
+
 ansi-colors@^3.0.0:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.3.tgz#57d35b8686e851e2cc04c403f1c00203976a1813"
@@ -3257,7 +3262,7 @@ gonzales-pe-sl@^4.2.3:
   dependencies:
     minimist "1.1.x"
 
-"gonzales-pe-sl@github:srowhani/gonzales-pe#dev":
+gonzales-pe-sl@srowhani/gonzales-pe#dev:
   version "4.2.3"
   resolved "https://codeload.github.com/srowhani/gonzales-pe/tar.gz/3b052416074edc280f7d04bbe40b2e410693c4a3"
   dependencies:

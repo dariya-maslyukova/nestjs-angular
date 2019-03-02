@@ -1,5 +1,19 @@
-// Colors
+$browser-context: 16; // Default
 
+@function em($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}em;
+}
+
+@function rem($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}rem;
+}
+
+
+$f-primary: 'FuturaBT', sans-serif;
+//$f-secondary: 'Source Sans Pro', sans-serif;
+$f-secondary: 'Raleway', sans-serif;
+
+// Colors
 $white: #fff;
 $black: #000;
 $nero: #1f1f1f;

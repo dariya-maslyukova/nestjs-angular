@@ -1,0 +1,291 @@
+.h {
+  padding-top: 25px;
+  background: $white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
+  z-index: 10;
+  transition: 300ms ease-out;
+  box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.3);
+
+  @include media-breakpoint-down(md) {
+    padding-top: 15px;
+
+    img {
+      max-height: 40px;
+      max-width: 100%;
+    }
+  }
+
+  &__logo {
+    @include media-breakpoint-down(md) {
+      padding-bottom: 17px;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+
+    &-main {
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
+    }
+
+    &__link {
+      cursor: pointer;
+    }
+
+    li {
+      display: inline-block;
+      margin-right: em(45);
+      position: relative;
+      padding-bottom: 21px;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 15px;
+        margin-right: em(30);
+      }
+
+      @include media-breakpoint-down(md) {
+        padding-bottom: 0;
+      }
+
+      @include media-breakpoint-down(xs) {
+        padding-bottom: 10px;
+        margin-right: 15px;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:before {
+        content: '';
+        height: 1px;
+        width: 0;
+        background: $black;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        transition: 300ms ease-in-out;
+      }
+
+
+        &:hover {
+          &:before {
+            @include media-breakpoint-up(lg) {
+            width: 100%;
+            left: 0;
+            right: auto;
+          }
+        }
+      }
+    }
+  }
+
+
+  &__toggle-link {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Futura', sans-serif;
+    letter-spacing: 2.5px;
+    cursor: pointer;
+
+    @include media-breakpoint-down(xs) {
+      text-align: right;
+      margin-bottom: 10px;
+    }
+
+  }
+
+  &__toggle {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    width: 24px;
+    height: 16px;
+    display: block;
+
+    &__button {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: rotate(0deg);
+      transition: 0.5s ease-in-out;
+      cursor: pointer;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
+
+      &:focus {
+        outline: 0;
+      }
+
+      span {
+        display: block;
+        position: absolute;
+        height: 2px;
+        border-radius: 1px;
+        width: 100%;
+        opacity: 1;
+        left: 0;
+        background: #000;
+        transform: rotate(0deg);
+        transition: 0.3s ease-in-out;
+
+        &:nth-child(1) {
+          top: 0;
+          width: 50%;
+        }
+
+        &:nth-child(2) {
+          top: 6px;
+        }
+
+        &:nth-child(3) {
+          top: 12px;
+          width: 80%;
+        }
+      }
+
+      &.opened {
+        width: 22px;
+
+        span {
+          height: 2px;
+          width: 100%;
+
+          &:nth-child(1) {
+            top: 12px;
+            width: 0;
+            left: 50%;
+          }
+
+          &:nth-child(2) {
+            top: 7px;
+            transform: rotate(45deg);
+          }
+
+          &:nth-child(3) {
+            top: 7px;
+            transform: rotate(-45deg);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.page-header {
+  font-family: $f-secondary;
+  padding-top: em(57);
+  background: #fff;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
+  z-index: 10;
+  transition: 300ms ease-out;
+  box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.3);
+
+  &.row {
+    align-items: baseline;
+  }
+
+  .logo {
+    display: block;
+    //visibility: hidden;
+    a {
+      transition: none;
+    }
+  }
+
+  a {
+    text-transform: uppercase;
+    font-family: $f-secondary;
+    font-size: 14px;
+    letter-spacing: -0.5px;
+  }
+
+  .header.panel > .header.links {
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+
+    & > li {
+      display: inline-block;
+      margin-right: em(40);
+
+      & > a {
+        &:visited {
+          color: inherit;
+        }
+      }
+    }
+  }
+
+  .minicart-wrapper {
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 13px;
+
+    .action.showcart {
+      &:before {
+        display: none;
+      }
+
+      .counter.qty {
+        background: transparent;
+        color: #000;
+        height: auto;
+        line-height: inherit;
+        border-radius: 0;
+        display: inline-block;
+        vertical-align: middle;
+        margin: auto;
+        min-width: auto;
+        overflow: auto;
+        padding: 0;
+        text-align: left;
+
+        .counter-label {
+          display: none;
+        }
+      }
+
+      .text {
+        height: auto;
+        margin: auto;
+        overflow: auto;
+        position: relative;
+        width: auto;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    .action.close {
+      &:before {
+        display: none;
+      }
+    }
+
+    .block-minicart {
+      margin: 0;
+      background: none;
+      border: 0;
+      min-width: 100%;
+      display: block;
+      position: relative;
+      top: 0;
+      box-shadow: none;
+      width: auto;
+    }
+  }
+}
