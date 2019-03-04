@@ -1,3 +1,82 @@
-<p>
-  register works!
-</p>
+<form (submit)="onSubmit($event)" class="register-form" [formGroup]="form">
+  <div class="row">
+    <div class="col-5">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label class="label-required">First Name</label>
+            <app-form-control>
+              <input class="form-control" name="firstName" type="text" formControlName="FirstName" appFocusBlur>
+            </app-form-control>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="label-required">Last Name</label>
+            <app-form-control>
+              <input class="form-control" name="lastName" type="text" formControlName="LastName" appFocusBlur>
+            </app-form-control>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="label-required">User Name</label>
+            <app-form-control>
+              <input class="form-control" name="userName" type="text" formControlName="UserName" appFocusBlur>
+            </app-form-control>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="label-required">Email</label>
+            <app-form-control>
+              <input appFocusBlur type="email" class="form-control" formControlName="Email">
+            </app-form-control>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="label-required"> Password </label>
+            <app-form-control
+              [errorMap]="{invalid: 'Password don\'t match'}">
+              <input class="form-control" name="password" type="password" formControlName="Password"
+                     pattern="[\s\S]*\S[\s\S]*">
+            </app-form-control>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="label-required"> Confirm Password </label>
+            <app-form-control>
+              <input class="form-control" name="confirmPassword" type="password" formControlName="ConfirmPassword"
+                     pattern="[\s\S]*\S[\s\S]*">
+            </app-form-control>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label>Phone Number </label>
+            <app-form-control>
+              <input class="form-control" name="phoneNumber" type="text" formControlName="PhoneNumber" appFocusBlur>
+            </app-form-control>
+          </div>
+        </div>
+
+
+        <div class="login-btn">
+          <button
+            class="btn btn--primary"
+            type="submit"
+            [disabled]="isLoading"
+          >
+            <ng-container *ngIf="!isLoading">
+              Register
+            </ng-container>
+            <loaders-css [loader]="'ball-pulse'" *ngIf="isLoading"></loaders-css>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>

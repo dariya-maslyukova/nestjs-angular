@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { LoadersCssModule } from 'angular2-loaders-css';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,7 +14,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { SitemapComponent } from './components/sitemap/sitemap.component';
+import { IconsService } from './services/icons.service';
 
+export function appInitFactory(is: IconsService): Function {
+  return () => Promise.all([
+    is.loadSvgIcons()
+  ]);
+}
 
 @NgModule({
   imports: [
@@ -36,7 +42,15 @@ import { SitemapComponent } from './components/sitemap/sitemap.component';
     SitemapComponent
   ],
   providers: [
-    { provide: API_BASE_URL, useFactory: baseUrl },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitFactory,
+      deps: [IconsService],
+      multi: true
+    },
+    {
+      provide: API_BASE_URL, useFactory: baseUrl
+    }
   ],
   bootstrap: [AppComponent]
 })

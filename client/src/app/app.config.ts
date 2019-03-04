@@ -1,6 +1,7 @@
 export const CONFIG = {
   localStorageUserKey: 'currentUser',
   apiUrls: {
+    users: '/users',
     enums: {
     }
   },

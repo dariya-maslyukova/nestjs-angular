@@ -15,14 +15,14 @@ export abstract class BaseService<T extends Typegoose> {
   }
 
   async map<K>(
-    object: Partial<InstanceType<T>> | Partial<InstanceType<T>>[],
+    object: Partial<InstanceType<T>> | Array<Partial<InstanceType<T>>>,
     sourceKey: string = this.modelName,
     destinationKey: string = this.viewModelName,
   ): Promise<K> {
     return this.mapper.map(sourceKey, destinationKey, object);
   }
 
-  async findAll(filter = {}): Promise<InstanceType<T>[]> {
+  async findAll(filter = {}): Promise<Array<InstanceType<T>>> {
     return this.model.find(filter).exec();
   }
 

@@ -8,7 +8,9 @@
 @import "reset";
 @import "variables";
 @import "fonts";
+@import "mixins";
 @import "core";
 
+@import "components/forms";
 @import "components/header";
 @import "components/footer";

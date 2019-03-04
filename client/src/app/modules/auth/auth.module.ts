@@ -10,13 +10,15 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { FormControlModule } from '../../shared/components/form-control/form-control.module';
 
 @NgModule({
   imports: [
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    LoadersCssModule
+    LoadersCssModule,
+    FormControlModule
   ],
   declarations: [
     AuthWrapperComponent,

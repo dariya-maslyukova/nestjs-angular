@@ -27,15 +27,16 @@ export class UserService extends BaseService<User> {
   }
 
   async register(vm: RegisterVm) {
-    const { username, password, firstName, lastName } = vm;
+    const { UserName, Password, FirstName, LastName, PhoneNumber } = vm;
 
     const newUser = User.createModel();
-    newUser.username = username.trim().toLowerCase();
-    newUser.firstName = firstName;
-    newUser.lastName = lastName;
+    newUser.UserName = UserName.trim().toLowerCase();
+    newUser.FirstName = FirstName;
+    newUser.LastName = LastName;
+    newUser.PhoneNumber = PhoneNumber;
 
     const salt = await genSalt(10);
-    newUser.password = await hash(password, salt);
+    newUser.Password = await hash(Password, salt);
 
     try {
       const result = await this.create(newUser);
@@ -46,23 +47,23 @@ export class UserService extends BaseService<User> {
   }
 
   async login(vm: LoginVm): Promise<LoginResponseVm> {
-    const { username, password } = vm;
+    const { UserName, Password } = vm;
 
-    const user = await this.findOne({ username });
+    const user = await this.findOne({ UserName });
 
     if (!user) {
       throw new HttpException('Invalid crendentials', HttpStatus.NOT_FOUND);
     }
 
-    const isMatch = await compare(password, user.password);
+    const isMatch = await compare(Password, user.Password);
 
     if (!isMatch) {
       throw new HttpException('Invalid crendentials', HttpStatus.BAD_REQUEST);
     }
 
     const payload: JwtPayload = {
-      username: user.username,
-      role: user.role,
+      UserName: user.UserName,
+      UserRole: user.UserRole,
     };
 
     const token = await this.authService.signPayLoad(payload);

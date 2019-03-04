@@ -1,0 +1,19 @@
+<div
+  class="form-control-wrapper"
+  *ngIf="fcn"
+  tabindex="0"
+  [ngClass]="{
+  '-highlighted': isHighlighted,
+  '-err-tooltip': isShowErrorTooltip
+  }"
+  [class]="fromParentClass"
+>
+  <ng-content></ng-content>
+  <svg-icon class="form-control-wrapper__excl-mark" name="error"></svg-icon>
+  <div
+    class="form-control-wrapper__error"
+    *ngIf="isShowErrorTooltip"
+  >
+    {{ getError() }}
+  </div>
+</div>

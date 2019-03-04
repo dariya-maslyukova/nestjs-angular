@@ -1,35 +1,40 @@
-<form (submit)="onSubmit($event)" class="details-form login-form no-pad" [formGroup]="form">
-  <div class="modal-body">
-    <div class="form-group">
-      <label class="dark-label"> Username </label>
-        <input class="form-control" name="username" type="text" formControlName="username">
+<form (submit)="onSubmit($event)" class="login-form" [formGroup]="form">
+  <div class="form-group">
+    <label class="dark-label"> Username </label>
+    <app-form-control [errorMap]="{invalid: 'Username or password is invalid'}">
+      <input class="form-control" name="userName" type="text" formControlName="UserName" appFocusBlur>
+    </app-form-control>
+  </div>
+  <div class="form-group">
+    <label class="dark-label"> Password </label>
+    <app-form-control>
+      <input class="form-control" id="password" name="password" type="Password"
+             formControlName="Password" appFocusBlur>
+    </app-form-control>
+  </div>
+  <div class="login-actions">
+    <div class="forgot-password" routerLink="/auth/forgot-password">
+      Forgot password?
     </div>
-    <div class="form-group">
-      <label class="dark-label"> Password </label>
-        <input class="form-control" id="password" name="password" type="password"
-               formControlName="password">
-    </div>
-    <div class="login-actions">
-      <div class="forgot-password" routerLink="/auth/forgot-password">
-        Forgot password?
-      </div>
-      <div class="logged-in">
-        <!--<app-checkbox formControlName="keepLoggedin" [text]="'Keep me logged in'"></app-checkbox>-->
-      </div>
+    <div class="logged-in">
+      <!--<app-checkbox formControlName="keepLoggedin" [text]="'Keep me logged in'"></app-checkbox>-->
     </div>
   </div>
-  <div class="modal-footer justify-content-between">
-    <div class="login-btn">
-      <button
-        class="btn btn--primary"
-        type="submit"
-        [disabled]="isLoading"
-      >
-        <ng-container *ngIf="!isLoading">
-          Log In
-        </ng-container>
-        <loaders-css [loader]="'ball-pulse'" *ngIf="isLoading"></loaders-css>
-      </button>
-    </div>
+
+  <div class="btn btn--primary" routerLink="/auth/registration">
+    Create an account
+  </div>
+
+  <div class="login-btn">
+    <button
+      class="btn btn--primary"
+      type="submit"
+      [disabled]="isLoading"
+    >
+      <ng-container *ngIf="!isLoading">
+        Log In
+      </ng-container>
+      <loaders-css [loader]="'ball-pulse'" *ngIf="isLoading"></loaders-css>
+    </button>
   </div>
 </form>

@@ -9,7 +9,6 @@ import { RegisterVm } from './models/view-models/register-vm.model';
 import { LoginResponseVm } from './models/view-models/login-response-vm.model';
 import { LoginVm } from './models/view-models/login-vm.model';
 
-
 @Controller('user')
 @ApiUseTags(User.modelName)
 export class UserController {
@@ -23,26 +22,27 @@ export class UserController {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   @ApiOperation(GetOperationId(User.modelName, 'Register'))
   async register(@Body() registerVm: RegisterVm): Promise<UserVm> {
-    const { username, password } = registerVm;
+    const { UserName, Password, PhoneNumber } = registerVm;
+    registerVm.PhoneNumber = PhoneNumber;
 
-    if (!username) {
+    if (!UserName) {
       throw new HttpException('Username is required', HttpStatus.BAD_REQUEST);
     }
 
-    if (!password) {
+    if (!Password) {
       throw new HttpException('Password is required', HttpStatus.BAD_REQUEST);
     }
 
     let exist;
 
     try {
-      exist = await this.userService.findOne({ username });
+      exist = await this.userService.findOne({ UserName });
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     if (exist) {
-      throw new HttpException(`${username} is exist`, HttpStatus.BAD_REQUEST);
+      throw new HttpException(`${UserName} is exist`, HttpStatus.BAD_REQUEST);
     }
 
     const newUser = await this.userService.register(registerVm);
@@ -57,7 +57,7 @@ export class UserController {
     const fields = Object.keys(loginVm);
     fields.forEach(field => {
       if (!loginVm[field]) {
-        throw new HttpException(`${field} is required`, HttpStatus.BAD_REQUEST)
+        throw new HttpException(`${field} is required`, HttpStatus.BAD_REQUEST);
       }
     });
 

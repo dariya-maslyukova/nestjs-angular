@@ -322,6 +322,13 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@ng-select/ng-select@^2.16.0":
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-2.16.0.tgz#c974246cd4007bf7cb4d4e93d55bb4d299f96ab3"
+  integrity sha512-e4aYqaSQLmtYbll9zRIfZA39jFVCtUMYQvuTUTtwKpD+hhD5waCMUJ2Fv2nBp8ZYVWIUQzo0hGJ1jVvgOD/IVA==
+  dependencies:
+    tslib "^1.9.0"
+
 "@ngtools/webpack@7.3.4":
   version "7.3.4"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-7.3.4.tgz#069b3425ef928ecf91f34b0c4c04dde158534a85"
@@ -2081,6 +2088,11 @@ decode-uri-component@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
   integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+
+deep-diff@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-1.0.2.tgz#afd3d1f749115be965e89c63edc7abb1506b9c26"
+  integrity sha512-aWS3UIVH+NPGCD1kki+DCU9Dua032iSsO43LqQpcs4R3+dVv7tX0qBGjiVHJHjplsoUM2XRO/KB92glqc68awg==
 
 deep-equal@^1.0.1:
   version "1.0.1"

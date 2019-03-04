@@ -9,9 +9,9 @@ export class AuthorizedGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.localStorage.getItem('token')) {
-      return (state.url.startsWith('/auth/profile')) ? true : (this.router.navigate(['/']), false);
+      return (state.url.startsWith('/profile')) ? true : (this.router.navigate(['/']), false);
     } else {
-      return (state.url.startsWith('/auth/profile')) ? (this.router.navigate(['/']), false) : true;
+      return (state.url.startsWith('/profile')) ? (this.router.navigate(['/']), false) : true;
     }
   }
 

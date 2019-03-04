@@ -3,17 +3,19 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
+
 *:focus {
   outline: none;
 }
+
 html {
-  -webkit-font-smoothing: antialiased;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  font-size: 1rem;
   font-family: $f-primary;
+  font-size: 1rem;
   color: $black;
   background-color: $white;
 }
@@ -23,20 +25,20 @@ a{
   transition: 300ms ease-out;
   color: inherit;
   &:hover{
-    color:inherit;
+    color: inherit;
     text-decoration: none;
   }
 }
 
 h1, h2, h2, h3, h4, h5{
-  text-transform: uppercase;
   font-weight: 500;
+  text-transform: uppercase;
 }
 
 h2{
+  font-family: $f-secondary;
   font-size: rem(42);
   letter-spacing: rem(2.5);
-  font-family: $f-secondary;
 }
 
 h3{
@@ -70,23 +72,23 @@ svg-icon {
 
 
 .large-bold-text{
+  margin-left: -2.5px;
   font-size: rem(72.65);
+  font-weight: 600;
   line-height: rem(55);
   text-transform: uppercase;
-  font-weight: 600;
-  margin-left: -2.5px;
 }
 
 .medium-text{
   font-size: rem(51.28);
-  text-transform: uppercase;
   font-weight: 500;
+  text-transform: uppercase;
 }
 
 .medium-large-text{
   font-size: rem(60.22);
-  text-transform: uppercase;
   font-weight: 500;
+  text-transform: uppercase;
 }
 
 .letter-space{
@@ -115,10 +117,14 @@ svg-icon {
 
 
 .page-wrapper{
-  padding-top: 100px;
-  background: $white;
-  box-shadow:   0 8px 6px -6px rgba(0, 0, 0, 0.1);
   min-height: -webkit-calc(100vh - 95px);
   min-height: -moz-calc(100vh - 95px);
   min-height: calc(100vh - 95px);
+  padding-top: 100px;
+  background: $white;
+  box-shadow:   0 8px 6px -6px rgba(0, 0, 0, 0.1);
+}
+
+.main-content {
+  padding-top: 50px;
 }
