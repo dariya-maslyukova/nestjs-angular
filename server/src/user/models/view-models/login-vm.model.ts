@@ -1,6 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 
 export class LoginVm {
-  @ApiModelProperty() UserName: string;
+  @ApiModelProperty() Email: string;
   @ApiModelProperty() Password: string;
 }

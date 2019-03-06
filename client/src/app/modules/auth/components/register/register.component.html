@@ -18,15 +18,7 @@
             </app-form-control>
           </div>
         </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label class="label-required">User Name</label>
-            <app-form-control>
-              <input class="form-control" name="userName" type="text" formControlName="UserName" appFocusBlur>
-            </app-form-control>
-          </div>
-        </div>
-        <div class="col-6">
+        <div class="col-12">
           <div class="form-group">
             <label class="label-required">Email</label>
             <app-form-control>
@@ -34,30 +26,20 @@
             </app-form-control>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-12">
           <div class="form-group">
-            <label class="label-required"> Password </label>
-            <app-form-control
-              [errorMap]="{invalid: 'Password don\'t match'}">
-              <input class="form-control" name="password" type="password" formControlName="Password"
-                     pattern="[\s\S]*\S[\s\S]*">
-            </app-form-control>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label class="label-required"> Confirm Password </label>
+            <label class="label-required">Password</label>
             <app-form-control>
-              <input class="form-control" name="confirmPassword" type="password" formControlName="ConfirmPassword"
+              <input class="form-control" name="password" type="password" formControlName="Password"
                      pattern="[\s\S]*\S[\s\S]*">
             </app-form-control>
           </div>
         </div>
         <div class="col-12">
           <div class="form-group">
-            <label>Phone Number </label>
+            <label>Phone Number</label>
             <app-form-control>
-              <input class="form-control" name="phoneNumber" type="text" formControlName="PhoneNumber" appFocusBlur>
+              <input class="form-control" name="phoneNumber" type="tel" formControlName="PhoneNumber" appFocusBlur>
             </app-form-control>
           </div>
         </div>

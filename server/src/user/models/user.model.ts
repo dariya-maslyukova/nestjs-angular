@@ -4,27 +4,32 @@ import { UserRole } from './user-role.enum';
 
 export class User extends BaseModel<User> {
   @prop({
-    required: [true, 'Username is required'],
+    required: [true, 'Email is required'],
     unique: true,
-    minlength: [6, 'Must be at least 6 characters'],
-  })
-  UserName: string;
+  }) Email: string;
 
   @prop({
     required: [true, 'Password is required'],
     minlength: [6, 'Must be at least 6 characters'],
-  })
-  Password: string;
+  }) Password: string;
 
-  @prop() FirstName?: string;
-  @prop() LastName?: string;
-  @prop() PhoneNumber?: string;
+  @prop({
+    required: [true, 'First Name is required'],
+  }) FirstName?: string;
 
-  @prop({ enum: UserRole, default: UserRole.User })
-  UserRole?: UserRole;
+  @prop({
+    required: [true, 'Last Name is required'],
+  }) LastName?: string;
+
+  @prop() Phone?: string;
+
+  @prop({
+    enum: UserRole,
+    default: UserRole.User,
+  }) UserRole?: UserRole;
 
   @prop()
-  get fullName(): string {
+  get FullName(): string {
     return `${this.FirstName} ${this.LastName}`;
   }
 

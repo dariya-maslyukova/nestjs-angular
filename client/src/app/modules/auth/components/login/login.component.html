@@ -1,12 +1,12 @@
 <form (submit)="onSubmit($event)" class="login-form" [formGroup]="form">
   <div class="form-group">
-    <label class="dark-label"> Username </label>
-    <app-form-control [errorMap]="{invalid: 'Username or password is invalid'}">
-      <input class="form-control" name="userName" type="text" formControlName="UserName" appFocusBlur>
+    <label class="label-required">Email</label>
+    <app-form-control [errorMap]="{invalid: 'Email or Password is invalid'}">
+      <input class="form-control" name="email" type="text" formControlName="Email" appFocusBlur>
     </app-form-control>
   </div>
   <div class="form-group">
-    <label class="dark-label"> Password </label>
+    <label class="label-required">Password</label>
     <app-form-control>
       <input class="form-control" id="password" name="password" type="Password"
              formControlName="Password" appFocusBlur>
@@ -15,9 +15,6 @@
   <div class="login-actions">
     <div class="forgot-password" routerLink="/auth/forgot-password">
       Forgot password?
-    </div>
-    <div class="logged-in">
-      <!--<app-checkbox formControlName="keepLoggedin" [text]="'Keep me logged in'"></app-checkbox>-->
     </div>
   </div>
 

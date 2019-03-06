@@ -5,11 +5,11 @@ import { UserRole } from '../user-role.enum';
 import { EnumToArray } from '../../../shared/utilities/enum-to-array.helper';
 
 export class UserVm extends BaseModelVm {
-  @ApiModelProperty() UserName: string;
-  @ApiModelPropertyOptional() FirstName?: string;
-  @ApiModelPropertyOptional() LastName?: string;
+  @ApiModelProperty() Email: string;
+  @ApiModelProperty() FirstName?: string;
+  @ApiModelProperty() LastName?: string;
   @ApiModelPropertyOptional() FullName?: string;
-  @ApiModelPropertyOptional() PhoneNumber?: string;
+  @ApiModelPropertyOptional() Phone?: string;
   @ApiModelPropertyOptional({ enum: EnumToArray(UserRole) })
   UserRole?: UserRole;
 }

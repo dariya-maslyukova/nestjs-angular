@@ -1,7 +1,7 @@
 import { UserRole } from '../../user/models/user-role.enum';
 
 export interface JwtPayload {
-  UserName: string;
+  Email: string;
   UserRole: UserRole;
   iat?: Date;
 }

@@ -6,6 +6,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CheckboxModule } from './components/checkbox/checkbox.module';
+import { LoadersCssModule } from 'angular2-loaders-css';
 
 @NgModule({
   declarations: [],
@@ -18,12 +20,16 @@ import { RouterModule } from '@angular/router';
     FocusBlurModule,
     NgSelectModule,
     AngularSvgIconModule,
+    CheckboxModule,
+    LoadersCssModule,
   ],
   exports: [
     FormControlModule,
     FocusBlurModule,
     NgSelectModule,
     AngularSvgIconModule,
+    CheckboxModule,
+    LoadersCssModule,
   ],
 })
 export class SharedModule { }

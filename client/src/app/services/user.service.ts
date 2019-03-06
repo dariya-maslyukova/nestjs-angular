@@ -22,11 +22,11 @@ export class UserService {
 
   getUserInfo(): Observable<User> {
     return this.as
-      .post<User>(CONFIG.apiUrls.users)
+      .post<User>(CONFIG.apiUrls.Users)
       .pipe(
         map((user: User) => {
           // We don't need to set current user to this, because this response says we are unauthorized
-          if (user.UserName === 'noprivauthtoken') {
+          if (user.Email === 'noprivauthtoken') {
             return user;
           }
 

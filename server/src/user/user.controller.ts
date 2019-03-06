@@ -1,4 +1,4 @@
-import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpException, HttpStatus, Post, Req, Session } from '@nestjs/common';
 import { ApiUseTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { User } from './models/user.model';
 import { UserService } from './user.service';
@@ -22,11 +22,18 @@ export class UserController {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   @ApiOperation(GetOperationId(User.modelName, 'Register'))
   async register(@Body() registerVm: RegisterVm): Promise<UserVm> {
-    const { UserName, Password, PhoneNumber } = registerVm;
-    registerVm.PhoneNumber = PhoneNumber;
+    const { Email, Password, FirstName, LastName } = registerVm;
 
-    if (!UserName) {
-      throw new HttpException('Username is required', HttpStatus.BAD_REQUEST);
+    if (!Email) {
+      throw new HttpException('Email is required', HttpStatus.BAD_REQUEST);
+    }
+
+    if (!FirstName) {
+      throw new HttpException('FirstName is required', HttpStatus.BAD_REQUEST);
+    }
+
+    if (!LastName) {
+      throw new HttpException('LastName is required', HttpStatus.BAD_REQUEST);
     }
 
     if (!Password) {
@@ -36,13 +43,13 @@ export class UserController {
     let exist;
 
     try {
-      exist = await this.userService.findOne({ UserName });
+      exist = await this.userService.findOne({ Email });
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     if (exist) {
-      throw new HttpException(`${UserName} is exist`, HttpStatus.BAD_REQUEST);
+      throw new HttpException(`${Email} is exist`, HttpStatus.BAD_REQUEST);
     }
 
     const newUser = await this.userService.register(registerVm);

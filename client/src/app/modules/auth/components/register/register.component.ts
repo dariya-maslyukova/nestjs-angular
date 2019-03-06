@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { LoginVm, RegisterVm, UserClient } from '../../../../app.api';
+import { RegisterVm, UserClient } from '../../../../app.api';
 import { Router } from '@angular/router';
 import { UtilsService } from '../../../../services/utils.service';
 import { EnumsService } from '../../../../services/enums.service';
-import { ConfirmPasswordValidator } from '../../../../validators/confirm-password.validator';
 import { emailValidator } from '../../../../validators/email.validator';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -25,20 +25,16 @@ export class RegisterComponent implements OnDestroy {
     private userClient: UserClient,
     private r: Router,
     private us: UtilsService,
-    private es: EnumsService
+    private es: EnumsService,
+    private as: AuthService
   ) {
     this.form = this.fb.group(
       {
         FirstName: null,
         LastName: null,
-        UserName: [null, Validators.required],
         Email: [ null, [ Validators.required, emailValidator ] ],
         Password: [null, Validators.required],
-        ConfirmPassword: [null, Validators.required],
         PhoneNumber: [null],
-      },
-      {
-        validator: ConfirmPasswordValidator.MatchPassword
       }
     );
   }
@@ -48,7 +44,7 @@ export class RegisterComponent implements OnDestroy {
     this.destroyedSubject.complete();
   }
 
-  onSubmit(event?: Event): void {
+  onSubmit(event: Event): void {
     event.preventDefault();
 
     if (this.form.invalid) {
@@ -57,19 +53,24 @@ export class RegisterComponent implements OnDestroy {
 
     this.isLoading = true;
 
-    const formData: LoginVm = new RegisterVm(this.form.value);
+    // const formData: RegisterVm = new RegisterVm(this.form.value);
+    const formData = this.form.value;
 
-    this.userClient
+    console.log(formData);
+
+    // this.userClient
+    //   .register(formData)
+    this.as
       .register(formData)
       .subscribe(response => {
           console.log(response);
 
           if (response) {
-            this.r.navigate(['/login']);
+            this.r.navigate(['/auth/login']);
           } else {
             this.isLoading = false;
             this.form
-              .get('userName')
+              .get('Email')
               .setErrors({ invalid: true });
             this.us.handleError(response);
           }

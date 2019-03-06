@@ -27,13 +27,13 @@ export class UserService extends BaseService<User> {
   }
 
   async register(vm: RegisterVm) {
-    const { UserName, Password, FirstName, LastName, PhoneNumber } = vm;
+    const { Email, Password, FirstName, LastName, Phone } = vm;
 
     const newUser = User.createModel();
-    newUser.UserName = UserName.trim().toLowerCase();
+    newUser.Email = Email.trim().toLowerCase();
     newUser.FirstName = FirstName;
     newUser.LastName = LastName;
-    newUser.PhoneNumber = PhoneNumber;
+    newUser.Phone = Phone;
 
     const salt = await genSalt(10);
     newUser.Password = await hash(Password, salt);
@@ -47,9 +47,9 @@ export class UserService extends BaseService<User> {
   }
 
   async login(vm: LoginVm): Promise<LoginResponseVm> {
-    const { UserName, Password } = vm;
+    const { Email, Password } = vm;
 
-    const user = await this.findOne({ UserName });
+    const user = await this.findOne({ Email });
 
     if (!user) {
       throw new HttpException('Invalid crendentials', HttpStatus.NOT_FOUND);
@@ -62,7 +62,7 @@ export class UserService extends BaseService<User> {
     }
 
     const payload: JwtPayload = {
-      UserName: user.UserName,
+      Email: user.Email,
       UserRole: user.UserRole,
     };
 

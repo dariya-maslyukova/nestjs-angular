@@ -1,7 +1,12 @@
 export const CONFIG = {
   localStorageUserKey: 'currentUser',
   apiUrls: {
-    users: '/users',
+    Users: '/users',
+    Login: '/user/login',
+    Logout: '/user/logout',
+    Register: '/user/register',
+    RequestPasswordReset: '/user/password-reset',
+    PasswordChange: '/user/password-change',
     enums: {
     }
   },

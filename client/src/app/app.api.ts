@@ -85,7 +85,7 @@ export class UserClient {
     }
 
     register(registerVm: RegisterVm): Observable<UserVm> {
-        let url_ = this.baseUrl + "/user/register";
+       let url_ = this.baseUrl + "/user/register";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(registerVm);
@@ -571,11 +571,11 @@ export class TodoClient {
 }
 
 export class RegisterVm implements IRegisterVm {
-    userName!: string;
+    email!: string;
     password!: string;
-    firstName?: string | null;
-    lastName?: string | null;
-    phoneNumber?: string | null;
+    firstName!: string;
+    lastName!: string;
+    phone?: string | null;
 
     constructor(data?: IRegisterVm) {
         if (data) {
@@ -588,11 +588,11 @@ export class RegisterVm implements IRegisterVm {
 
     init(data?: any) {
         if (data) {
-            this.userName = data["UserName"] !== undefined ? data["UserName"] : <any>null;
+            this.email = data["Email"] !== undefined ? data["Email"] : <any>null;
             this.password = data["Password"] !== undefined ? data["Password"] : <any>null;
             this.firstName = data["FirstName"] !== undefined ? data["FirstName"] : <any>null;
             this.lastName = data["LastName"] !== undefined ? data["LastName"] : <any>null;
-            this.phoneNumber = data["PhoneNumber"] !== undefined ? data["PhoneNumber"] : <any>null;
+            this.phone = data["Phone"] !== undefined ? data["Phone"] : <any>null;
         }
     }
 
@@ -605,32 +605,32 @@ export class RegisterVm implements IRegisterVm {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["UserName"] = this.userName !== undefined ? this.userName : <any>null;
+        data["Email"] = this.email !== undefined ? this.email : <any>null;
         data["Password"] = this.password !== undefined ? this.password : <any>null;
         data["FirstName"] = this.firstName !== undefined ? this.firstName : <any>null;
         data["LastName"] = this.lastName !== undefined ? this.lastName : <any>null;
-        data["PhoneNumber"] = this.phoneNumber !== undefined ? this.phoneNumber : <any>null;
+        data["Phone"] = this.phone !== undefined ? this.phone : <any>null;
         return data; 
     }
 }
 
 export interface IRegisterVm {
-    userName: string;
+    email: string;
     password: string;
-    firstName?: string | null;
-    lastName?: string | null;
-    phoneNumber?: string | null;
+    firstName: string;
+    lastName: string;
+    phone?: string | null;
 }
 
 export class UserVm implements IUserVm {
     createdAt?: Date | null;
     updatedAt?: Date | null;
     id?: string | null;
-    userName!: string;
-    firstName?: string | null;
-    lastName?: string | null;
+    email!: string;
+    firstName!: string;
+    lastName!: string;
     fullName?: string | null;
-    phoneNumber?: string | null;
+    phone?: string | null;
     userRole?: UserVmUserRole | null;
 
     constructor(data?: IUserVm) {
@@ -647,11 +647,11 @@ export class UserVm implements IUserVm {
             this.createdAt = data["createdAt"] ? new Date(data["createdAt"].toString()) : <any>null;
             this.updatedAt = data["updatedAt"] ? new Date(data["updatedAt"].toString()) : <any>null;
             this.id = data["id"] !== undefined ? data["id"] : <any>null;
-            this.userName = data["UserName"] !== undefined ? data["UserName"] : <any>null;
+            this.email = data["Email"] !== undefined ? data["Email"] : <any>null;
             this.firstName = data["FirstName"] !== undefined ? data["FirstName"] : <any>null;
             this.lastName = data["LastName"] !== undefined ? data["LastName"] : <any>null;
             this.fullName = data["FullName"] !== undefined ? data["FullName"] : <any>null;
-            this.phoneNumber = data["PhoneNumber"] !== undefined ? data["PhoneNumber"] : <any>null;
+            this.phone = data["Phone"] !== undefined ? data["Phone"] : <any>null;
             this.userRole = data["UserRole"] !== undefined ? data["UserRole"] : <any>null;
         }
     }
@@ -668,11 +668,11 @@ export class UserVm implements IUserVm {
         data["createdAt"] = this.createdAt ? this.createdAt.toISOString() : <any>null;
         data["updatedAt"] = this.updatedAt ? this.updatedAt.toISOString() : <any>null;
         data["id"] = this.id !== undefined ? this.id : <any>null;
-        data["UserName"] = this.userName !== undefined ? this.userName : <any>null;
+        data["Email"] = this.email !== undefined ? this.email : <any>null;
         data["FirstName"] = this.firstName !== undefined ? this.firstName : <any>null;
         data["LastName"] = this.lastName !== undefined ? this.lastName : <any>null;
         data["FullName"] = this.fullName !== undefined ? this.fullName : <any>null;
-        data["PhoneNumber"] = this.phoneNumber !== undefined ? this.phoneNumber : <any>null;
+        data["Phone"] = this.phone !== undefined ? this.phone : <any>null;
         data["UserRole"] = this.userRole !== undefined ? this.userRole : <any>null;
         return data; 
     }
@@ -682,11 +682,11 @@ export interface IUserVm {
     createdAt?: Date | null;
     updatedAt?: Date | null;
     id?: string | null;
-    userName: string;
-    firstName?: string | null;
-    lastName?: string | null;
+    email: string;
+    firstName: string;
+    lastName: string;
     fullName?: string | null;
-    phoneNumber?: string | null;
+    phone?: string | null;
     userRole?: UserVmUserRole | null;
 }
 
@@ -751,7 +751,7 @@ export interface IApiException {
 }
 
 export class LoginVm implements ILoginVm {
-    userName!: string;
+    email!: string;
     password!: string;
 
     constructor(data?: ILoginVm) {
@@ -765,7 +765,7 @@ export class LoginVm implements ILoginVm {
 
     init(data?: any) {
         if (data) {
-            this.userName = data["UserName"] !== undefined ? data["UserName"] : <any>null;
+            this.email = data["Email"] !== undefined ? data["Email"] : <any>null;
             this.password = data["Password"] !== undefined ? data["Password"] : <any>null;
         }
     }
@@ -779,14 +779,14 @@ export class LoginVm implements ILoginVm {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["UserName"] = this.userName !== undefined ? this.userName : <any>null;
+        data["Email"] = this.email !== undefined ? this.email : <any>null;
         data["Password"] = this.password !== undefined ? this.password : <any>null;
         return data; 
     }
 }
 
 export interface ILoginVm {
-    userName: string;
+    email: string;
     password: string;
 }
 
