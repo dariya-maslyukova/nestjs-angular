@@ -7,11 +7,12 @@ import { UtilsService } from '../../../../services/utils.service';
 import { EnumsService } from '../../../../services/enums.service';
 import { emailValidator } from '../../../../validators/email.validator';
 import { AuthService } from '../../../../services/auth.service';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnDestroy {
 
@@ -26,16 +27,17 @@ export class RegisterComponent implements OnDestroy {
     private r: Router,
     private us: UtilsService,
     private es: EnumsService,
-    private as: AuthService
+    private as: AuthService,
+    private uss: UserService,
   ) {
     this.form = this.fb.group(
       {
-        FirstName: null,
-        LastName: null,
-        Email: [ null, [ Validators.required, emailValidator ] ],
-        Password: [null, Validators.required],
-        PhoneNumber: [null],
-      }
+        firstName: [null, Validators.required],
+        lastName: [null, Validators.required],
+        email: [null, [Validators.required, emailValidator]],
+        password: [null, Validators.required],
+        phone: [null],
+      },
     );
   }
 
@@ -52,31 +54,23 @@ export class RegisterComponent implements OnDestroy {
     }
 
     this.isLoading = true;
-
-    // const formData: RegisterVm = new RegisterVm(this.form.value);
     const formData = this.form.value;
 
-    console.log(formData);
-
-    // this.userClient
-    //   .register(formData)
     this.as
       .register(formData)
-      .subscribe(response => {
-          console.log(response);
-
-          if (response) {
-            this.r.navigate(['/auth/login']);
+      .subscribe(data => {
+          if (data.success) {
+            this.r.navigate(['/auth']);
           } else {
             this.isLoading = false;
             this.form
-              .get('Email')
+              .get('email')
               .setErrors({ invalid: true });
-            this.us.handleError(response);
+            this.us.handleError(data);
           }
 
           return;
-        }
+        },
       );
   }
 

@@ -27,12 +27,12 @@ export class LoginComponent implements OnDestroy {
     private us: UtilsService,
     private uss: UserService,
     private es: EnumsService,
-    private as: AuthService
+    private as: AuthService,
   ) {
     this.form = this.fb.group(
       {
-        Email: [ null, [ Validators.required, emailValidator ] ],
-        Password: [null, Validators.required]
+        email: [null, [Validators.required, emailValidator]],
+        password: [null, Validators.required],
       },
     );
   }
@@ -44,8 +44,6 @@ export class LoginComponent implements OnDestroy {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-
-    // this.us.removeError(this.form.controls['UserName'], 'invalid');
 
     if (this.form.invalid) {
       return this.us.validateAllFormFields(this.form);
@@ -59,20 +57,21 @@ export class LoginComponent implements OnDestroy {
 
     this.as
       .login(formData)
-      .subscribe(user => {
-          if (user.token) {
-            this.uss.currentUser = user;
-            this.r.navigate(['/auth/profile']);
+      .subscribe(data => {
+          if (data.token) {
+            this.uss.currentUser = data.user;
+            localStorage.setItem('token', data.token);
+            this.r.navigate(['/profile']);
           } else {
             this.isLoading = false;
             this.form
-              .get('Email')
+              .get('email')
               .setErrors({ invalid: true });
-            this.us.handleError(user);
+            this.us.handleError(data);
           }
 
           return;
-        }
+        },
       );
   }
 

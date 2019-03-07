@@ -3,7 +3,7 @@ import {
   Controller, Delete,
   Get,
   HttpException,
-  HttpStatus, InternalServerErrorException, Post,
+  HttpStatus, InternalServerErrorException, Post, Query,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -12,8 +12,9 @@ import {
   ApiOperation,
   ApiUseTags,
   ApiCreatedResponse,
+  ApiImplicitQuery,
 } from '@nestjs/swagger';
-import { map } from 'lodash';
+import { map, isArray } from 'lodash';
 
 import { ApiException } from '../shared/api-exception.model';
 import { GetOperationId } from '../shared/utilities/get-operation-id.helper';
@@ -38,7 +39,7 @@ export class UsersController {
   @ApiOperation(GetOperationId(Todo.modelName, 'ClearUsersCollection'))
   async clear(): Promise<UserVm[]> {
     try {
-      return  await this.userService.clearCollection();
+      return await this.userService.clearCollection();
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
@@ -50,7 +51,9 @@ export class UsersController {
   @ApiOkResponse({ type: UserVm, isArray: true })
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(User.modelName, 'GetAll'))
+  @ApiImplicitQuery({ name: 'id', required: false })
   async get(
+    @Query('id') id?: string,
   ): Promise<UserVm[]> {
 
     try {

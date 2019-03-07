@@ -30,6 +30,7 @@ export abstract class BaseModel<T> extends Typegoose {
 
 export const schemaOptions: SchemaOptions = {
   timestamps: true,
+  autoIndex: false,
   toJSON: {
     virtuals: true,
     getters: true,

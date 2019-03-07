@@ -1,21 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavItem } from '../../interfaces/nav/nav-item.interface';
+import { User } from '../../interfaces/user.interface';
+import { Subject } from 'rxjs';
+import { UserService } from '../../services/user.service';
+import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   toggleLink = false;
   toggleButton = false;
 
+  currentUser: User;
+
   userMenu: NavItem[] = [
-    {
-      label: 'My Account',
-      route: '/auth',
-      icon: 'assets/images/icons/user.svg'
-    },
     {
       label: 'Wishlist',
       route: '/wishlist',
@@ -47,10 +50,50 @@ export class HeaderComponent implements OnInit {
     }
   ];
 
-  constructor() {
+  private destroyedSubject = new Subject<void>();
+
+  constructor(
+    private r: Router,
+    private us: UserService,
+    private as: AuthService,
+  ) {
   }
 
   ngOnInit() {
+    this.currentUser = this.us.currentUser;
+
+    console.log(this.currentUser);
+
+    this.us
+      .currentUser$
+      .pipe(
+        takeUntil(this.destroyedSubject)
+      )
+      .subscribe((newUser: User) => {
+        this.currentUser = newUser;
+      });
   }
+
+  get userName(): string {
+    return this.currentUser.fullName;
+  }
+
+  ngOnDestroy(): void {
+    this.destroyedSubject.next();
+    this.destroyedSubject.complete();
+  }
+
+  logout(): void {
+    this.as
+      .logout()
+      .subscribe(
+        () => {
+          this.us.logout();
+          this.r.navigate(['/auth']);
+        }
+      );
+  }
+
+
 
 }

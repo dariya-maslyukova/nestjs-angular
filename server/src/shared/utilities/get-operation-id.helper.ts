@@ -1,11 +1,11 @@
 export function GetOperationId(model: string, operation: string) {
-  const _model = ToTitleCase(model).replace(/\s/g, '');
-  const _operation = ToTitleCase(operation).replace(/\s/g, '');
+  const modelOperate = ToTitleCase(model).replace(/\s/g, '');
+  const operationOperate = ToTitleCase(operation).replace(/\s/g, '');
 
   return {
     title: '',
-    operationId: `${_model}_${_operation}`,
-  }
+    operationId: `${modelOperate}_${operationOperate}`,
+  };
 }
 
 function ToTitleCase(str: string): string {

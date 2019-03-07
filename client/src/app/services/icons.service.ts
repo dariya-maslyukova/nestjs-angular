@@ -12,6 +12,7 @@ export class IconsService {
   icons = [
     { url: '/assets/images/icons/search.svg', name: 'search' },
     { url: '/assets/images/icons/error.svg', name: 'error' },
+    { url: '/assets/images/icons/user.svg', name: 'user' },
   ];
 
   constructor(private iconReg: SvgIconRegistryService) {

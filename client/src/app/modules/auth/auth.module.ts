@@ -9,13 +9,6 @@ import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.com
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SharedModule } from '../../shared/shared.module';
-import { AuthorizedGuard } from '../../guards/authorized.guard';
-
-
-// Adapter for window.localStorage
-export function getLocalStorage() {
-  return (typeof window !== 'undefined') ? window.localStorage : null;
-}
 
 @NgModule({
   imports: [
@@ -31,10 +24,6 @@ export function getLocalStorage() {
     PrivacyPolicyComponent,
     LoginComponent,
     RegisterComponent
-  ],
-  providers: [
-    AuthorizedGuard,
-    { provide: 'LOCALSTORAGE', useFactory: getLocalStorage },
   ]
 })
 export class AuthModule { }

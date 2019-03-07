@@ -5,7 +5,6 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { RegisterComponent } from './components/register/register.component';
-import { AuthorizedGuard } from '../../guards/authorized.guard';
 
 const routes: Routes = [
   {
@@ -23,12 +22,7 @@ const routes: Routes = [
   {
     path: 'privacy-policy',
     component: PrivacyPolicyComponent,
-  },
-  {
-    path: 'profile',
-    loadChildren: './modules/profile/profile.module#ProfileModule',
-    canActivate: [AuthorizedGuard],
-  },
+  }
 ];
 
 @NgModule({

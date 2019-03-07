@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ToasterService } from 'angular2-toaster';
-
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subject } from 'rxjs/internal/Subject';
 
@@ -17,24 +14,12 @@ export class UserService {
   private userSubject = new Subject<User>();
   private user: User = JSON.parse(localStorage.getItem(CONFIG.localStorageUserKey));
 
-  constructor(private as: ApiService, private ts: ToasterService) {
+  constructor(private as: ApiService) {
   }
 
-  getUserInfo(): Observable<User> {
-    return this.as
-      .post<User>(CONFIG.apiUrls.Users)
-      .pipe(
-        map((user: User) => {
-          // We don't need to set current user to this, because this response says we are unauthorized
-          if (user.Email === 'noprivauthtoken') {
-            return user;
-          }
-
-          this.currentUser = user;
-
-          return user;
-        })
-      );
+  // Get User Profile
+  getUserProfile(): Observable<object> {
+    return this.as.get<User>(CONFIG.apiUrls.Profile);
   }
 
   get currentUser$(): Observable<User> {
@@ -49,10 +34,6 @@ export class UserService {
     this.user = user;
     this.userSubject.next(user);
     localStorage.setItem(CONFIG.localStorageUserKey, JSON.stringify(user));
-  }
-
-  showUnauthorizedToast(): void {
-    this.ts.pop('error', '', 'Unauthorized');
   }
 
   logout(): void {

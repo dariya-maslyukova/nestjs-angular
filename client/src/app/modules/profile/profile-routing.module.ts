@@ -9,11 +9,6 @@ const routes: Routes = [
     component: ProfileComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'account',
-        pathMatch: 'full'
-      },
-      {
         path: 'account',
         // component: AccountComponent
       },

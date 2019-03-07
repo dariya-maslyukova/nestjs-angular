@@ -14,10 +14,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { SitemapComponent } from './components/sitemap/sitemap.component';
 import { IconsService } from './services/icons.service';
-import { AuthorizedGuard } from './guards/authorized.guard';
-import { HTTP_INTERCEPTOR_PROVIDERS } from './interceptors';
 import { ToasterService } from 'angular2-toaster';
-import { UserService } from './services/user.service';
+import { AuthorizedGuard } from './guards/authorized.guard';
 
 export function appInitFactory(is: IconsService): Function {
   return () => Promise.all([
@@ -25,6 +23,11 @@ export function appInitFactory(is: IconsService): Function {
   ]);
 }
 
+
+// Adapter for window.localStorage
+export function getLocalStorage() {
+  return (typeof window !== 'undefined') ? window.localStorage : null;
+}
 
 export function baseUrl(): string {
   return window.location.origin + '/api';
@@ -50,15 +53,15 @@ export function baseUrl(): string {
   ],
   providers: [
     ToasterService,
+    AuthorizedGuard,
     {
       provide: APP_INITIALIZER,
       useFactory: appInitFactory,
       deps: [IconsService],
       multi: true,
     },
-    {
-      provide: API_BASE_URL, useFactory: baseUrl,
-    },
+    { provide: API_BASE_URL, useFactory: baseUrl },
+    { provide: 'LOCALSTORAGE', useFactory: getLocalStorage },
 
 
   ],

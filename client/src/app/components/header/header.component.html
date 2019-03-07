@@ -32,10 +32,17 @@
             </span>
             <span class="d-none d-lg-block">Menu</span>
           </li>
+          <li>
+            <a class="h__menu__link" [routerLink]="currentUser ? '/profile' : '/auth'">
+              <svg-icon class="d-lg-none" name="user"></svg-icon>
+              <span class="d-none d-lg-block">{{ currentUser ? userName : 'My account' }}</span>
+            </a>
+          </li>
           <li *ngFor="let item of userMenu">
             <a class="h__menu__link" [routerLink]="item.route">
               <svg-icon class="d-lg-none" [src]="item.icon"></svg-icon>
-              <span class="d-none d-lg-block">{{ item.label }}</span></a>
+              <span class="d-none d-lg-block">{{ item.label }}</span>
+            </a>
           </li>
         </ul>
 
