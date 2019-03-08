@@ -1,35 +1,53 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControlModule } from './components/form-control/form-control.module';
-import { FocusBlurModule } from './directives/focus-blur/focus-blur.module';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { MatButtonModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
+import { LoadersCssModule } from 'angular2-loaders-css';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { CheckboxModule } from './components/checkbox/checkbox.module';
-import { LoadersCssModule } from 'angular2-loaders-css';
+import { NgSelectModule } from '@ng-select/ng-select';
+
+import { MatControlModule } from './components/mat-control/mat-control.module';
+import { FormControlModule } from './components/form-control/form-control.module';
+import { FocusBlurModule } from './directives/focus-blur/focus-blur.module';
+
+
+const DIRECTIVES = [];
+
+const PIPES = [];
+
+const COMPONENTS = [];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ...COMPONENTS,
+    ...PIPES,
+    ...DIRECTIVES,
+  ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
     FormControlModule,
+    MatControlModule,
     FocusBlurModule,
     NgSelectModule,
     AngularSvgIconModule,
-    CheckboxModule,
     LoadersCssModule,
   ],
   exports: [
+    ...COMPONENTS,
+    ...PIPES,
+    ...DIRECTIVES,
     FormControlModule,
+    MatControlModule,
     FocusBlurModule,
     NgSelectModule,
     AngularSvgIconModule,
-    CheckboxModule,
     LoadersCssModule,
+    MatButtonModule,
   ],
 })
-export class SharedModule { }
+export class SharedModule {
+}

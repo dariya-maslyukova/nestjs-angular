@@ -1,41 +1,38 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { RegisterVm, UserClient } from '../../../../app.api';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+
+import { emailValidator } from '../../../../validators/email.validator';
 import { UtilsService } from '../../../../services/utils.service';
 import { EnumsService } from '../../../../services/enums.service';
-import { emailValidator } from '../../../../validators/email.validator';
 import { AuthService } from '../../../../services/auth.service';
-import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnDestroy {
 
   form: FormGroup;
   isLoading = false;
 
+
   private destroyedSubject = new Subject<any>();
 
   constructor(
     private fb: FormBuilder,
-    private userClient: UserClient,
     private r: Router,
     private us: UtilsService,
     private es: EnumsService,
-    private as: AuthService,
-    private uss: UserService,
+    private as: AuthService
   ) {
     this.form = this.fb.group(
       {
         firstName: [null, Validators.required],
         lastName: [null, Validators.required],
         email: [null, [Validators.required, emailValidator]],
-        password: [null, Validators.required],
+        password: [null, [Validators.required, Validators.minLength(6)]],
         phone: [null],
       },
     );

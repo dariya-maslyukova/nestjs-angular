@@ -1,11 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginVm, UserClient } from '../../../../app.api';
-import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+
+import { emailValidator } from '../../../../validators/email.validator';
 import { UtilsService } from '../../../../services/utils.service';
 import { EnumsService } from '../../../../services/enums.service';
-import { emailValidator } from '../../../../validators/email.validator';
 import { AuthService } from '../../../../services/auth.service';
 import { UserService } from '../../../../services/user.service';
 
@@ -22,7 +22,6 @@ export class LoginComponent implements OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private userClient: UserClient,
     private r: Router,
     private us: UtilsService,
     private uss: UserService,
@@ -51,8 +50,6 @@ export class LoginComponent implements OnDestroy {
 
     this.isLoading = true;
 
-
-    // const formData: LoginVm = new LoginVm(this.form.value);
     const formData = this.form.value;
 
     this.as
@@ -69,7 +66,6 @@ export class LoginComponent implements OnDestroy {
               .setErrors({ invalid: true });
             this.us.handleError(data);
           }
-
           return;
         },
       );
