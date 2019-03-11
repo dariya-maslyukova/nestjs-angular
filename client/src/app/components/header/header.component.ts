@@ -61,9 +61,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentUser = this.us.currentUser;
-
-    console.log(this.currentUser);
-
     this.us
       .currentUser$
       .pipe(

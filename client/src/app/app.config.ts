@@ -22,7 +22,8 @@ export const CONFIG = {
     website: 'Invalid website url',
     minlength: 'Value is too short',
     maxlength: 'Value is too long',
-    dateComparison: 'Invalid date'
+    dateComparison: 'Invalid date',
+    confirmPassword: 'Passwords are different'
   },
   infoMessages: {
     itemNotFound: 'Item not found'

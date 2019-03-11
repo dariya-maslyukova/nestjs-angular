@@ -24,5 +24,7 @@ $app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
 @import "core";
 
 @import "components/forms";
+@import "components/mat-control";
+@import "components/buttons";
 @import "components/header";
 @import "components/footer";

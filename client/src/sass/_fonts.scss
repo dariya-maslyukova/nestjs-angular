@@ -2,6 +2,66 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
 
 @font-face {
+  font-family: 'FuturaBT';
+  src: url('../assets/fonts/FuturaBT-Light.eot');
+  src: url('../assets/fonts/FuturaBT-Light.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/FuturaBT-Light.woff2') format('woff2'),
+  url('../assets/fonts/FuturaBT-Light.woff') format('woff'),
+  url('../assets/fonts/FuturaBT-Light.ttf') format('truetype'),
+  url('../assets/fonts/FuturaBT-Light.svg#FuturaBT-Light') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FuturaBT';
+  src: url('../assets/fonts/FuturaBT-Medium.eot');
+  src: url('../assets/fonts/FuturaBT-Medium.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/FuturaBT-Medium.woff2') format('woff2'),
+  url('../assets/fonts/FuturaBT-Medium.woff') format('woff'),
+  url('../assets/fonts/FuturaBT-Medium.ttf') format('truetype'),
+  url('../assets/fonts/FuturaBT-Medium.svg#FuturaBT-Medium') format('svg');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FuturaBT';
+  src: url('../assets/fonts/FuturaBT-Bold.eot');
+  src: url('../assets/fonts/FuturaBT-Bold.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/FuturaBT-Bold.woff2') format('woff2'),
+  url('../assets/fonts/FuturaBT-Bold.woff') format('woff'),
+  url('../assets/fonts/FuturaBT-Bold.ttf') format('truetype'),
+  url('../assets/fonts/FuturaBT-Bold.svg#FuturaBT-Bold') format('svg');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FuturaBT';
+  src: url('../assets/fonts/Futura-ExtraBold.eot');
+  src: url('../assets/fonts/Futura-ExtraBold.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Futura-ExtraBold.woff2') format('woff2'),
+  url('../assets/fonts/Futura-ExtraBold.woff') format('woff'),
+  url('../assets/fonts/Futura-ExtraBold.ttf') format('truetype'),
+  url('../assets/fonts/Futura-ExtraBold.svg#FuturaBT-Bold') format('svg');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FuturaBT';
+  src: url('../assets/fonts/FuturaBT-ExtraBlack.eot');
+  src: url('../assets/fonts/FuturaBT-ExtraBlack.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/FuturaBT-ExtraBlack.woff2') format('woff2'),
+  url('../assets/fonts/FuturaBT-ExtraBlack.woff') format('woff'),
+  url('../assets/fonts/FuturaBT-ExtraBlack.ttf') format('truetype'),
+  url('../assets/fonts/FuturaBT-ExtraBlack.svg#FuturaBT-Bold') format('svg');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Raleway';
   src: url('../assets/fonts/Raleway-Regular.eot');
   src: url('../assets/fonts/Raleway-Regular.eot?#iefix') format('embedded-opentype'),

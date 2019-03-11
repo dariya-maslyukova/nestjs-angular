@@ -95,7 +95,6 @@ export class MatControlComponent implements ControlValueAccessor, OnDestroy {
       Object
         .keys(errors)
         .some(errorKey => {
-          console.log(errorKey);
           if (errors[errorKey]) {
             error = this.errorMap
               ? this.errorMap[errorKey]
@@ -108,7 +107,6 @@ export class MatControlComponent implements ControlValueAccessor, OnDestroy {
         });
       return error;
     }
-
 
     if (error) {
       this.hasError = true;
