@@ -1,5 +1,16 @@
 import { animate, group, query, state, style, transition, trigger } from '@angular/animations';
 
+
+export const SLIDER_ANIMATIONS = [
+  trigger('flyInOut', [
+    state('in', style({
+      width: 120,
+      transform: 'translateX(0)', opacity: 1
+    }))
+  ])
+];
+
+
 // TODO: refactor this later
 export const DROPDOWN_ANIMATIONS = [
   trigger('dropdownEnterLeave', [

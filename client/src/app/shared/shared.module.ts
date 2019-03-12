@@ -22,7 +22,7 @@ const COMPONENTS = [];
   declarations: [
     ...COMPONENTS,
     ...PIPES,
-    ...DIRECTIVES,
+    ...DIRECTIVES
   ],
   imports: [
     CommonModule,

@@ -23,9 +23,18 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/animate.css/animate.css",
+              "./node_modules/flexslider/flexslider.css",
+              "./node_modules/owl.carousel/dist/assets/owl.carousel.min.css",
+              "./node_modules/owl.carousel/dist/assets/owl.theme.default.min.css",
               "src/sass/app.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/jquery.easing/jquery.easing.min.js",
+              "./node_modules/flexslider/jquery.flexslider-min.js",
+              "./node_modules/owl.carousel/dist/owl.carousel.min.js"
+            ]
           },
           "configurations": {
             "production": {

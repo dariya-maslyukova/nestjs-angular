@@ -28,3 +28,6 @@ $app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
 @import "components/buttons";
 @import "components/header";
 @import "components/footer";
+@import "components/flex-slider";
+
+@import "animation";

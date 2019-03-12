@@ -7,7 +7,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AuthorizedGuard } from './guards/authorized.guard';
 
 const routes: Routes = [
-  { path: '', loadChildren: './modules/main/main.module#MainModule' },
+  { path: '', loadChildren: './modules/home/home.module#HomeModule' },
   { path: 'auth', loadChildren: './modules/auth/auth.module#AuthModule' },
   { path: 'profile', loadChildren: './modules/profile/profile.module#ProfileModule', canActivate: [AuthorizedGuard] },
   { path: 'sitemap', component: SitemapComponent },

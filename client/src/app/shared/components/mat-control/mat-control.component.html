@@ -13,7 +13,7 @@
          [formControl]="control"
          [type]="type"
   >
-  <mat-error *ngIf="control.invalid"> {{ getError() }}</mat-error>
+  <mat-error *ngIf="!autocomplete && control.invalid"> {{ getError() }}</mat-error>
 </mat-form-field>
 
 

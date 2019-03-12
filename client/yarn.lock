@@ -434,6 +434,13 @@
   dependencies:
     "@types/jasmine" "*"
 
+"@types/jquery@^3.3.29":
+  version "3.3.29"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.29.tgz#680a2219ce3c9250483722fccf5570d1e2d08abd"
+  integrity sha512-FhJvBninYD36v3k6c+bVk1DSZwh7B5Dpb/Pyk3HKVsiohn0nhbefZZ+3JXbWQhFyt0MxSl2jRDdGQPHeOHFXrQ==
+  dependencies:
+    "@types/sizzle" "*"
+
 "@types/node@*", "@types/node@^11.9.5":
   version "11.10.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.10.4.tgz#3f5fc4f0f322805f009e00ab35a2ff3d6b778e42"
@@ -448,6 +455,11 @@
   version "3.0.15"
   resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-3.0.15.tgz#024c24051c3798e9a0cf5cceb1c893140df1bc31"
   integrity sha512-5nh8/K2u9p4bk95GGCJB7KBvewaB0TUziZ9DTr+mR2I6RoO4OJVqx7rxK83hs2J1tomwtCGkhiW+Dy8EUnfB+Q==
+
+"@types/sizzle@*":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
+  integrity sha512-7EJYyKTL7tFR8+gDbB6Wwz/arpGa0Mywk1TJbNzKzHtzbwVmY4HR9WqS5VV7dsBUKQmPNr192jHr/VpBluj/hg==
 
 "@types/source-list-map@*":
   version "0.1.2"
@@ -774,6 +786,11 @@ angular2-toaster@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/angular2-toaster/-/angular2-toaster-7.0.0.tgz#8d72716b6b267cf36576bf77361bb3ab09e9d093"
   integrity sha512-+nKyzg7X9r9knVghyURR63eXpbvErd/Hm7c7rx/v4gfqI7jNAkWHxO1tikVKEQFoD+au6Fu54LOGhEmXb0ECxg==
+
+animate.css@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-3.7.0.tgz#5de25d1ee5fba11ba6a1e2c4fa568f512eb7d4da"
+  integrity sha512-u3iMXDJr0cxMdQocIciDiou9Au4L5f9uT+/jCtprw3s1j3HcfCuI+khF+90Ps2KdsEhM2soF7SXB4WUvI3HlXg==
 
 ansi-colors@^3.0.0:
   version "3.2.4"
@@ -2964,6 +2981,13 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.0.tgz#55122b6536ea496b4b44893ee2608141d10d9916"
   integrity sha512-R+H8IZclI8AAkSBRQJLVOsxwAoHd6WC40b4QTNWIjzAa6BXOBfQcM587MXDTVPeYaopFNWHUFLx7eNmHDSxMWg==
 
+flexslider@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/flexslider/-/flexslider-2.7.2.tgz#c0f4d36559b86feb8a3bc7d6a5abb9aa01bcf909"
+  integrity sha512-ayzD+g+zYPG+sM+LXyXbfm4gS4unLB0PGsjwIu03TeRNZ+JLQTtbV3J42VO9ooRZ9idmuWgR5s3r4hw6shS1tQ==
+  dependencies:
+    jquery ">=1.11.3"
+
 flush-write-stream@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/flush-write-stream/-/flush-write-stream-1.1.1.tgz#8dd7d873a1babc207d94ead0c2e0e44276ebf2e8"
@@ -3274,7 +3298,7 @@ gonzales-pe-sl@^4.2.3:
   dependencies:
     minimist "1.1.x"
 
-"gonzales-pe-sl@github:srowhani/gonzales-pe#dev":
+gonzales-pe-sl@srowhani/gonzales-pe#dev:
   version "4.2.3"
   resolved "https://codeload.github.com/srowhani/gonzales-pe/tar.gz/3b052416074edc280f7d04bbe40b2e410693c4a3"
   dependencies:
@@ -4076,6 +4100,16 @@ jasminewd2@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/jasminewd2/-/jasminewd2-2.2.0.tgz#e37cf0b17f199cce23bea71b2039395246b4ec4e"
   integrity sha1-43zwsX8ZnM4jvqcbIDk5Uka07E4=
+
+jquery.easing@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/jquery.easing/-/jquery.easing-1.4.1.tgz#47982c5836bd758fd48494923c4a101ef6e93e3b"
+  integrity sha1-R5gsWDa9dY/UhJSSPEoQHvbpPjs=
+
+"jquery@>= 2.2.0", jquery@>=1.11.3, jquery@>=1.8.3, jquery@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
 
 js-base64@^2.1.8:
   version "2.5.1"
@@ -4936,6 +4970,14 @@ ngx-bootstrap@^3.2.0:
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.2.0.tgz#ece7c48af0bc260462c3f77de14f22d4b3dde149"
   integrity sha512-oLSLIWZgRiIfcuxyXLMZUOhX3wZtg6lpuMbdo/0UzMDg2bSOe1XPskcKZ/iuOa3FOlU9rjuYMzswHYYV5f/QCA==
 
+ngx-owl-carousel@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/ngx-owl-carousel/-/ngx-owl-carousel-2.0.7.tgz#1a8854a64026c785dd0e6721a6a2fd64b17e254a"
+  integrity sha512-y2RkgavDwLx//3iDnheX9WCo3EdZR09QJSoXmQDQR386LmOJSmqF0fOCJAgcp/l4GkdkEH8DpIu3VL+8TxWCJw==
+  dependencies:
+    jquery ">= 2.2.0"
+    owl.carousel "^2.2.0"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
@@ -5323,6 +5365,13 @@ osenv@0, osenv@^0.1.4, osenv@^0.1.5:
   dependencies:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
+
+owl.carousel@^2.2.0, owl.carousel@^2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/owl.carousel/-/owl.carousel-2.3.4.tgz#6c53dc8d24304b790e4f27a1dc4a655e973ccdc9"
+  integrity sha512-JaDss9+feAvEW8KZppPSpllfposEzQiW+Ytt/Xm5t/3CTJ7YVmkh6RkWixoA2yXk2boIwedYxOvrrppIGzru9A==
+  dependencies:
+    jquery ">=1.8.3"
 
 p-defer@^1.0.0:
   version "1.0.0"

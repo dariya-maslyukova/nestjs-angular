@@ -1,25 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  private destroyedSubject = new Subject<any>();
+  isHomePage = false;
 
   constructor(
-    private ar: ActivatedRoute,
-    private r: Router,
+    private r: Router
   ) {
 
-  }
+    r.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isHomePage = event.url === '/';
+      }
+    });
 
-  ngOnInit(): void {
-    // console.log(this.ar)
-    // this.ar.url.subscribe((url) => console.log(url));
   }
 }

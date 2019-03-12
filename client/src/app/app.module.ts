@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { AngularSvgIconModule } from 'angular-svg-icon';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -50,7 +49,7 @@ export function baseUrl(): string {
     HeaderComponent,
     FooterComponent,
     MainLayoutComponent,
-    SitemapComponent,
+    SitemapComponent
   ],
   providers: [
     ToasterService,
