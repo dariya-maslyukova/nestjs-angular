@@ -8,31 +8,31 @@ export class User extends BaseModel<User> {
   @prop({
     required: [true, 'Email is required'],
     unique: true,
-  }) email: string;
+  }) Email: string;
 
   @prop({
     required: [true, 'Password is required'],
     minlength: [6, 'Must be at least 6 characters'],
-  }) password: string;
+  }) Password: string;
 
   @prop({
     required: [true, 'First Name is required'],
-  }) firstName?: string;
+  }) FirstName?: string;
 
   @prop({
     required: [true, 'Last Name is required'],
-  }) lastName?: string;
+  }) LastName?: string;
 
-  @prop() phone?: string;
+  @prop() Phone?: string;
 
   @prop({
     enum: UserRole,
     default: UserRole.User,
-  }) userRole?: UserRole;
+  }) UserRole?: UserRole;
 
   @prop()
-  get fullName(): string {
-    return `${this.firstName} ${this.lastName}`;
+  get FullName(): string {
+    return `${this.FirstName} ${this.LastName}`;
   }
 
   static get model(): ModelType<User> {

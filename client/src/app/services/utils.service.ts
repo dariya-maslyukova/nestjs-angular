@@ -15,14 +15,14 @@ export class UtilsService {
 
   /** ObjectID has structure ID:00000. So yeah ¯\_(ツ)_/¯ */
   getId(data: Model | string): string {
-    const id = typeof data === 'object' ? data.ObjectID : data;
+    const id = typeof data === 'object' ? data.id : data;
 
     return id.split(':')[ 1 ];
   }
 
   /** ObjectID can be ID:00000 or NEW:00000 in case of new object creation */
   isDbId(data: Model | string): boolean {
-    const id = typeof data === 'object' ? data.ObjectID : data;
+    const id = typeof data === 'object' ? data.id : data;
 
     return id.split(':')[ 0 ] !== 'NEW';
   }
@@ -60,7 +60,7 @@ export class UtilsService {
     const obj = {};
 
     items.forEach(item => {
-      obj[ item.ObjectID ] = item;
+      obj[ item.id ] = item;
     });
 
     return obj;

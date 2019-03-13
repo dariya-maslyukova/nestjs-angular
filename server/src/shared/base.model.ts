@@ -13,7 +13,7 @@ export class BaseModelVm {
 }
 
 @pre<T>('findOneAndUpdate', function() {
-  this._update.updatedAt = new Date(Date.now());
+  this._update.UpdatedAt = new Date(Date.now());
 })
 export abstract class BaseModel<T> extends Typegoose {
   @prop()

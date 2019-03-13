@@ -1,11 +1,11 @@
-export interface User {
-  id: string;
-  createdAt: string;
+import { Model } from './model.interface';
 
-  email: string;
-  firstName: string;
-  lastName: string;
-  fullName: string;
-  userRole: string;
-  phone: string;
+export interface User extends Model {
+  Email: string;
+  Token: string;
+  FirstName: string;
+  LastName: string;
+  FullName: string;
+  UserRole: string;
+  Phone: string;
 }

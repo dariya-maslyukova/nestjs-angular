@@ -5,9 +5,10 @@ import { Subject } from 'rxjs/internal/Subject';
 import { User } from '../interfaces/user.interface';
 import { CONFIG } from '../app.config';
 import { ApiService } from './api.service';
+import { UserResponse } from '../interfaces/user-response.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
 
@@ -27,7 +28,7 @@ export class UserService {
   }
 
   get currentUser(): User {
-    return this.user;
+    return this.user as User;
   }
 
   set currentUser(user) {

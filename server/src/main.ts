@@ -11,7 +11,7 @@ async function bootstrap() {
   const hostDomain = AppModule.isDev ? `${AppModule.host}:${AppModule.port}` : AppModule.host;
 
   const swaggerOptions = new DocumentBuilder()
-    .setTitle('Demo Shop')
+    .setTitle('Cardin Shop')
     .setDescription('API Documentation')
     .setVersion('1.0.0')
     .setHost(hostDomain.split('//')[1])

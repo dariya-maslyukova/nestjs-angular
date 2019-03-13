@@ -26,26 +26,37 @@ export class UserService extends BaseService<User> {
     this.mapper = mapperService.mapper;
   }
 
-  async register(vm: RegisterVm) {
-    const { email, password, firstName, lastName, phone } = vm;
+  async register(vm: RegisterVm): Promise<LoginResponseVm> {
+    const { Email, Password, FirstName, LastName, Phone } = vm;
 
     const newUser = User.createModel();
-    newUser.email = email.trim().toLowerCase();
-    newUser.firstName = firstName;
-    newUser.lastName = lastName;
-    newUser.phone = phone;
+    newUser.Email = Email.trim().toLowerCase();
+    newUser.FirstName = FirstName;
+    newUser.LastName = LastName;
+    newUser.Phone = Phone;
 
     const salt = await genSalt(10);
-    newUser.password = await hash(password, salt);
+    newUser.Password = await hash(Password, salt);
 
     try {
-      const result = await this.create(newUser);
+      const user = await this.create(newUser);
       // return result.toJSON() as User;
+
+      const payload: JwtPayload = {
+        email: user.Email,
+        userRole: user.UserRole,
+      };
+
+      const token = await this.authService.signPayLoad(payload);
+      const userVm: UserVm = await this.map<UserVm>(user.toJSON());
 
       return {
         success: true,
-        message: 'Registration successful, please Sign in!',
-        user: result.toJSON() as User,
+        message: 'Registration successful',
+        user: {
+          token,
+          ...userVm,
+        },
       };
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -53,23 +64,23 @@ export class UserService extends BaseService<User> {
   }
 
   async login(vm: LoginVm): Promise<LoginResponseVm> {
-    const { email, password } = vm;
+    const { Email, Password } = vm;
 
-    const user = await this.findOne({ email });
+    const user = await this.findOne({ Email });
 
     if (!user) {
       throw new HttpException('Invalid crendentials', HttpStatus.NOT_FOUND);
     }
 
-    const isMatch = await compare(password, user.password);
+    const isMatch = await compare(Password, user.Password);
 
     if (!isMatch) {
       throw new HttpException('Invalid crendentials', HttpStatus.BAD_REQUEST);
     }
 
     const payload: JwtPayload = {
-      email: user.email,
-      userRole: user.userRole,
+      email: user.Email,
+      userRole: user.UserRole,
     };
 
     const token = await this.authService.signPayLoad(payload);
@@ -78,8 +89,10 @@ export class UserService extends BaseService<User> {
     return {
       success: true,
       message: 'Login successful',
-      token,
-      user: userVm,
+      user: {
+        token,
+        ...userVm,
+      },
     };
   }
 }

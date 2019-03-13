@@ -8,6 +8,7 @@ import { UtilsService } from '../../../../services/utils.service';
 import { EnumsService } from '../../../../services/enums.service';
 import { AuthService } from '../../../../services/auth.service';
 import { ConfirmPasswordValidator } from '../../../../validators/confirm-password.validator';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -25,17 +26,18 @@ export class RegisterComponent implements OnDestroy {
     private fb: FormBuilder,
     private r: Router,
     private us: UtilsService,
+    private uss: UserService,
     private es: EnumsService,
     private as: AuthService,
   ) {
     this.form = this.fb.group(
       {
-        firstName: [null, Validators.required],
-        lastName: [null, Validators.required],
-        email: [null, [Validators.required, emailValidator]],
-        password: [null, [Validators.required, Validators.minLength(6)]],
-        confirmPassword: [null, Validators.required],
-        phone: [null],
+        FirstName: [null, Validators.required],
+        LastName: [null, Validators.required],
+        Email: [null, [Validators.required, emailValidator]],
+        Password: [null, [Validators.required, Validators.minLength(6)]],
+        ConfirmPassword: [null, Validators.required],
+        Phone: [null],
       }, {
         validator: ConfirmPasswordValidator.MatchPassword,
       },
@@ -57,11 +59,11 @@ export class RegisterComponent implements OnDestroy {
     this.isLoading = true;
 
     const formData = {
-      firstName: this.form.get('firstName').value,
-      lastName: this.form.get('lastName').value,
-      email: this.form.get('email').value,
-      password: this.form.get('password').value,
-      phone: this.form.get('phone').value,
+      FirstName: this.form.get('FirstName').value,
+      LastName: this.form.get('LastName').value,
+      Email: this.form.get('Email').value,
+      Password: this.form.get('Password').value,
+      Phone: this.form.get('Phone').value,
     };
 
 
@@ -69,11 +71,12 @@ export class RegisterComponent implements OnDestroy {
       .register(formData)
       .subscribe(data => {
           if (data.success) {
-            this.r.navigate(['/auth']);
+            this.uss.currentUser = data.user;
+            this.r.navigate(['/profile']);
           } else {
             this.isLoading = false;
             this.form
-              .get('email')
+              .get('Email')
               .setErrors({ invalid: true });
             this.us.handleError(data);
           }

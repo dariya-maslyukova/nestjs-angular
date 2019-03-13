@@ -1,5 +1,5 @@
 export interface Model {
-  ObjectID: string;
-  readonly ObjectCreated: string;
-  readonly ObjectLastModified: string;
+  id: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
 }

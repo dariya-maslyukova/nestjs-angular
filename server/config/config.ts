@@ -5,6 +5,7 @@ interface IEnvironmentConfig {
   JWT_KEY: string;
   DOMAIN: string;
   HTTP_PROTOCOL: string;
+  UPLOAD_PATH: string;
 }
 
 interface IConfig {
@@ -21,6 +22,7 @@ const Config: IConfig = {
     DOMAIN: 'localhost',
     HTTP_PROTOCOL: 'http',
     HOST: 'http://localhost',
+    UPLOAD_PATH: '/public',
   },
   production: {
     PORT: +process.env.HTTP_SERVER_PORT,
@@ -29,6 +31,7 @@ const Config: IConfig = {
     JWT_KEY: process.env.JWT_KEY,
     DOMAIN: process.env.DOMAIN,
     HTTP_PROTOCOL: process.env.HTTP_PROTOCOL,
+    UPLOAD_PATH: process.env.UPLOAD_PATH,
   },
 };
 

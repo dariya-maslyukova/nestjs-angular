@@ -30,8 +30,8 @@ export class LoginComponent implements OnDestroy {
   ) {
     this.form = this.fb.group(
       {
-        email: [null, [Validators.required, emailValidator]],
-        password: [null, Validators.required],
+        Email: [null, [Validators.required, emailValidator]],
+        Password: [null, Validators.required],
       },
     );
   }
@@ -55,14 +55,13 @@ export class LoginComponent implements OnDestroy {
     this.as
       .login(formData)
       .subscribe(data => {
-          if (data.token) {
+          if (data.success) {
             this.uss.currentUser = data.user;
-            localStorage.setItem('token', data.token);
             this.r.navigate(['/profile']);
           } else {
             this.isLoading = false;
             this.form
-              .get('email')
+              .get('Email')
               .setErrors({ invalid: true });
             this.us.handleError(data);
           }

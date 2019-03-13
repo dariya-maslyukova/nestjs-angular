@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   get userName(): string {
-    return this.currentUser.fullName;
+    return this.currentUser.FullName;
   }
 
   ngOnDestroy(): void {

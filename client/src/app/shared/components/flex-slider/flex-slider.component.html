@@ -1,69 +1,16 @@
-<div class="flexslider">
-  <ul class="slides">
-    <li>
-      <a href="#"><span class='slider-image' style="background-image: url('assets/pictures/slide1.jpg')"></span></a>
+<div class="flexslider" #slider>
+  <ul class="slides" *ngIf="items.length > 0">
+    <li *ngFor="let item of items">
+      <a href="#"><span class="slider-image" [ngStyle]="{'background-image': 'url(' + item.Image + ')'}"></span></a>
       <div class="flex-caption">
         <div class="inner">
-          <div class="count-slide"><span class="large">01</span><span class="small">/ 04</span>
+          <div class="count-slide"><span class="large">01</span><span class="small">/ {{ items.length }}</span>
           </div>
-          <div class="top-text">LOST TIME PLAYSUIT IN</div>
-          <div class="bold-text">BLACK</div>
-          <div class="caption-text">
-            A staple that every girl needs in their wardrobe. Our lost time playsuit is super versatile and
-            can be worn all year round. With it's classic silhouette and drawstring cinched waist.
-          </div>
-          <div class="shop-link wow flash" data-wow-delay="4.5s"><a href="#">Shop Now</a></div>
-        </div>
-      </div>
-    </li>
-    <li>
-      <a href="#"><span class='slider-image' style="background-image: url('assets/pictures/slide2.jpg')"></span></a>
-      <div class="flex-caption">
-        <div class="inner">
-          <div class="count-slide"><span class="large">02</span><span class="small">/ 04</span>
-          </div>
-          <div class="top-text">CROSSING TIES</div>
-          <div class="bold-text">Dress</div>
-          <div class="bot-text">IN BLACK</div>
-          <div class="caption-text">
-            A staple that every girl needs in their wardrobe. Our lost time playsuit is super versatile and
-            can be worn all year round. With it's classic silhouette and drawstring cinched waist.
-          </div>
-          <div class="shop-link"><a href="#">Shop Now</a></div>
-        </div>
-      </div>
-    </li>
-    <li>
-      <a href="#"><span class='slider-image' style="background-image: url('assets/pictures/slide3.jpg')"></span></a>
-      <div class="flex-caption">
-        <div class="inner">
-          <div class="count-slide"><span class="large">03</span><span class="small">/ 04</span>
-          </div>
-          <div class="top-text">FOLLOW YOU PLAY</div>
-          <div class="bold-text">BLACK</div>
-          <div class="caption-text">
-            A staple that every girl needs in their wardrobe. Our lost time playsuit is super versatile and
-            can be worn all year round. With it's classic silhouette and drawstring cinched waist.
-          </div>
-          <div class="shop-link flash"><a href="#">Shop Now</a></div>
-        </div>
-      </div>
-    </li>
-    <li>
-      <a href="#"><span class='slider-image' style="background-image: url('assets/pictures/slide4.jpg')"></span></a>
-      <div class="flex-caption">
-        <div class="inner">
-          <div class="count-slide"><span class="large">04</span><span class="small">/ 04</span>
-          </div>
-          <div class="top-text">KNOTTED men NIGHT</div>
-          <div class="bold-text">shirt</div>
-          <div class="bot-text">IN BLACK</div>
-          <div class="caption-text">
-            A staple that every girl needs in their wardrobe. Our lost time playsuit is super versatile and
-            can be worn all year round. With it's classic silhouette and drawstring cinched waist.
-          </div>
-          <div class="shop-link"><a href="#">Shop Now</a></div>
-
+          <div class="top-text" *ngIf="item.TopText">{{ item.TopText }}</div>
+          <div class="bold-text" *ngIf="item.BoldText">{{ item.BoldText }}</div>
+          <div class="bot-text" *ngIf="item.BotText">{{ item.BotText }}</div>
+          <div class="caption-text" *ngIf="item.CaptionText">{{ item.CaptionText }}</div>
+          <div class="shop-link" *ngIf="item.Link"><a [routerLink]="item.Link">Shop Now</a></div>
         </div>
       </div>
     </li>

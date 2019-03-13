@@ -8,6 +8,7 @@ export const CONFIG = {
     Register: '/user/register',
     RequestPasswordReset: '/user/password-reset',
     PasswordChange: '/user/password-change',
+    HomeSlider: '/slider',
     enums: {
     }
   },

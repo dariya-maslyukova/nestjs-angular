@@ -23,34 +23,34 @@ export class UserController {
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(User.modelName, 'Register'))
   async register(@Body() registerVm: RegisterVm): Promise<UserVm> {
-    const { email, password, firstName, lastName } = registerVm;
+    const { Email, Password, FirstName, LastName } = registerVm;
 
-    if (!email) {
+    if (!Email) {
       throw new HttpException('Email is required', HttpStatus.BAD_REQUEST);
     }
 
-    if (!firstName) {
+    if (!FirstName) {
       throw new HttpException('FirstName is required', HttpStatus.BAD_REQUEST);
     }
 
-    if (!lastName) {
+    if (!LastName) {
       throw new HttpException('LastName is required', HttpStatus.BAD_REQUEST);
     }
 
-    if (!password) {
+    if (!Password) {
       throw new HttpException('Password is required', HttpStatus.BAD_REQUEST);
     }
 
     let exist;
 
     try {
-      exist = await this.userService.findOne({ email });
+      exist = await this.userService.findOne({ Email });
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     if (exist) {
-      throw new HttpException(`${email} is exist`, HttpStatus.BAD_REQUEST);
+      throw new HttpException(`${Email} is exist`, HttpStatus.BAD_REQUEST);
     }
 
     const newUser = await this.userService.register(registerVm);

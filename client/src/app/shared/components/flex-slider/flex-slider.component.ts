@@ -1,35 +1,42 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, ElementRef, Input, ViewChild } from '@angular/core';
 import { SLIDER_ANIMATIONS } from '../../../app.animations';
+import { FlexSlider } from '../../../interfaces/flex-slider.interface';
 
 declare const $: any;
 
 @Component({
   selector: 'app-flex-slider',
   templateUrl: './flex-slider.component.html',
-  animations: [...SLIDER_ANIMATIONS]
+  animations: [...SLIDER_ANIMATIONS],
 })
 
 export class FlexSliderComponent implements DoCheck {
 
-  constructor() {
-  }
+  @Input() items: FlexSlider[] = [];
+  @Input() easing = 'easeOutCirc';
+  @Input() animationSpeed = 1200;
 
-  ngDoCheck() {
+  @ViewChild('slider') private slider: ElementRef;
+
+  ngDoCheck(): void {
+    const animationSpeed = this.animationSpeed;
+    const easing = this.easing;
+
     $('.flexslider').flexslider({
       animation: 'slide',
       slideshow: false,
       move: 1,
       useCSS: false,
       nextText: '',
-      easing: 'easeOutCirc',
-      animationSpeed: 1200,
+      easing,
+      animationSpeed,
       controlNav: false,
       before: (slider) => {
 
-        $('.flexslider li')
+        $(slider).find('li')
           .removeClass('prev-slide')
           .removeClass('next-slide');
-          // .find($('.flex-caption')).addClass('hidden');
+        // .find($('.flex-caption')).addClass('hidden');
 
         $(slider).find('.move').each(function() {
           $(this).removeClass('move');
@@ -45,20 +52,20 @@ export class FlexSliderComponent implements DoCheck {
         // $('.flexslider li').find($('.flex-caption')).addClass('hidden');
         $(slider).find('.flex-active-slide').addClass('move');
 
-        this.addSlidesClass();
+        this.addSlidesClass(slider);
       },
       after: (slider) => {
-        this.addSlidesClass();
+        this.addSlidesClass(slider);
 
         $(slider).find('.flex-active-slide').addClass('move');
       },
     });
   }
 
-  private addSlidesClass() {
-    $('.flexslider li.flex-active-slide')
+  private addSlidesClass(slider) {
+    $(slider).find('li.flex-active-slide')
       .prev('li').addClass('prev-slide');
-    $('.flexslider li.flex-active-slide')
+    $(slider).find('li.flex-active-slide')
       .next('li').addClass('next-slide');
     // $('.flexslider li.flex-active-slide')
     //   .find($('.flex-caption')).removeClass('hidden');

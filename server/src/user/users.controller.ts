@@ -14,7 +14,7 @@ import {
   ApiCreatedResponse,
   ApiImplicitQuery,
 } from '@nestjs/swagger';
-import { map, isArray } from 'lodash';
+import { map } from 'lodash';
 
 import { ApiException } from '../shared/api-exception.model';
 import { GetOperationId } from '../shared/utilities/get-operation-id.helper';
@@ -31,7 +31,7 @@ export class UsersController {
   constructor(private readonly userService: UserService) {
   }
 
-  @Delete('clear')
+  @Delete('clear-collection')
   // @Roles(UserRole.Admin)
   // @UseGuards(AuthGuard('jwt'), RolesGuard)
   @ApiCreatedResponse({ type: TodoVm })
