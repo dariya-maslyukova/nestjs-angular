@@ -15,7 +15,6 @@ import { IconsService } from './services/icons.service';
 import { ToasterService } from 'angular2-toaster';
 import { AuthorizedGuard } from './guards/authorized.guard';
 import { SharedModule } from './shared/shared.module';
-import { environment } from '../environments/environment';
 
 export function appInitFactory(is: IconsService): Function {
   return () => Promise.all([
@@ -30,7 +29,7 @@ export function getLocalStorage() {
 }
 
 export function baseUrl(): string {
-  return environment.apiUrl;
+  return window.location.origin + '/api';
 }
 
 @NgModule({
