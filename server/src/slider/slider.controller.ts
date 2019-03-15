@@ -58,7 +58,7 @@ export class SliderController {
       throw new HttpException('Image is required', HttpStatus.BAD_REQUEST);
     }
 
-    const image = file.path;
+    const image = `${this.configService.hostName}/${file.path}`;
 
     if (!IsActive) {
       params.IsActive = IsActive;
@@ -132,6 +132,8 @@ export class SliderController {
     @UploadedFile() file,
     @Query('id') id: string,
   ): Promise<SliderVm> {
+    console.log(file);
+
     const vm: SliderVm = {
       id,
       IsActive,
@@ -152,9 +154,7 @@ export class SliderController {
       throw new HttpException(`${id} Not found`, HttpStatus.NOT_FOUND);
     }
 
-    console.log(file);
-    // exist.Image = `${this.configService.hostName}/api/${file.path}`;
-    exist.Image = file.path;
+    exist.Image = `${this.configService.hostName}/${file.path}`;
     exist.Link = Link;
     exist.TopText = TopText;
     exist.BoldText = BoldText;

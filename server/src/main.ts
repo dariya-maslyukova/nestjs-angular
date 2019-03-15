@@ -1,14 +1,16 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { FastifyAdapter, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
 import * as cors from 'cors';
 import { join } from 'path';
+
+import { AppModule } from './app.module';
+import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
+import { ValidationPipe } from '@nestjs/common';
 
 declare const module: any;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, new FastifyAdapter());
   const hostDomain = AppModule.isDev ? `${AppModule.host}:${AppModule.port}` : AppModule.host;
 
   const swaggerOptions = new DocumentBuilder()
@@ -38,10 +40,16 @@ async function bootstrap() {
     module.hot.dispose(() => app.close());
   }
 
-  app.useStaticAssets(join(__dirname, '..', 'public'), { prefix: '/public/'});
+  // -------Fastify
+  // TODO: POST/PUT files doesn't work if useStaticAssets use
+  app.useStaticAssets({
+    root: join(__dirname, '..', 'public'),
+    prefix: '/public/',
+  });
 
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalPipes(new ValidationPipe());
   app.use(cors());
   await app.listen(AppModule.port);
 }

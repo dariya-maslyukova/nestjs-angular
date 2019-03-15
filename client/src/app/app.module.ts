@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { API_BASE_URL } from './app.api';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -16,6 +15,7 @@ import { IconsService } from './services/icons.service';
 import { ToasterService } from 'angular2-toaster';
 import { AuthorizedGuard } from './guards/authorized.guard';
 import { SharedModule } from './shared/shared.module';
+import { environment } from '../environments/environment';
 
 export function appInitFactory(is: IconsService): Function {
   return () => Promise.all([
@@ -30,7 +30,7 @@ export function getLocalStorage() {
 }
 
 export function baseUrl(): string {
-  return window.location.origin + '/api';
+  return environment.apiUrl;
 }
 
 @NgModule({
@@ -60,7 +60,7 @@ export function baseUrl(): string {
       deps: [IconsService],
       multi: true,
     },
-    { provide: API_BASE_URL, useFactory: baseUrl },
+    { provide: 'API_BASE_URL', useFactory: baseUrl },
     { provide: 'LOCALSTORAGE', useFactory: getLocalStorage },
 
 

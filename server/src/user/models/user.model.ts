@@ -1,3 +1,5 @@
+import { IsEmail, IsNotEmpty, IsPhoneNumber, MinLength } from 'class-validator';
+
 import { InstanceType, ModelType, prop } from 'typegoose';
 import { BaseModel, schemaOptions } from '../../shared/base.model';
 import { UserRole } from './user-role.enum';
@@ -5,25 +7,26 @@ import { UserRole } from './user-role.enum';
 export class User extends BaseModel<User> {
   @prop() success?: boolean;
   @prop() message?: string;
+
   @prop({
-    required: [true, 'Email is required'],
     unique: true,
-  }) Email: string;
+  })
+  @IsNotEmpty()
+  @IsEmail()
+  Email: string;
 
-  @prop({
-    required: [true, 'Password is required'],
-    minlength: [6, 'Must be at least 6 characters'],
-  }) Password: string;
+  @IsNotEmpty()
+  @MinLength(6, { message: 'Must be at least 6 characters' })
+  Password: string;
 
-  @prop({
-    required: [true, 'First Name is required'],
-  }) FirstName?: string;
+  @IsNotEmpty()
+  FirstName?: string;
 
-  @prop({
-    required: [true, 'Last Name is required'],
-  }) LastName?: string;
+  @IsNotEmpty()
+  LastName?: string;
 
-  @prop() Phone?: string;
+  @IsPhoneNumber('UA', { message: 'Phone must be from Ukraine provider and started on 380' })
+  Phone?: string;
 
   @prop({
     enum: UserRole,

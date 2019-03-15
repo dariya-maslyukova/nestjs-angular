@@ -1,4 +1,4 @@
-import { Component, DoCheck, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, DoCheck, Input } from '@angular/core';
 import { SLIDER_ANIMATIONS } from '../../../app.animations';
 import { FlexSlider } from '../../../interfaces/flex-slider.interface';
 
@@ -15,8 +15,6 @@ export class FlexSliderComponent implements DoCheck {
   @Input() items: FlexSlider[] = [];
   @Input() easing = 'easeOutCirc';
   @Input() animationSpeed = 1200;
-
-  @ViewChild('slider') private slider: ElementRef;
 
   ngDoCheck(): void {
     const animationSpeed = this.animationSpeed;

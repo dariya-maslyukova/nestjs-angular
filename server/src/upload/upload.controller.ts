@@ -17,12 +17,9 @@ import {
 } from '@nestjs/swagger';
 
 import { File } from './models/file.model';
-import { ApiException } from '../shared/api-exception.model';
 import { GetOperationId } from '../shared/utilities/get-operation-id.helper';
 import { FileVm } from './models/file-vm.model';
 import { UploadService } from './upload.service';
-import { MulterConfigService } from '../shared/configuration/multer-config.service';
-import { ConfigurationService } from '../shared/configuration/configuration.service';
 import { multerOptions } from '../../config/multer.config';
 
 @Controller('upload')
