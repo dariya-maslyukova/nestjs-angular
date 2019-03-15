@@ -17,11 +17,10 @@ export class SliderService extends BaseService<Slider> {
     this.mapper = mapperService.mapper;
   }
 
-  async createSlide(params: SliderParams): Promise<Slider> {
-    const { Image, Link, TopText, BoldText, BotText, CaptionText, IsActive } = params;
+  async createSlide(params: SliderParams, image: string): Promise<Slider> {
+    const { Link, TopText, BoldText, BotText, CaptionText, IsActive } = params;
 
     const newSlider = Slider.createModel();
-    newSlider.Image = `assets/pictures/home-slider/${Image}`;
 
     if (Link) {
       newSlider.Link = Link;
@@ -48,6 +47,8 @@ export class SliderService extends BaseService<Slider> {
     } else {
       newSlider.IsActive = true;
     }
+
+    newSlider.Image = image;
 
     try {
       const result = await this.create(newSlider);

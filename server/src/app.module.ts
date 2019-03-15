@@ -1,4 +1,4 @@
-import { Module, MulterModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -7,7 +7,8 @@ import { ConfigurationService } from './shared/configuration/configuration.servi
 import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
 import { SliderModule } from './slider/slider.module';
-import * as multer from 'multer';
+import { UploadModule } from './upload/upload.module';
+import { ConfigurationModule } from './shared/configuration/configuration.model';
 
 @Module({
   imports: [
@@ -24,32 +25,10 @@ import * as multer from 'multer';
       }),
       inject: [ConfigurationService],
     }),
-    // MulterModule.register({
-    //   dest: '/public',
-    //   fileFilter: (req, file, cb) => {
-    //     // accept image only
-    //     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-    //       return cb(new Error('Only image files are allowed!'), false);
-    //     }
-    //
-    //     cb(null, true);
-    //     // To reject this file pass `false` or throw Exception, like so:
-    //     // cb(new HttpException ("File format is not valid", HttpStatus.BAD_REQUEST), false)
-    //   },
-    //   limits: {
-    //     fileSize: 2097152, // 2 Megabytes
-    //   },
-    //   storage: multer.diskStorage({
-    //     destination(req, file, cb) {
-    //       cb(null, './public');
-    //     },
-    //     filename(req, file, cb) {
-    //       cb(null, file.fieldname + '-' + Date.now());
-    //     },
-    //   }),
-    // }),
+    ConfigurationModule,
     UserModule,
     SliderModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

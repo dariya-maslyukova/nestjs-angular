@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
 import * as cors from 'cors';
+import { join } from 'path';
 
 declare const module: any;
 
@@ -36,6 +37,8 @@ async function bootstrap() {
     module.hot.accept();
     module.hot.dispose(() => app.close());
   }
+
+  app.useStaticAssets(join(__dirname, '..', 'public'), { prefix: '/public/'});
 
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new HttpExceptionFilter());

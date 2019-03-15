@@ -1,7 +1,7 @@
 <div class="flexslider" #slider>
   <ul class="slides" *ngIf="items.length > 0">
     <li *ngFor="let item of items">
-      <a href="#"><span class="slider-image" [ngStyle]="{'background-image': 'url(' + item.Image + ')'}"></span></a>
+      <a href="#"><span class="slider-image" [ngStyle]="{'background-image': 'url(api/' + item.Image + ')'}"></span></a>
       <div class="flex-caption">
         <div class="inner">
           <div class="count-slide"><span class="large">01</span><span class="small">/ {{ items.length }}</span>

@@ -7,7 +7,7 @@ import {
   HttpStatus,
   InternalServerErrorException, Param,
   Post, Put,
-  Query, UseInterceptors, FileFieldsInterceptor, UploadedFiles, UploadedFile, FileInterceptor,
+  Query, UseInterceptors, UploadedFile, FileInterceptor,
 } from '@nestjs/common';
 import { Slider } from './models/slider.model';
 import {
@@ -28,22 +28,16 @@ import { SliderVm } from './models/view-models/slider-vm.model';
 import { ToBooleanPipe } from '../shared/pipes/to-boolean.pipe';
 import { SliderParams } from './models/view-models/slider-params.model';
 import { multerOptions } from '../../config/multer.config';
+import { ConfigurationService } from '../shared/configuration/configuration.service';
 
 @Controller('slider')
 @ApiUseTags(Slider.modelName)
 export class SliderController {
-  constructor(private readonly sliderService: SliderService) {
 
-  }
-
-  @Post('files')
-  @ApiConsumes('multipart/form-data')
-  @ApiImplicitFile({ name: 'file', required: true, description: 'Image of slide' })
-  @UseInterceptors(FileInterceptor('file', multerOptions))
-  async uploadFile(
-    @UploadedFile() file,
+  constructor(
+    private readonly sliderService: SliderService,
+    private readonly configService: ConfigurationService,
   ) {
-    console.log(file);
   }
 
   @Post()
@@ -51,45 +45,27 @@ export class SliderController {
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Slider.modelName, 'Create'))
   @ApiImplicitQuery({ name: 'IsActive', required: false, description: 'If not selected IsActive is true' })
-  @ApiImplicitQuery({ name: 'Image', required: true, description: 'Just image name' })
-  @ApiImplicitQuery({ name: 'Link', required: false })
-  @ApiImplicitQuery({ name: 'TopText', required: false })
-  @ApiImplicitQuery({ name: 'BoldText', required: false })
-  @ApiImplicitQuery({ name: 'BotText', required: false })
-  @ApiImplicitQuery({ name: 'CaptionText', required: false })
   @ApiConsumes('multipart/form-data')
-  @ApiImplicitFile({ name: 'file', required: true, description: 'Image of slide' })
-  // @UseInterceptors(FileFieldsInterceptor([
-  //   { name: 'ImageSlide', maxCount: 1 },
-  // ]))
+  @ApiImplicitFile({ name: 'file', required: true, description: 'Upload image' })
+  @UseInterceptors(FileInterceptor('file', multerOptions))
   async create(
-    @Query('Link') Link: string,
-    @Query('CaptionText') CaptionText: string,
-    @Query('BotText') BotText: string,
-    @Query('BoldText') BoldText: string,
-    @Query('TopText') TopText: string,
+    @Body() params: SliderParams,
     @Query('IsActive', new ToBooleanPipe()) IsActive: boolean,
-    @Query('Image') Image: string,
     @UploadedFile() file,
   ): Promise<SliderVm> {
-    console.log(file);
 
-    const params: SliderParams = {
-      IsActive,
-      Image,
-      Link,
-      TopText,
-      BoldText,
-      BotText,
-      CaptionText,
-    };
-
-    if (!params.Image) {
+    if (!file) {
       throw new HttpException('Image is required', HttpStatus.BAD_REQUEST);
     }
 
+    const image = file.path;
+
+    if (!IsActive) {
+      params.IsActive = IsActive;
+    }
+
     try {
-      const newSlide = await this.sliderService.createSlide(params);
+      const newSlide = await this.sliderService.createSlide(params, image);
       return this.sliderService.map<SliderVm>(newSlide);
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -137,13 +113,15 @@ export class SliderController {
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Slider.modelName, 'Update'))
   @ApiImplicitQuery({ name: 'IsActive', required: false, description: 'If not selected IsActive is true' })
-  @ApiImplicitQuery({ name: 'Image', required: false, description: 'Just image name' })
+  @ApiConsumes('multipart/form-data')
+  @ApiImplicitFile({ name: 'file', required: false, description: 'Upload image' })
   @ApiImplicitQuery({ name: 'Link', required: false })
   @ApiImplicitQuery({ name: 'TopText', required: false })
   @ApiImplicitQuery({ name: 'BoldText', required: false })
   @ApiImplicitQuery({ name: 'BotText', required: false })
   @ApiImplicitQuery({ name: 'CaptionText', required: false })
   @ApiImplicitQuery({ name: 'id', required: true })
+  @UseInterceptors(FileInterceptor('file', multerOptions))
   async update(
     @Query('Link') Link: string,
     @Query('CaptionText') CaptionText: string,
@@ -151,13 +129,12 @@ export class SliderController {
     @Query('BoldText') BoldText: string,
     @Query('TopText') TopText: string,
     @Query('IsActive', new ToBooleanPipe()) IsActive: boolean,
-    @Query('Image') Image: string,
+    @UploadedFile() file,
     @Query('id') id: string,
   ): Promise<SliderVm> {
     const vm: SliderVm = {
       id,
       IsActive,
-      Image,
       Link,
       TopText,
       BoldText,
@@ -175,7 +152,9 @@ export class SliderController {
       throw new HttpException(`${id} Not found`, HttpStatus.NOT_FOUND);
     }
 
-    exist.Image = `assets/pictures/home-slider/${Image}`;
+    console.log(file);
+    // exist.Image = `${this.configService.hostName}/api/${file.path}`;
+    exist.Image = file.path;
     exist.Link = Link;
     exist.TopText = TopText;
     exist.BoldText = BoldText;
@@ -197,7 +176,7 @@ export class SliderController {
   }
 
   @Delete(':id')
-  @ApiOkResponse({ type: SliderVm })
+  @ApiOkResponse({ type: SliderVm, description: 'Delete OK!' })
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Slider.modelName, 'Delete'))
   async delete(@Param('id') id: string): Promise<SliderVm> {

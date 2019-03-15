@@ -22,7 +22,7 @@ const Config: IConfig = {
     DOMAIN: 'localhost',
     HTTP_PROTOCOL: 'http',
     HOST: 'http://localhost',
-    UPLOAD_PATH: '/public',
+    UPLOAD_PATH: 'public/',
   },
   production: {
     PORT: +process.env.HTTP_SERVER_PORT,

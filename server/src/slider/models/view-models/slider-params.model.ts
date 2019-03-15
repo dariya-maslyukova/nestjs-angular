@@ -1,7 +1,6 @@
-import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { ApiModelPropertyOptional } from '@nestjs/swagger';
 
 export class SliderParams {
-  @ApiModelProperty() Image: string;
   @ApiModelPropertyOptional() Link: string;
   @ApiModelPropertyOptional() TopText: string;
   @ApiModelPropertyOptional() BoldText: string;
