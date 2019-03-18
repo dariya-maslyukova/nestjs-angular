@@ -1,0 +1,14 @@
+<span class="flex-caption">
+  <span class="inner">
+    <span class="count-slide">
+      <span class="large"><span *ngIf="slidesCount < 10">0</span>{{ slideIndex + 1 }}</span>
+      <span class="small">/ <span *ngIf="slidesCount < 10">0</span>{{ slidesCount }}</span>
+    </span>
+    <span class="top-text" *ngIf="slide.TopText">{{ slide.TopText }}</span>
+    <span class="bold-text" *ngIf="slide.BoldText">{{ slide.BoldText }}</span>
+    <span class="bot-text" *ngIf="slide.BotText">{{ slide.BotText }}</span>
+    <span class="caption-text" *ngIf="slide.CaptionText">{{ slide.CaptionText }}</span>
+    <!--<span class="shop-link" *ngIf="slide.Link"><a [routerLink]="slide.Link">Shop Now</a></span>-->
+    <span class="shop-link"><a [routerLink]="slide.Link">Shop Now</a></span>
+  </span>
+</span>

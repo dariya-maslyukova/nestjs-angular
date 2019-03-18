@@ -1,20 +1,38 @@
-import { Component, DoCheck, Input } from '@angular/core';
-import { SLIDER_ANIMATIONS } from '../../../app.animations';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
 import { FlexSlider } from '../../../interfaces/flex-slider.interface';
+import { WindowResizeService } from '../../../services/window-resize.service';
 
 declare const $: any;
 
 @Component({
   selector: 'app-flex-slider',
-  templateUrl: './flex-slider.component.html',
-  animations: [...SLIDER_ANIMATIONS],
+  templateUrl: './flex-slider.component.html'
 })
 
-export class FlexSliderComponent implements DoCheck {
+export class FlexSliderComponent implements DoCheck, OnInit {
 
+  width: number;
   @Input() items: FlexSlider[] = [];
   @Input() easing = 'easeOutCirc';
   @Input() animationSpeed = 1200;
+
+  protected destroyedSubject = new Subject<void>();
+
+  constructor(private wrs: WindowResizeService) {
+
+  }
+
+  ngOnInit(): void {
+    this.wrs
+      .resized$
+      .pipe(takeUntil(this.destroyedSubject))
+      .subscribe(boxSize => {
+        this.width = boxSize.width;
+      });
+  }
 
   ngDoCheck(): void {
     const animationSpeed = this.animationSpeed;
@@ -34,27 +52,17 @@ export class FlexSliderComponent implements DoCheck {
         $(slider).find('li')
           .removeClass('prev-slide')
           .removeClass('next-slide');
-        // .find($('.flex-caption')).addClass('hidden');
 
         $(slider).find('.move').each(function() {
           $(this).removeClass('move');
         });
-
-        // var wow = new WOW({
-        //   mobile: false
-        // });
-        // wow.init();
       },
       start: (slider) => {
-
-        // $('.flexslider li').find($('.flex-caption')).addClass('hidden');
         $(slider).find('.flex-active-slide').addClass('move');
-
         this.addSlidesClass(slider);
       },
       after: (slider) => {
         this.addSlidesClass(slider);
-
         $(slider).find('.flex-active-slide').addClass('move');
       },
     });
@@ -65,8 +73,6 @@ export class FlexSliderComponent implements DoCheck {
       .prev('li').addClass('prev-slide');
     $(slider).find('li.flex-active-slide')
       .next('li').addClass('next-slide');
-    // $('.flexslider li.flex-active-slide')
-    //   .find($('.flex-caption')).removeClass('hidden');
   }
 
 }

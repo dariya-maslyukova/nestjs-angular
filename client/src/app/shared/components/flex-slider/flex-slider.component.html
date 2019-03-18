@@ -1,18 +1,22 @@
 <div class="flexslider">
   <ul class="slides" *ngIf="items.length > 0">
-    <li *ngFor="let item of items">
-      <a href="#"><span class="slider-image" [ngStyle]="{'background-image': 'url(' + item.Image + ')'}"></span></a>
-      <div class="flex-caption">
-        <div class="inner">
-          <div class="count-slide"><span class="large">01</span><span class="small">/ {{ items.length }}</span>
-          </div>
-          <div class="top-text" *ngIf="item.TopText">{{ item.TopText }}</div>
-          <div class="bold-text" *ngIf="item.BoldText">{{ item.BoldText }}</div>
-          <div class="bot-text" *ngIf="item.BotText">{{ item.BotText }}</div>
-          <div class="caption-text" *ngIf="item.CaptionText">{{ item.CaptionText }}</div>
-          <div class="shop-link" *ngIf="item.Link"><a [routerLink]="item.Link">Shop Now</a></div>
-        </div>
+    <li *ngFor="let item of items; let i = index">
+      <div class="slide-link">
+        <span class="slider-image" [ngStyle]="{'background-image': 'url(' + item.Image + ')'}">
+          <app-flex-caption
+            [slidesCount]="items.length"
+            [slideIndex]="i"
+            [slide]="item"
+            *ngIf="width < 992"
+          ></app-flex-caption>
+        </span>
       </div>
+      <app-flex-caption
+        [slidesCount]="items.length"
+        [slideIndex]="i"
+        [slide]="item"
+        *ngIf="width > 992"
+      ></app-flex-caption>
     </li>
   </ul>
 </div>

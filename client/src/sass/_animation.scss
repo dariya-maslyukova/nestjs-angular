@@ -17,6 +17,15 @@
   }
 }
 
+@keyframes imageMediumWidth {
+  0% {
+    width: 100%;
+  }
+  100%{
+    width: 50%;
+  }
+}
+
 @keyframes imageMove {
   0%{
     transform: translateX(0%);
