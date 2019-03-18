@@ -3,10 +3,14 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { FlexSliderModule } from '../../shared/components/flex-slider/flex-slider.module';
 import { HomeRoutingModule } from './home-routing.module';
+import { AnimateProductsSectionComponent } from './components/animate-products-section/animate-products-section.component';
+import { OwlCarouselComponent } from '../../shared/components/owl-carousel/owl-carousel.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
+    AnimateProductsSectionComponent,
+    OwlCarouselComponent
   ],
   imports: [
     CommonModule,

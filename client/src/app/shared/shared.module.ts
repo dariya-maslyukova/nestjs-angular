@@ -11,18 +11,18 @@ import { MatControlModule } from './components/mat-control/mat-control.module';
 import { FormControlModule } from './components/form-control/form-control.module';
 import { FocusBlurModule } from './directives/focus-blur/focus-blur.module';
 
-
 const DIRECTIVES = [];
 
 const PIPES = [];
 
-const COMPONENTS = [];
+const COMPONENTS = [
+];
 
 @NgModule({
   declarations: [
     ...COMPONENTS,
     ...PIPES,
-    ...DIRECTIVES
+    ...DIRECTIVES,
   ],
   imports: [
     CommonModule,

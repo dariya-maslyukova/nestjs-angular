@@ -1,0 +1,89 @@
+<div id="trigger_pin" #triggerPin>
+  <div class="bg-row d-none d-lg-block">
+    <div class="container-fluid">
+      <div class="mosaic">
+        <div class="mosaic-row large">
+          <div class="mosaic-cell left-cell">
+            <div class="image-col margin-col" #moveElement>
+              <div class="photo-bg" style='background-image: url("assets/pictures/image-4.jpg")'></div>
+            </div>
+            <div class="text-col animate">
+              <div class="inner" #triggerAnimateLeft>
+                <div class="rectangle-text large">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="100%" height="100%" viewBox="0 0 413 240" preserveAspectRatio="none">
+                    <path #pathLeft d="M 0 0 L 413 0 L 413 240 L 0 240 M 240 240 z"
+                          stroke="black" stroke-width="5" fill="none"/>
+                  </svg>
+                  <h3>Crossing ties</h3>
+                  <div class="large-bold-text">Dress</div>
+                  <div class="medium-text">in black</div>
+                </div>
+
+                <p class="move-element">With it's classic silhouette and drawstring cinched waist.</p>
+              </div>
+
+              <div class="shop-link right-link move-element"><a href="#">Shop Now</a></div>
+            </div>
+          </div>
+          <div class="mosaic-cell right-cell large-cell">
+            <div class="text-col white animate">
+              <div class="inner" #triggerAnimateRight>
+                <div class="rectangle-text">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="100%" height="100%" viewBox="0 0 323 253" preserveAspectRatio="none">
+                    <path #pathRight d="M 0 0 L 323 0 L 323 253 L 0 253 M 253 253 M 0 253 z"
+                          stroke="white" stroke-width="6" fill="none"/>
+                  </svg>
+                  <h3 class="small-text letter-space">Knotting Night</h3>
+                  <div class="large-bold-text">Dress</div>
+                  <div class="medium-text">in black</div>
+                </div>
+              </div>
+
+              <div class="shop-link right-link"><a href="#">Shop Now</a></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="absolute-cell right-image" #imageCell style='background-image: url("assets/pictures/image-1.jpg")'></div>
+  </div>
+  <div class="bg-row full" id="trigger_2" #triggerBg>
+    <div class="mosaic">
+      <div class="mosaic-row large">
+        <div class="mosaic-cell">
+          <div class="text-col white">
+            <div class="inner">
+              <div class="rectangle-text p-0">
+                <h3 class="small-text">LONE TRAVELLER</h3>
+                <div class="large-bold-text">Dress</div>
+                <div class="medium-large-text">in maxi</div>
+              </div>
+            </div>
+
+            <div class="shop-link right-link"><a href="#">Shop Now</a></div>
+          </div>
+        </div>
+        <div class="mosaic-cell right-cell">
+          <!--Owl Carousel-->
+          <app-owl-carousel></app-owl-carousel>
+          <!--Owl Carousel-->
+        </div>
+
+      </div>
+    </div>
+    <div class="absolute-cell left-image border-image" #triggerBgImage
+         style='background-image: url("assets/pictures/image-8.jpg")'>
+
+    </div>
+  </div>
+</div>
+
+
+

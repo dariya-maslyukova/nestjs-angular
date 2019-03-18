@@ -23,6 +23,8 @@ yarn-error.log
 /quick-start
 /example_dist
 /example
+src/todo
+src/upload
 
 # tests
 /test
