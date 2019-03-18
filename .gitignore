@@ -15,6 +15,10 @@
 # dist
 /server/dist
 
+# examples
+/server/src/todo
+/server/src/upload
+
 # config
 /server/config/default.ts
 
