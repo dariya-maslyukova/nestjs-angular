@@ -22,5 +22,6 @@ export class MapperService {
 
     config.createMap('Todo', 'TodoVm').forSourceMember('_id', opts => opts.ignore());
     config.createMap('Slider', 'SliderVm').forSourceMember('_id', opts => opts.ignore());
+    config.createMap('Product', 'ProductVm').forSourceMember('_id', opts => opts.ignore());
   }
 }

@@ -6,16 +6,22 @@ import { v4 as uuid } from 'uuid';
 
 import { ConfigurationService } from './configuration.service';
 import { Configuration } from './configuration.enum';
+import { Product } from '../../product/models/product.model';
 
 @Injectable()
 export class MulterConfigService implements MulterOptionsFactory {
+
+  file = {};
+  model: Product;
+  fileName: string;
 
   constructor(private configService: ConfigurationService) {
   }
 
   createMulterOptions(): MulterModuleOptions {
     return {
-      dest: this.configService.get(Configuration.UPLOAD_PATH),
+      // dest: this.configService.get(Configuration.UPLOAD_PATH),
+      dest: 'public/catalog',
       limits: {
         fileSize: 2097152,
       },
@@ -28,14 +34,17 @@ export class MulterConfigService implements MulterOptionsFactory {
       },
       storage: diskStorage({
         destination: (req: any, file: any, cb: any) => {
-          const uploadPath = this.configService.get(Configuration.UPLOAD_PATH);
+          const uploadPath = 'public/catalog';
+
           if (!existsSync(uploadPath)) {
             mkdirSync(uploadPath);
           }
           cb(null, uploadPath);
         },
         filename: (req: any, file: any, cb: any) => {
-          cb(null, `${uuid()}${extname(file.originalname)}`);
+          this.fileName = this.model.name.replace(' ', '-');
+
+          cb(null, `${this.fileName}-${this.model.sku}`);
         },
       }),
     };
