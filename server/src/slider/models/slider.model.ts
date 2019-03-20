@@ -1,7 +1,7 @@
-import { BaseModel, schemaOptions } from '../../shared/base.model';
+import { Model, schemaOptions } from '../../shared/model';
 import { InstanceType, ModelType, prop } from 'typegoose';
 
-export class Slider extends BaseModel<Slider> {
+export class Slider extends Model<Slider> {
   @prop({ required: [true, 'Image is required'] })
   Image: string;
   @prop() Link: string;

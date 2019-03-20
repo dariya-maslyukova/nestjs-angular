@@ -11,7 +11,10 @@ declare const module: any;
 
 async function bootstrap() {
   // TODO: POST/PUT files doesn't work if FastifyAdapter() use
-  const app = await NestFactory.create(AppModule, new FastifyAdapter());
+  const app = await NestFactory.create(
+    AppModule,
+    new FastifyAdapter(),
+  );
   // const app = await NestFactory.create(AppModule);
   const hostDomain = AppModule.isDev ? `${AppModule.host}:${AppModule.port}` : AppModule.host;
 

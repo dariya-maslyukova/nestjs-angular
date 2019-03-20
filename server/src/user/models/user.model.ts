@@ -1,8 +1,8 @@
 import { InstanceType, ModelType, prop } from 'typegoose';
-import { BaseModel, schemaOptions } from '../../shared/base.model';
-import { UserRole } from './user-role.enum';
+import { Model, schemaOptions } from '../../shared/model';
+import { UserRole } from '../../shared/enums/user-role.enum';
 
-export class User extends BaseModel<User> {
+export class User extends Model<User> {
   @prop()
   success?: boolean;
 

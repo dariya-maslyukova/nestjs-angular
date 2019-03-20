@@ -1,7 +1,7 @@
 import { InstanceType, ModelType, prop } from 'typegoose';
-import { BaseModel, schemaOptions } from '../../shared/base.model';
+import { Model, schemaOptions } from '../../shared/model';
 
-export class Profile extends BaseModel<Profile> {
+export class Profile extends Model<Profile> {
   @prop({ required: [true, 'Content is required'] })
   content: string;
 

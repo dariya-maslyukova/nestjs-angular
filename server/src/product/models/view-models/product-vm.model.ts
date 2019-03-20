@@ -1,8 +1,10 @@
-import { IsString, IsInt, MinLength, IsArray } from 'class-validator';
+import { IsString, IsInt, MinLength, IsArray, IsEnum } from 'class-validator';
 import { ApiModelPropertyOptional, ApiModelProperty } from '@nestjs/swagger';
-import { BaseModelVm } from '../../../shared/base.model';
+import { ModelVm } from '../../../shared/model';
+import { EnumToArray } from '../../../shared/utilities/enum-to-array.helper';
+import { ObjectClass } from '../../../shared/enums/object-class.enum';
 
-export class ProductVm extends BaseModelVm {
+export class ProductVm extends ModelVm {
   @ApiModelProperty()
   @IsString()
   readonly name: string;
@@ -42,4 +44,8 @@ export class ProductVm extends BaseModelVm {
   @ApiModelPropertyOptional()
   @IsArray()
   readonly images: string[];
+
+  @ApiModelPropertyOptional({ enum: EnumToArray(ObjectClass) })
+  @IsEnum({ enum: EnumToArray(ObjectClass) })
+  readonly objectClass?: ObjectClass;
 }

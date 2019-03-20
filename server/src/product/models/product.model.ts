@@ -1,7 +1,12 @@
-import { BaseModel, schemaOptions } from '../../shared/base.model';
+import { Model, schemaOptions } from '../../shared/model';
 import { InstanceType, ModelType, prop } from 'typegoose';
+import * as mongoose from 'mongoose';
 
-export class Product extends BaseModel<Product> {
+import { ObjectClass } from '../../shared/enums/object-class.enum';
+import { ProductDocument } from '../../shared/interfaces/product-document.interface';
+import TPaginatedModel from 'src/shared/paginate.model';
+
+export class Product extends Model<Product & ProductDocument> {
   @prop({ required: [true, 'Name is required'] })
   name: string;
 
@@ -31,6 +36,10 @@ export class Product extends BaseModel<Product> {
 
   @prop()
   additionalImages: string[];
+
+  @prop({
+    enum: ObjectClass,
+  }) objectClass?: ObjectClass;
 
   @prop()
   get images(): string[] {

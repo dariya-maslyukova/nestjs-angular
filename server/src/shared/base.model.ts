@@ -1,38 +1,37 @@
 import { ApiModelPropertyOptional } from '@nestjs/swagger';
-import { SchemaOptions } from 'mongoose';
-import { Typegoose, prop, pre } from 'typegoose';
+import { Model } from './model';
 
-export class BaseModelVm {
-  @ApiModelPropertyOptional({ type: String, format: 'date-time' })
-  createdAt?: Date;
-
-  @ApiModelPropertyOptional({ type: String, format: 'date-time' })
-  updatedAt?: Date;
-
-  @ApiModelPropertyOptional() id?: string;
-}
-
-@pre<T>('findOneAndUpdate', function() {
-  this._update.UpdatedAt = new Date(Date.now());
-})
-export abstract class BaseModel<T> extends Typegoose {
-  @prop()
-  @ApiModelPropertyOptional({ type: String, format: 'date-time' })
-  createdAt: Date;
-
-  @prop()
-  @ApiModelPropertyOptional({ type: String, format: 'date-time' })
-  updatedAt: Date;
+export abstract class BaseModel<T> {
+  @ApiModelPropertyOptional()
+  docs?: Model<T>;
 
   @ApiModelPropertyOptional()
-  id: string;
-}
+  totalDocs?: number;
 
-export const schemaOptions: SchemaOptions = {
-  timestamps: true,
-  autoIndex: false,
-  toJSON: {
-    virtuals: true,
-    getters: true,
-  },
-};
+  @ApiModelPropertyOptional()
+  limit?: number;
+
+  @ApiModelPropertyOptional()
+  hasPrevPage?: boolean;
+
+  @ApiModelPropertyOptional()
+  hasNextPage?: boolean;
+
+  @ApiModelPropertyOptional()
+  page?: number;
+
+  @ApiModelPropertyOptional()
+  totalPages?: number;
+
+  @ApiModelPropertyOptional()
+  offset?: number;
+
+  @ApiModelPropertyOptional()
+  pagingCounter?: number;
+
+  @ApiModelPropertyOptional()
+  prevPage?: number;
+
+  @ApiModelPropertyOptional()
+  nextPage?: number;
+}

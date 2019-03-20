@@ -1,11 +1,11 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import { IsEmail, IsEnum, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
 
-import { BaseModelVm } from '../../../shared/base.model';
-import { UserRole } from '../user-role.enum';
+import { ModelVm } from '../../../shared/model';
+import { UserRole } from '../../../shared/enums/user-role.enum';
 import { EnumToArray } from '../../../shared/utilities/enum-to-array.helper';
 
-export class UserVm extends BaseModelVm {
+export class UserVm extends ModelVm {
   @ApiModelProperty()
   @IsString()
   token: string;

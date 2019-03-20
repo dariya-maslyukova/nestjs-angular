@@ -9,7 +9,6 @@ import { UserModule } from './user/user.module';
 import { SliderModule } from './slider/slider.module';
 import { UploadModule } from './upload/upload.module';
 import { ConfigurationModule } from './shared/configuration/configuration.model';
-import { ProductController } from './product/product.controller';
 import { ProductModule } from './product/product.module';
 
 @Module({

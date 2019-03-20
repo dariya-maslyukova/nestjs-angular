@@ -7,7 +7,6 @@ import {
   InternalServerErrorException,
   Param,
   Post, Query,
-  UploadedFile,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiUseTags, ApiCreatedResponse, ApiBadRequestResponse, ApiOperation, ApiOkResponse,
   ApiImplicitQuery } from '@nestjs/swagger';
@@ -20,9 +19,13 @@ import { GetOperationId } from '../shared/utilities/get-operation-id.helper';
 import { ApiException } from '../shared/api-exception.model';
 import { ProductVm } from './models/view-models/product-vm.model';
 import { ProductParams } from './models/view-models/product-params.model';
+import { ObjectClass } from '../shared/enums/object-class.enum';
+import { EnumToArray } from '../shared/utilities/enum-to-array.helper';
+import { BaseModel } from '../shared/base.model';
+import { ProductDocument } from '../shared/interfaces/product-document.interface';
 
 @ApiUseTags(Product.modelName)
-@Controller('product')
+@Controller('products')
 @ApiBearerAuth()
 export class ProductController {
 
@@ -38,9 +41,10 @@ export class ProductController {
   })
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Product.modelName, 'Create Product'))
+  @ApiImplicitQuery({ name: 'objectClass', enum: EnumToArray(ObjectClass) })
   async create(
     @Body() params: ProductParams,
-    @UploadedFile() file,
+    @Query('objectClass') objectClass: ObjectClass = ObjectClass.Products,
   ): Promise<ProductVm> {
     const { sku } = params;
 
@@ -62,7 +66,7 @@ export class ProductController {
       mkdirSync(uploadPath);
     }
 
-    const product = await this.productService.createProduct(params);
+    const product = await this.productService.createProduct(params, objectClass);
     return this.productService.map<ProductVm>(product);
   }
 
@@ -89,17 +93,17 @@ export class ProductController {
   @Get()
   // @Roles(UserRole.Admin)
   // @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @ApiOkResponse({ type: ProductVm, isArray: true })
+  @ApiOkResponse({ type: BaseModel })
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Product.modelName, 'Get all products'))
   @ApiImplicitQuery({ name: 'sku', required: false })
   async get(
     @Query('sku') sku?: string,
-  ): Promise<ProductVm[]> {
+  ): Promise<BaseModel<ProductVm[]>> {
 
     try {
-      const products = await this.productService.findAll();
-      return this.productService.map<ProductVm[]>(map(products, product => product.toJSON()));
+      const products = await this.productService.findAll({}, 1);
+      return this.productService.map<BaseModel<ProductVm[]>>(products);
     } catch (e) {
       throw new InternalServerErrorException(e);
     }

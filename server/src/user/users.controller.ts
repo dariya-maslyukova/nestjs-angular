@@ -23,6 +23,7 @@ import { UserService } from './user.service';
 import { UserVm } from './models/view-models/user-vm.model';
 import { TodoVm } from '../todo/models/view-models/todo-vm.model';
 import { Todo } from '../todo/models/todo.model';
+import { BaseModel } from '../shared/base.model';
 
 @Controller('users')
 @ApiUseTags(User.modelName)
@@ -48,17 +49,17 @@ export class UsersController {
   @Get()
   // @Roles(UserRole.Admin)
   // @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @ApiOkResponse({ type: UserVm, isArray: true })
+  @ApiOkResponse({ type: BaseModel })
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(User.modelName, 'GetAll'))
   @ApiImplicitQuery({ name: 'id', required: false })
   async get(
     @Query('id') id?: string,
-  ): Promise<UserVm[]> {
+  ): Promise<BaseModel<UserVm[]>> {
 
     try {
       const users = await this.userService.findAll();
-      return this.userService.map<UserVm[]>(map(users, user => user.toJSON()));
+      return this.userService.map<BaseModel<UserVm[]>>(map(users));
     } catch (e) {
       throw new InternalServerErrorException(e);
     }

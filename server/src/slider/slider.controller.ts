@@ -28,6 +28,7 @@ import { SliderVm } from './models/view-models/slider-vm.model';
 import { ToBooleanPipe } from '../shared/pipes/to-boolean.pipe';
 import { SliderParams } from './models/view-models/slider-params.model';
 import { multerOptions } from '../../config/multer.config';
+import { BaseModel } from '../shared/base.model';
 
 @Controller('slider')
 @ApiUseTags(Slider.modelName)
@@ -71,13 +72,13 @@ export class SliderController {
   }
 
   @Get()
-  @ApiOkResponse({ type: SliderVm, isArray: true })
+  @ApiOkResponse({ type: BaseModel })
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Slider.modelName, 'GetAll'))
   @ApiImplicitQuery({ name: 'IsActive', required: false })
   async get(
     @Query('IsActive', new ToBooleanPipe()) IsActive?: boolean,
-  ): Promise<SliderVm[]> {
+  ): Promise<BaseModel<SliderVm[]>> {
     const filter = {};
 
     if (IsActive !== null) {
@@ -86,7 +87,7 @@ export class SliderController {
 
     try {
       const sliders = await this.sliderService.findAll(filter);
-      return this.sliderService.map<SliderVm[]>(map(sliders, slider => slider.toJSON()));
+      return this.sliderService.map<BaseModel<SliderVm[]>>(map(sliders));
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }

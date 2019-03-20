@@ -1,9 +1,10 @@
 import 'automapper-ts/dist/automapper';
 import { Types } from 'mongoose';
 import { InstanceType, ModelType, Typegoose } from 'typegoose';
+import * as mongoosePaginate from 'mongoose-paginate-v2';
 
 export abstract class BaseService<T extends Typegoose> {
-  protected model: ModelType<T>;
+  protected model: ModelType<T> & mongoosePaginate.IMongoosePaginate;
   protected mapper: AutoMapperJs.AutoMapper;
 
   private get modelName(): string {
@@ -22,8 +23,9 @@ export abstract class BaseService<T extends Typegoose> {
     return this.mapper.map(sourceKey, destinationKey, object);
   }
 
-  async findAll(filter = {}): Promise<Array<InstanceType<T>>> {
-    return this.model.find(filter).exec();
+  async findAll(filter = {}, page?): Promise<InstanceType<T[]>> {
+    return this.model.paginate({}, { page, limit: 5 });
+    // return this.model.find(filter).exec();
   }
 
   async findOne(filter = {}): Promise<InstanceType<T>> {

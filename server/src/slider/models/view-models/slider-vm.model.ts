@@ -1,7 +1,7 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
-import { BaseModelVm } from '../../../shared/base.model';
+import { ModelVm } from '../../../shared/model';
 
-export class SliderVm extends BaseModelVm {
+export class SliderVm extends ModelVm {
   @ApiModelPropertyOptional() Link: string;
   @ApiModelPropertyOptional() TopText: string;
   @ApiModelPropertyOptional() BoldText: string;

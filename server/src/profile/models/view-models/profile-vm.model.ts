@@ -1,7 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 
-import { BaseModelVm } from '../../../shared/base.model';
+import { ModelVm } from '../../../shared/model';
 
-export class ProfileVm extends BaseModelVm {
+export class ProfileVm extends ModelVm {
   @ApiModelProperty() content: string;
 }
