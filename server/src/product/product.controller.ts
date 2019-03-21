@@ -8,8 +8,10 @@ import {
   Param,
   Post, Query,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiUseTags, ApiCreatedResponse, ApiBadRequestResponse, ApiOperation, ApiOkResponse,
-  ApiImplicitQuery } from '@nestjs/swagger';
+import {
+  ApiBearerAuth, ApiUseTags, ApiCreatedResponse, ApiBadRequestResponse, ApiOperation, ApiOkResponse,
+  ApiImplicitQuery,
+} from '@nestjs/swagger';
 import { existsSync, mkdirSync } from 'fs';
 import { map } from 'lodash';
 
@@ -22,14 +24,14 @@ import { ProductParams } from './models/view-models/product-params.model';
 import { ObjectClass } from '../shared/enums/object-class.enum';
 import { EnumToArray } from '../shared/utilities/enum-to-array.helper';
 import { BaseModel } from '../shared/base.model';
-import { ProductDocument } from '../shared/interfaces/product-document.interface';
+import { Model } from '../shared/model';
 
 @ApiUseTags(Product.modelName)
 @Controller('products')
 @ApiBearerAuth()
 export class ProductController {
 
-  constructor( private readonly productService: ProductService ) {
+  constructor(private readonly productService: ProductService) {
   }
 
   @Post()
@@ -83,7 +85,7 @@ export class ProductController {
     @Param('sku') sku: number,
   ): Promise<ProductVm> {
     try {
-      const product = await this.productService.findOne({ sku }) ;
+      const product = await this.productService.findOne({ sku });
       return this.productService.map<ProductVm>(product.toJSON());
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -100,9 +102,17 @@ export class ProductController {
   async get(
     @Query('sku') sku?: string,
   ): Promise<BaseModel<ProductVm[]>> {
+    const filter = {};
 
     try {
-      const products = await this.productService.findAll({}, 1);
+      let products;
+
+      if (sku) {
+        filter['sku'] = sku;
+        products = await this.productService.findAll(filter);
+      } else {
+        products = await this.productService.findAll();
+      }
       return this.productService.map<BaseModel<ProductVm[]>>(products);
     } catch (e) {
       throw new InternalServerErrorException(e);

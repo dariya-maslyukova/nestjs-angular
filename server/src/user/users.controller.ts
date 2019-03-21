@@ -59,7 +59,7 @@ export class UsersController {
 
     try {
       const users = await this.userService.findAll();
-      return this.userService.map<BaseModel<UserVm[]>>(map(users));
+      return this.userService.map<BaseModel<UserVm[]>>(users);
     } catch (e) {
       throw new InternalServerErrorException(e);
     }

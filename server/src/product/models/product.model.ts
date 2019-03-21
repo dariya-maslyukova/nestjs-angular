@@ -1,12 +1,9 @@
-import { Model, schemaOptions } from '../../shared/model';
 import { InstanceType, ModelType, prop } from 'typegoose';
-import * as mongoose from 'mongoose';
 
+import { Model, schemaOptions } from '../../shared/model';
 import { ObjectClass } from '../../shared/enums/object-class.enum';
-import { ProductDocument } from '../../shared/interfaces/product-document.interface';
-import TPaginatedModel from 'src/shared/paginate.model';
 
-export class Product extends Model<Product & ProductDocument> {
+export class Product extends Model<Product> {
   @prop({ required: [true, 'Name is required'] })
   name: string;
 

@@ -20,7 +20,6 @@ import {
   ApiImplicitFile,
   ApiConsumes,
 } from '@nestjs/swagger';
-import { map } from 'lodash';
 import { SliderService } from './slider.service';
 import { ApiException } from '../shared/api-exception.model';
 import { GetOperationId } from '../shared/utilities/get-operation-id.helper';
@@ -87,7 +86,7 @@ export class SliderController {
 
     try {
       const sliders = await this.sliderService.findAll(filter);
-      return this.sliderService.map<BaseModel<SliderVm[]>>(map(sliders));
+      return this.sliderService.map<BaseModel<SliderVm[]>>(sliders);
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -151,13 +150,21 @@ export class SliderController {
       throw new HttpException(`${id} Not found`, HttpStatus.NOT_FOUND);
     }
 
-    exist.Image = file.path;
-    exist.Link = Link;
-    exist.TopText = TopText;
-    exist.BoldText = BoldText;
-    exist.BotText = BotText;
-    exist.CaptionText = CaptionText;
-
+    if (file) {
+      exist.Image = file.path;
+    }
+    if (vm.Link) {
+      exist.Link = Link;
+    }
+    if (vm.TopText) {
+      exist.TopText = TopText;
+    }
+    if (vm.BoldText) {
+      exist.BoldText = BoldText;
+    }
+    if (vm.CaptionText) {
+      exist.CaptionText = CaptionText;
+    }
     if (vm.IsActive !== null) {
       exist.IsActive = IsActive;
     } else {
