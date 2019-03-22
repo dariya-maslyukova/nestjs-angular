@@ -13,6 +13,7 @@ import {
   ApiImplicitQuery,
 } from '@nestjs/swagger';
 import { existsSync, mkdirSync } from 'fs';
+import { isArray, map } from 'lodash';
 
 import { ProductService } from './product.service';
 import { Product } from './models/product.model';
@@ -23,6 +24,7 @@ import { ProductParams } from './models/view-models/product-params.model';
 import { ObjectClass } from '../shared/enums/object-class.enum';
 import { EnumToArray } from '../shared/utilities/enum-to-array.helper';
 import { BaseModel } from '../shared/base.model';
+import { Category } from '../shared/enums/category.enum';
 
 @ApiUseTags(Product.modelName)
 @Controller('products')
@@ -42,9 +44,11 @@ export class ProductController {
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Product.modelName, 'Create Product'))
   @ApiImplicitQuery({ name: 'objectClass', enum: EnumToArray(ObjectClass) })
+  @ApiImplicitQuery({ name: 'categories', enum: EnumToArray(Category), required: false, isArray: true })
   async create(
     @Body() params: ProductParams,
     @Query('objectClass') objectClass: ObjectClass = ObjectClass.Products,
+    @Query('categories') categories: Category[],
   ): Promise<ProductVm> {
     const { sku } = params;
 
@@ -66,7 +70,7 @@ export class ProductController {
       mkdirSync(uploadPath);
     }
 
-    const product = await this.productService.createProduct(params, objectClass);
+    const product = await this.productService.createProduct(params, objectClass, categories);
     return this.productService.map<ProductVm>(product);
   }
 
@@ -96,27 +100,29 @@ export class ProductController {
   @ApiOkResponse({ type: BaseModel })
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Product.modelName, 'Get all products'))
-  @ApiImplicitQuery({ name: 'sku', required: false })
+  // @ApiImplicitQuery({ name: 'sku', required: false })
   @ApiImplicitQuery({ name: 'page', required: false })
   @ApiImplicitQuery({ name: 'limit', required: false })
-  // @ApiImplicitQuery({ name: 'page', required: false })
+  @ApiImplicitQuery({ name: 'category', enum: EnumToArray(Category), required: false, isArray: true })
   async get(
-    @Query('sku') sku?: string,
+    // @Query('sku') sku?: string,
     @Query('limit') limit?: string,
     @Query('page') page?: number,
+    @Query('category') category?: Category,
   ): Promise<BaseModel<ProductVm[]>> {
     const filter = {};
 
     try {
       let products;
 
-      if (sku) {
-        filter['sku'] = sku;
+      if (category) {
+        filter['categories'] = { $in: isArray(category) ? [...category] : [category] };
         products = await this.productService.findAll(filter, limit ? parseFloat(limit) : 10, page ? page : 1);
       } else {
-        products = await this.productService.findAll({}, limit ? parseFloat(limit) : 10, page ? page : 1 );
+        products = await this.productService.findAll({}, limit ? parseFloat(limit) : 10, page ? page : 1);
         // console.log(products);
       }
+
       return this.productService.map<BaseModel<ProductVm[]>>(products);
     } catch (e) {
       console.log(e);

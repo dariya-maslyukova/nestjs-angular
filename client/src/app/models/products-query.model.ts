@@ -1,20 +1,20 @@
 import { BasicQueryModel } from './basic-query.model';
-import { ProductsFilter } from '../interfaces/products-filter.interface';
+import { ProductsFilters } from '../interfaces/product/product-filters.interface';
 
 export class ProductsQueryModel extends BasicQueryModel {
-  query?: ProductsFilter = {};
+  queryParams?: ProductsFilters = {};
 
   constructor(params: any) {
     super(params);
     const attrs = [
-      'Category',
-      'Size',
-      'Color'
+      'category',
+      'size',
+      'color'
     ];
 
     attrs.forEach(attr => {
       // All attrs from this model are strings
-      this.query[attr] = typeof params[attr] === 'string' ? params[attr] : '';
+      this.queryParams[attr] = typeof params[attr] === 'string' ? params[attr] : '';
     });
   }
 }

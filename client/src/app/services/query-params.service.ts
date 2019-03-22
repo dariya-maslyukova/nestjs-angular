@@ -8,7 +8,7 @@ import { PaginationQueryPart } from '../interfaces/queries/pagination-query-part
 import { BasicQueryModel } from '../models/basic-query.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class QueryParamsService<T extends BasicQueryModel> {
 
@@ -20,8 +20,12 @@ export class QueryParamsService<T extends BasicQueryModel> {
   }
 
   set query(query: T) {
-    this._query = query;
-    this.querySubject.next(query);
+    this._query = {
+      limit: query.limit,
+      page: query.page,
+      ...query.queryParams,
+    };
+    this.querySubject.next(this._query);
   }
 
   get query$(): Observable<T> {
@@ -29,7 +33,7 @@ export class QueryParamsService<T extends BasicQueryModel> {
   }
 
   get filters(): any {
-    return this._query.query;
+    return this._query.queryParams;
   }
 
   // get tableSortPropDir(): SortPropDir[] {
@@ -66,8 +70,15 @@ export class QueryParamsService<T extends BasicQueryModel> {
         cleanQueryParams[attr] = queryParams[attr];
       });
 
-    this._query.query = cleanQueryParams;
-    this.querySubject.next(this._query);
+    this._query.queryParams = cleanQueryParams;
+
+    const queryToServer = {
+      limit: this._query.limit,
+      page: this._query.page,
+      ...this._query.queryParams,
+    };
+
+    this.querySubject.next(queryToServer);
   }
 
   // updateSortParams(sortParams: SortPropDir): void {
@@ -99,7 +110,7 @@ export class QueryParamsService<T extends BasicQueryModel> {
     const params: BasicQueryModel | any = {
       limit: this._query.limit,
       page: this._query.page,
-      ...this._query.query
+      ...this._query.queryParams,
     };
 
     // if (this._query.sorterFactoryParams) {
@@ -121,7 +132,7 @@ export class QueryParamsService<T extends BasicQueryModel> {
           ) {
             cleanParams[key] = params[key];
           }
-        }
+        },
       );
 
     return { queryParams: cleanParams };

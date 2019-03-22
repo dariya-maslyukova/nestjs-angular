@@ -1,0 +1,37 @@
+<div class="list-filters">
+  <div class="list-filters__filter">
+    <!--<ng-select-->
+      <!--class="select"-->
+      <!--[clearable]="false"-->
+      <!--[ngModel]="filters.category"-->
+      <!--[searchable]="false"-->
+      <!--[items]="categoryOptions"-->
+      <!--[loading]="!categoryOptions.length"-->
+      <!--bindLabel="label"-->
+      <!--bindValue="value"-->
+      <!--(change)="onValueChange($event, 'category')"-->
+    <!--&gt;</ng-select>-->
+
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select
+        [value]="filters.category"
+        (valueChange)="onValueChange($event, 'category')"
+       >
+        <mat-option
+          *ngFor="let option of categoryOptions"
+          [value]="option.value"
+        >
+          {{ option.label }}
+        </mat-option>
+      </mat-select>
+
+
+      <!--<mat-select [(ngModel)]="selectedValue" name="food">-->
+        <!--<mat-option *ngFor="let option of categoryOptions" [value]="option.value">-->
+          <!--{{option.value}}-->
+        <!--</mat-option>-->
+      <!--</mat-select>-->
+    </mat-form-field>
+  </div>
+</div>

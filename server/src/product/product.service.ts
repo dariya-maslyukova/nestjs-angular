@@ -7,6 +7,7 @@ import { BaseService } from '../shared/base.service';
 import { MapperService } from '../shared/mapper/mapper.service';
 import { ProductParams } from './models/view-models/product-params.model';
 import { ObjectClass } from '../shared/enums/object-class.enum';
+import { Category } from '../shared/enums/category.enum';
 
 @Injectable()
 export class ProductService extends BaseService<Product> {
@@ -20,8 +21,21 @@ export class ProductService extends BaseService<Product> {
     this.mapper = mapperService.mapper;
   }
 
-  async createProduct(params: ProductParams, objectClass: ObjectClass): Promise<Product> {
-    const { name, price, quantity, sku, categories, baseImage, description, discountPrice, additionalImages } = params;
+  async createProduct(
+    params: ProductParams,
+    objectClass: ObjectClass,
+    categories: Category[],
+  ): Promise<Product> {
+    const {
+      name,
+      price,
+      quantity,
+      sku,
+      baseImage,
+      description,
+      discountPrice,
+      additionalImages,
+    } = params;
 
     const product = Product.createModel();
 

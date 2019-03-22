@@ -22,9 +22,6 @@ export class ProductParams {
   @ApiModelPropertyOptional()
   discountPrice: number;
 
-  @ApiModelPropertyOptional({ type: Array, example: ['Women'] })
-  categories: string[];
-
   @ApiModelProperty({
     example: 1,
   })

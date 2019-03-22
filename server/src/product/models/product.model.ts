@@ -2,6 +2,7 @@ import { InstanceType, ModelType, prop } from 'typegoose';
 
 import { Model, schemaOptions } from '../../shared/model';
 import { ObjectClass } from '../../shared/enums/object-class.enum';
+import { Category } from '../../shared/enums/category.enum';
 
 export class Product extends Model<Product> {
   @prop({ required: [true, 'Name is required'] })
@@ -22,8 +23,11 @@ export class Product extends Model<Product> {
   @prop()
   discountPrice: number;
 
-  @prop()
-  categories: string[];
+  @prop({
+    enum: Category,
+    default: Category.Collection,
+  })
+  categories: Category[];
 
   @prop({ required: [true, 'Quantity is required'], default: 1 })
   quantity: number;
@@ -36,6 +40,7 @@ export class Product extends Model<Product> {
 
   @prop({
     enum: ObjectClass,
+    default: ObjectClass.Products,
   }) objectClass?: ObjectClass;
 
   @prop()

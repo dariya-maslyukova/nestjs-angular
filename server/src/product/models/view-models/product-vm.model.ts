@@ -3,6 +3,7 @@ import { ApiModelPropertyOptional, ApiModelProperty } from '@nestjs/swagger';
 import { ModelVm } from '../../../shared/model';
 import { EnumToArray } from '../../../shared/utilities/enum-to-array.helper';
 import { ObjectClass } from '../../../shared/enums/object-class.enum';
+import { Category } from '../../../shared/enums/category.enum';
 
 export class ProductVm extends ModelVm {
   @ApiModelProperty()
@@ -25,9 +26,9 @@ export class ProductVm extends ModelVm {
   @IsInt()
   readonly discountPrice: number;
 
-  @ApiModelPropertyOptional()
-  @IsString()
-  readonly categories: string[];
+  @ApiModelPropertyOptional({ enum: EnumToArray(Category) })
+  @IsEnum({ enum: EnumToArray(Category) })
+  readonly categories?: Category[];
 
   @ApiModelProperty()
   @IsInt()

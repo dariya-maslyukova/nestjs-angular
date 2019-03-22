@@ -1,7 +1,7 @@
 import { BasicQuery } from '../interfaces/queries/basic-query.interface';
 
 export class BasicQueryModel implements BasicQuery {
-  query?: any;
+  queryParams?: any;
   limit?: number;
   page?: number;
 

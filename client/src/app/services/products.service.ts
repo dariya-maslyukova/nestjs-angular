@@ -24,13 +24,13 @@ export class ProductsService {
     return this.getProducts(query);
   }
 
-  getById(id: string | string[]): Observable<DocsResponse<Product>> {
-    const query: ProductsQuery = {
-      query: { id },
-    };
-
-    return this.getProducts(query);
-  }
+  // getById(id: string | string[]): Observable<DocsResponse<Product>> {
+  //   const query: ProductsQuery = {
+  //     // queryParams: { id },
+  //   };
+  //
+  //   return this.getProducts(query);
+  // }
 
   set selectedProduct(product) {
     this._selectedProduct = product;
@@ -50,7 +50,7 @@ export class ProductsService {
   }
 
   private getProducts(query: ProductsQuery): Observable<DocsResponse<Product>> {
-    return this.as.post<DocsResponse<Product>>(
+    return this.as.get<DocsResponse<Product>>(
       CONFIG.apiUrls.Products,
       query
     );
