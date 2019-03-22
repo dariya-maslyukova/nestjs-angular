@@ -35,8 +35,8 @@ export abstract class BaseService<T extends Typegoose> {
     return this.mapper.map(sourceKey, destinationKey, (object as BaseModel<K>).docs);
   }
 
-  async findAll(filter = {}, page?, limit?): Promise<InstanceType<T[]>> {
-    return this.model.paginate(filter, {}, { page, limit });
+  async findAll(filter = {}, limit?: number, page?: number): Promise<InstanceType<T[]>> {
+    return this.model.paginate(filter, { limit, page });
     // return this.model.find(filter).exec();
   }
 

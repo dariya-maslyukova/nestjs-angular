@@ -1,4 +1,4 @@
 export interface PaginationQueryPart {
-  resultsFrom?: number;
-  resultsTo?: number;
+  limit?: number;
+  page?: number;
 }

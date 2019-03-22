@@ -13,7 +13,6 @@ import {
   ApiImplicitQuery,
 } from '@nestjs/swagger';
 import { existsSync, mkdirSync } from 'fs';
-import { map } from 'lodash';
 
 import { ProductService } from './product.service';
 import { Product } from './models/product.model';
@@ -24,7 +23,6 @@ import { ProductParams } from './models/view-models/product-params.model';
 import { ObjectClass } from '../shared/enums/object-class.enum';
 import { EnumToArray } from '../shared/utilities/enum-to-array.helper';
 import { BaseModel } from '../shared/base.model';
-import { Model } from '../shared/model';
 
 @ApiUseTags(Product.modelName)
 @Controller('products')
@@ -99,8 +97,13 @@ export class ProductController {
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Product.modelName, 'Get all products'))
   @ApiImplicitQuery({ name: 'sku', required: false })
+  @ApiImplicitQuery({ name: 'page', required: false })
+  @ApiImplicitQuery({ name: 'limit', required: false })
+  // @ApiImplicitQuery({ name: 'page', required: false })
   async get(
     @Query('sku') sku?: string,
+    @Query('limit') limit?: string,
+    @Query('page') page?: number,
   ): Promise<BaseModel<ProductVm[]>> {
     const filter = {};
 
@@ -109,12 +112,14 @@ export class ProductController {
 
       if (sku) {
         filter['sku'] = sku;
-        products = await this.productService.findAll(filter);
+        products = await this.productService.findAll(filter, limit ? parseFloat(limit) : 10, page ? page : 1);
       } else {
-        products = await this.productService.findAll();
+        products = await this.productService.findAll({}, limit ? parseFloat(limit) : 10, page ? page : 1 );
+        // console.log(products);
       }
       return this.productService.map<BaseModel<ProductVm[]>>(products);
     } catch (e) {
+      console.log(e);
       throw new InternalServerErrorException(e);
     }
   }

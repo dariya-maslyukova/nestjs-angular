@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MainRoutingModule } from './main-routing.module';
+import { CollectionRoutingModule } from './collection-routing.module';
 import { SharedModule } from '../../shared/shared.module';
+import { CollectionComponent } from './components/collection/collection.component';
 
 const MODALS = [];
 
@@ -13,15 +14,16 @@ const MODALS = [];
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MainRoutingModule,
+    CollectionRoutingModule,
     SharedModule
   ],
   providers: [
     // ModalService
   ],
   declarations: [
-    ...MODALS
+    ...MODALS,
+    CollectionComponent,
   ],
 })
-export class MainModule {
+export class CollectionModule {
 }

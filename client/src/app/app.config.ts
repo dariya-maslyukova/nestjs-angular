@@ -9,6 +9,7 @@ export const CONFIG = {
     RequestPasswordReset: '/user/password-reset',
     PasswordChange: '/user/password-change',
     HomeSlider: '/slider',
+    Products: '/products',
     MockupProducts: 'https://www.coolandsexy.com.tr/category/autoSearch/', // TODO: remove test url products later
     enums: {
     }

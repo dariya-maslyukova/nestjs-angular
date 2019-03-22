@@ -1,5 +1,5 @@
-import { SorterFactoryParams } from '../sorter-factory-params.interface';
+import { SorterFactoryParamsOrder } from '../sorter-factory-params-order.interface';
 
 export interface SortQueryPart {
-  sorterFactoryParams?: SorterFactoryParams;
+  sort?: SorterFactoryParamsOrder[];
 }

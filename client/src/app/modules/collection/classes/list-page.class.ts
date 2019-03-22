@@ -7,19 +7,17 @@ import { PaginationQueryPart } from '../../../interfaces/queries/pagination-quer
 import { QueryParamsService } from '../../../services/query-params.service';
 import { BasicQueryModel } from '../../../models/basic-query.model';
 import { Model } from '../../../interfaces/model.interface';
-import { DataResponse } from '../../../interfaces/data-response.interface';
+import { DocsResponse } from '../../../interfaces/docs-response.interface';
 
 export class ListPage<T, Q extends BasicQueryModel> implements OnDestroy {
 
   width: number;
   isLoading = false;
-  data: DataResponse<T> = {
-    response: [],
-    range: {
-      resultsFrom: 0,
-      resultsTo: 0,
-      totalLength: 0
-    },
+  response: DocsResponse<T> = {
+    docs: [],
+    limit: 32,
+    offset: 0,
+    page: 1
   };
   selectedItems: Model[] = [];
   urlParams: any;

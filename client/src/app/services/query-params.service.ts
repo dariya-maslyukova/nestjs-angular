@@ -29,7 +29,7 @@ export class QueryParamsService<T extends BasicQueryModel> {
   }
 
   get filters(): any {
-    return this._query.queryParams;
+    return this._query.query;
   }
 
   // get tableSortPropDir(): SortPropDir[] {
@@ -66,7 +66,7 @@ export class QueryParamsService<T extends BasicQueryModel> {
         cleanQueryParams[attr] = queryParams[attr];
       });
 
-    this._query.queryParams = cleanQueryParams;
+    this._query.query = cleanQueryParams;
     this.querySubject.next(this._query);
   }
 
@@ -85,8 +85,8 @@ export class QueryParamsService<T extends BasicQueryModel> {
   // }
 
   updatePaginationParams(paginationParams: PaginationQueryPart): void {
-    this._query.resultsFrom = paginationParams.resultsFrom;
-    this._query.resultsTo = paginationParams.resultsTo;
+    this._query.limit = paginationParams.limit;
+    this._query.page = paginationParams.page;
     this.querySubject.next(this._query);
   }
 
@@ -97,19 +97,19 @@ export class QueryParamsService<T extends BasicQueryModel> {
   getParamsForUrl(skipFields: string[] = []): NavigationExtras {
     const cleanParams = {};
     const params: BasicQueryModel | any = {
-      ResultsTo: this._query.resultsTo,
-      ResultsFrom: this._query.resultsFrom,
-      ...this._query.queryParams
+      limit: this._query.limit,
+      page: this._query.page,
+      ...this._query.query
     };
 
-    if (this._query.sorterFactoryParams) {
-      const sortParams = this._query.sorterFactoryParams.orderBy[ 0 ];
-
-      if (sortParams) {
-        params.sortBy = Object.values(sortParams)[ 0 ];
-        params.sortDirection = Object.keys(sortParams)[ 0 ];
-      }
-    }
+    // if (this._query.sorterFactoryParams) {
+    //   const sortParams = this._query.sorterFactoryParams.orderBy[ 0 ];
+    //
+    //   if (sortParams) {
+    //     params.sortBy = Object.values(sortParams)[ 0 ];
+    //     params.sortDirection = Object.keys(sortParams)[ 0 ];
+    //   }
+    // }
 
     Object
       .keys(params)

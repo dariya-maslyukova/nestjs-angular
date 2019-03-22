@@ -33,20 +33,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navItems: NavItem[] = [
     {
-      label: 'New',
-      route: '/new',
+      label: 'Collection',
+      route: '/collection',
     },
     {
       label: 'Women',
-      route: '/women',
+      route: '/collection/women',
     },
     {
       label: 'Men',
-      route: '/men',
+      route: '/collection/men',
     },
     {
       label: 'Sale',
-      route: '/sale',
+      route: '/collection/sale',
     }
   ];
 
