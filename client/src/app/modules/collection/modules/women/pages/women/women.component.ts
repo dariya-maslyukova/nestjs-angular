@@ -10,7 +10,6 @@ import { PaginationQueryPart } from '../../../../../../interfaces/queries/pagina
 import { ProductsQuery } from '../../../../../../interfaces/queries/products.query.interface';
 import { ProductsService } from '../../../../../../services/products.service';
 import { ProductsFilters } from '../../../../../../interfaces/product/product-filters.interface';
-// import { Category } from '../../../../../../enums/category.enum';
 
 @Component({
   selector: 'app-women',
@@ -46,13 +45,9 @@ export class WomenComponent extends ListPage<Product, ProductsQueryModel> implem
       .query$
       .pipe(takeUntil(this.destroyedSubject))
       .subscribe(query => {
-        console.log(query);
-
-        this.r.navigate(['/collection/women'], this.qps.getParamsForUrl(['category']));
+        this.r.navigate(['/collection/women'], this.qps.getParamsForUrl());
         this.isLoading = true;
-
         this.getData(query);
-        // console.log(spreadQuery);
       });
 
     /**

@@ -85,7 +85,7 @@ export class SliderController {
     }
 
     try {
-      const sliders = await this.sliderService.findAll(filter);
+      const sliders = await this.sliderService.findAll(filter, 10);
       return this.sliderService.map<BaseModel<SliderVm[]>>(sliders);
     } catch (e) {
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);

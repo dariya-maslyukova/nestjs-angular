@@ -3,6 +3,7 @@ import { Types } from 'mongoose';
 import { InstanceType, ModelType, Typegoose } from 'typegoose';
 import * as mongoosePaginate from 'mongoose-paginate-v2';
 import { BaseModel } from './base.model';
+import { SortDirection } from './enums/sort-direction.enum';
 
 export abstract class BaseService<T extends Typegoose> {
   protected model: ModelType<T> & mongoosePaginate.IMongoosePaginate;
@@ -24,19 +25,8 @@ export abstract class BaseService<T extends Typegoose> {
     return this.mapper.map(sourceKey, destinationKey, object);
   }
 
-  async mapFromBaseModel<K>(
-    object: Partial<InstanceType<T>> | Array<Partial<InstanceType<T>>>,
-    sourceKey: string = this.modelName,
-    destinationKey: string = this.viewModelName,
-  ): Promise<K> {
-    // console.log('sourceKey', sourceKey);
-    // console.log('destinationKey', destinationKey);
-    // console.log('object', (object as BaseModel<K>).docs);
-    return this.mapper.map(sourceKey, destinationKey, (object as BaseModel<K>).docs);
-  }
-
-  async findAll(filter = {}, limit?: number, page?: number): Promise<InstanceType<T[]>> {
-    return this.model.paginate(filter, { limit, page });
+  async findAll(filter = {}, limit?: number, page?: number, sort?): Promise<InstanceType<T[]>> {
+    return this.model.paginate(filter, { limit, page, sort });
     // return this.model.find(filter).exec();
   }
 

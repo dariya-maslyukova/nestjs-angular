@@ -12,7 +12,7 @@ export class Product extends Model<Product> {
     required: [true, 'SKU is required'],
     unique: true,
   })
-  sku: number;
+  sku: string;
 
   @prop()
   description: string;

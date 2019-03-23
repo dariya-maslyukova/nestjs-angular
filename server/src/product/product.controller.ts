@@ -25,6 +25,7 @@ import { ObjectClass } from '../shared/enums/object-class.enum';
 import { EnumToArray } from '../shared/utilities/enum-to-array.helper';
 import { BaseModel } from '../shared/base.model';
 import { Category } from '../shared/enums/category.enum';
+import { SortDirection } from '../shared/enums/sort-direction.enum';
 
 @ApiUseTags(Product.modelName)
 @Controller('products')
@@ -104,28 +105,63 @@ export class ProductController {
   @ApiImplicitQuery({ name: 'page', required: false })
   @ApiImplicitQuery({ name: 'limit', required: false })
   @ApiImplicitQuery({ name: 'category', enum: EnumToArray(Category), required: false, isArray: true })
+  @ApiImplicitQuery({
+    name: 'sort',
+    enum: EnumToArray(SortDirection),
+    required: false,
+    description: 'Sorting by price',
+  })
   async get(
     // @Query('sku') sku?: string,
     @Query('limit') limit?: string,
     @Query('page') page?: number,
     @Query('category') category?: Category,
+    @Query('sort') sort?: SortDirection,
   ): Promise<BaseModel<ProductVm[]>> {
-    const filter = {};
+    let filter = {};
+    const sortOptions = SortDirection;
 
     try {
       let products;
 
       if (category) {
         filter['categories'] = { $in: isArray(category) ? [...category] : [category] };
-        products = await this.productService.findAll(filter, limit ? parseFloat(limit) : 10, page ? page : 1);
+        products = await this.productService.findAll(filter,
+          limit ? parseFloat(limit) : 10,
+          page ? page : 1,
+          sort === sortOptions.ASC ? { price: sortOptions.ASC } :
+            sort === sortOptions.DESC ? { price: sortOptions.DESC } :
+              {},
+        );
+
       } else {
-        products = await this.productService.findAll({}, limit ? parseFloat(limit) : 10, page ? page : 1);
-        // console.log(products);
+        products = await this.productService.findAll({},
+          limit ? parseFloat(limit) : 10,
+          page ? page : 1,
+          sort === sortOptions.ASC ? { price: sortOptions.ASC } :
+            sort === sortOptions.DESC ? { price: sortOptions.DESC } :
+              {},
+        );
       }
 
       return this.productService.map<BaseModel<ProductVm[]>>(products);
     } catch (e) {
       console.log(e);
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  @Delete(':id')
+  // @Roles(UserRole.Admin)
+  // @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @ApiOkResponse({ type: ProductVm })
+  @ApiBadRequestResponse({ type: ApiException })
+  @ApiOperation(GetOperationId(Product.modelName, 'Delete'))
+  async delete(@Param('id') id: string): Promise<ProductVm> {
+    try {
+      const deleted = await this.productService.delete(id);
+      return this.productService.map<ProductVm>(deleted.toJSON());
+    } catch (e) {
       throw new InternalServerErrorException(e);
     }
   }

@@ -4,28 +4,46 @@ import { ProductsFilters } from '../../../../../../interfaces/product/product-fi
 import { Subject } from 'rxjs';
 import { QueryParamsService } from '../../../../../../services/query-params.service';
 import { ProductsQueryModel } from '../../../../../../models/products-query.model';
+import { FormControl } from '@angular/forms';
 import { Category } from '../../../../../../enums/category.enum';
+import { SortDirection } from '../../../../../../enums/sort-direction.enum';
 
 @Component({
   selector: 'app-women-filters',
-  templateUrl: './women-filters.component.html'
+  templateUrl: './women-filters.component.html',
 })
 export class WomenFiltersComponent implements OnInit, OnDestroy {
 
-  selectedValue;
+  sortOptions: SelectOption<SortDirection>[] = [
+    {
+      // value: SortDirection.DESC,
+      value: 'descending',
+      label: 'Low Price',
+    },
+    {
+      // value: SortDirection.ASC,
+      value: 'ascending',
+      label: 'High Price',
+    },
+  ];
+
   categoryOptions: SelectOption<Category>[] = [
     {
       value: Category.Women,
-      label: 'All'
+      label: 'All',
     },
     {
-      value: Category.Men,
-      label: 'Men'
+      value: Category.Beachwear,
+      label: 'Beachwear',
     },
     {
-      value: Category.Collection,
-      label: 'Collection'
-    }
+      value: Category.BlousesTops,
+      label: 'BlousesTops',
+    },
+    {
+      value: Category.Dresses,
+      label: 'Dresses',
+    },
   ];
 
   filters: ProductsFilters = {
@@ -33,6 +51,8 @@ export class WomenFiltersComponent implements OnInit, OnDestroy {
     size: '',
     color: '',
   };
+
+  categories = new FormControl();
 
   private destroyedSubject = new Subject<void>();
 

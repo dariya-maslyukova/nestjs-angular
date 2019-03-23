@@ -1,37 +1,44 @@
 <div class="list-filters">
-  <div class="list-filters__filter">
-    <!--<ng-select-->
-      <!--class="select"-->
-      <!--[clearable]="false"-->
-      <!--[ngModel]="filters.category"-->
-      <!--[searchable]="false"-->
-      <!--[items]="categoryOptions"-->
-      <!--[loading]="!categoryOptions.length"-->
-      <!--bindLabel="label"-->
-      <!--bindValue="value"-->
-      <!--(change)="onValueChange($event, 'category')"-->
-    <!--&gt;</ng-select>-->
-
-    <mat-form-field>
-      <mat-label>Category</mat-label>
-      <mat-select
-        [value]="filters.category"
-        (valueChange)="onValueChange($event, 'category')"
-       >
-        <mat-option
-          *ngFor="let option of categoryOptions"
-          [value]="option.value"
+  <div class="list-filters__filter d-flex justify-content-between">
+    <div class="select">
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select
+          multiple
+          [formControl]="categories"
+          [value]="filters.category"
+          (valueChange)="onValueChange($event, 'category')"
         >
-          {{ option.label }}
-        </mat-option>
-      </mat-select>
-
-
-      <!--<mat-select [(ngModel)]="selectedValue" name="food">-->
-        <!--<mat-option *ngFor="let option of categoryOptions" [value]="option.value">-->
-          <!--{{option.value}}-->
-        <!--</mat-option>-->
-      <!--</mat-select>-->
-    </mat-form-field>
+          <mat-select-trigger>
+            {{categories.value ? categories.value[0] : ''}}
+            <span *ngIf="categories.value?.length > 1" class="example-additional-selection">
+         (+{{categories.value.length - 1}} {{categories.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+          </mat-select-trigger>
+          <mat-option
+            *ngFor="let option of categoryOptions"
+            [value]="option.value"
+          >
+            {{ option.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="select">
+      <mat-form-field appearance="outline">
+        <mat-label>Sort By</mat-label>
+        <mat-select
+          [value]="filters.category"
+          (valueChange)="onValueChange($event, 'sort')"
+        >
+          <mat-option
+            *ngFor="let option of sortOptions"
+            [value]="option.value"
+          >
+            {{ option.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
 </div>

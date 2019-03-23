@@ -4,10 +4,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { HomeSlider } from '../../interfaces/home-slider.interface';
-import { HomeSliderService } from '../../services/home-slider.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+
+import { HomeSliderService } from '../../services/home-slider.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +15,7 @@ import { Subject } from 'rxjs';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  slides: HomeSlider[] = [];
+  response;
   isLoading = false;
 
   protected destroyedSubject = new Subject<void>();
@@ -33,8 +33,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.hs
       .getList()
       .pipe(takeUntil(this.destroyedSubject))
-      .subscribe((response: HomeSlider[]) => {
-        this.slides = response;
+      .subscribe(response => {
+        this.response = response;
         this.isLoading = false;
         this.cdr.detectChanges();
       });

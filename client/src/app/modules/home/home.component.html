@@ -1,2 +1,2 @@
-<app-flex-slider [items]="slides"></app-flex-slider>
+<app-flex-slider *ngIf="response" [items]="response.docs"></app-flex-slider>
 <app-animate-products-section></app-animate-products-section>

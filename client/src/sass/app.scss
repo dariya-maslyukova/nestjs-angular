@@ -30,5 +30,6 @@ $app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
 @import "components/footer";
 @import "components/flex-slider";
 @import "components/animate-product-section";
+@import "components/list/list-filters";
 
 @import "animation";

@@ -7,9 +7,9 @@ export class ProductParams {
   name: string;
 
   @ApiModelProperty({
-    example: 10000,
+    example: 'AB1207',
   })
-  sku: number;
+  sku: string;
 
   @ApiModelPropertyOptional({
     example: 'Product Description',

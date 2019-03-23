@@ -11,8 +11,8 @@ export class ProductVm extends ModelVm {
   readonly name: string;
 
   @ApiModelProperty()
-  @MinLength(5, { message: 'SKU must contain 5 numbers and be unique' })
-  readonly sku: number;
+  @MinLength(6, { message: 'SKU must contain 6 letters and be unique' })
+  readonly sku: string;
 
   @ApiModelPropertyOptional()
   @IsString()
