@@ -81,29 +81,21 @@ export class QueryParamsService<T extends BasicQueryModel> {
     this.querySubject.next(queryToServer);
   }
 
-  // updateSortParams(sortParams: SortPropDir): void {
-  //   this._query.sortFactory = 'PipelineSortFactory';
-  //   this._query.sorterFactoryParams = {
-  //     orderBy: [
-  //       {
-  //         [ sortParams.dir ===
-  //         NgxSortDirection.asc ? SortDirection.ASC : SortDirection.DESC ]: sortParams.prop as string
-  //       }
-  //     ]
-  //   };
-  //
-  //   this.querySubject.next(this._query);
-  // }
-
   updatePaginationParams(paginationParams: PaginationQueryPart): void {
     this._query.limit = paginationParams.limit;
     this._query.page = paginationParams.page;
-    this.querySubject.next(this._query);
+
+    const queryToServer = {
+      limit: this._query.limit,
+      page: this._query.page,
+      ...this._query.queryParams,
+    };
+
+    this.querySubject.next(queryToServer);
   }
 
   /**
-   * @param skipFields - Used to filter params from pasting them to url. For example when we have sub-section query
-   * And we have parent `ObjectID` already in URL
+   * @param skipFields - Used to filter params from pasting them to url.
    */
   getParamsForUrl(skipFields: string[] = []): NavigationExtras {
     const cleanParams = {};

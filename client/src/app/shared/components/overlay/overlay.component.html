@@ -1,0 +1,9 @@
+<div class="overlay" *ngIf="isActive" [@fadeInOut]>
+  <div class="overlay__backdrop"></div>
+  <div class="overlay__loader">
+    <span class="overlay__loader__text" *ngIf="text">
+      {{ text }}
+    </span>
+    <loaders-css [loader]="'ball-pulse'"></loaders-css>
+  </div>
+</div>

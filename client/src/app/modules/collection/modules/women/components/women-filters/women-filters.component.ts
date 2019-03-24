@@ -7,6 +7,8 @@ import { ProductsQueryModel } from '../../../../../../models/products-query.mode
 import { FormControl } from '@angular/forms';
 import { Category } from '../../../../../../enums/category.enum';
 import { SortDirection } from '../../../../../../enums/sort-direction.enum';
+import { Size } from '../../../../../../enums/size.enum';
+import { Color } from '../../../../../../enums/color.enum';
 
 @Component({
   selector: 'app-women-filters',
@@ -14,15 +16,43 @@ import { SortDirection } from '../../../../../../enums/sort-direction.enum';
 })
 export class WomenFiltersComponent implements OnInit, OnDestroy {
 
+  colorOptions: SelectOption<Color>[] = [
+    {
+      value: Color.Black,
+      label: 'Black',
+    },
+    {
+      value: Color.White,
+      label: 'White',
+    }
+  ];
+
+  sizeOptions: SelectOption<Size>[] = [
+    {
+      value: Size.S,
+      label: 'S',
+    },
+    {
+      value: Size.M,
+      label: 'M',
+    },
+    {
+      value: Size.L,
+      label: 'L',
+    },
+    {
+      value: Size.XL,
+      label: 'XL',
+    },
+  ];
+
   sortOptions: SelectOption<SortDirection>[] = [
     {
-      // value: SortDirection.DESC,
-      value: 'descending',
+      value: SortDirection.ASC,
       label: 'Low Price',
     },
     {
-      // value: SortDirection.ASC,
-      value: 'ascending',
+      value: SortDirection.DES,
       label: 'High Price',
     },
   ];
@@ -38,7 +68,7 @@ export class WomenFiltersComponent implements OnInit, OnDestroy {
     },
     {
       value: Category.BlousesTops,
-      label: 'BlousesTops',
+      label: 'Blouses/Tops',
     },
     {
       value: Category.Dresses,
@@ -53,6 +83,8 @@ export class WomenFiltersComponent implements OnInit, OnDestroy {
   };
 
   categories = new FormControl();
+  colors = new FormControl();
+  sizes = new FormControl();
 
   private destroyedSubject = new Subject<void>();
 

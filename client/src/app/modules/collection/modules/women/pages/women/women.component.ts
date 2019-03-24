@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { first, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ListPage } from '../../../../classes/list-page.class';
 import { Product } from '../../../../../../interfaces/product/product.interface';
 import { QueryParamsService } from '../../../../../../services/query-params.service';
 import { ProductsQueryModel } from '../../../../../../models/products-query.model';
@@ -10,13 +9,15 @@ import { PaginationQueryPart } from '../../../../../../interfaces/queries/pagina
 import { ProductsQuery } from '../../../../../../interfaces/queries/products.query.interface';
 import { ProductsService } from '../../../../../../services/products.service';
 import { ProductsFilters } from '../../../../../../interfaces/product/product-filters.interface';
+import { UtilsService } from '../../../../../../services/utils.service';
+import { GridPage } from '../../../../classes/grid-page.class';
 
 @Component({
   selector: 'app-women',
   templateUrl: './women.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WomenComponent extends ListPage<Product, ProductsQueryModel> implements OnInit {
+export class WomenComponent extends GridPage<Product, ProductsQueryModel> implements OnInit {
 
   // Initial default params
   // TODO: move default pagination params to app's config?
@@ -31,9 +32,11 @@ export class WomenComponent extends ListPage<Product, ProductsQueryModel> implem
     private ar: ActivatedRoute,
     private ps: ProductsService,
     private cdr: ChangeDetectorRef,
+    private us: UtilsService,
   ) {
     super(qps);
   }
+
 
   ngOnInit() {
     /**
@@ -76,6 +79,14 @@ export class WomenComponent extends ListPage<Product, ProductsQueryModel> implem
         this.cdr.detectChanges();
       });
 
+  }
+
+  get products(): Product[] {
+    return (this.response.docs || []);
+  }
+
+  getDetailsUrl(product: Product): string {
+    return `/women/product/${this.us.getProductSKU(product)}`;
   }
 
 

@@ -24,7 +24,7 @@ import { WomenCategoryComponent } from './pages/women-category/women-category.co
 import { WomenRoutingModule } from './women-routing.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material';
+import { MatPaginatorModule, MatSelectModule } from '@angular/material';
 
 const COMPONENTS = [
   WomenFiltersComponent,
@@ -52,6 +52,7 @@ const COMPONENTS = [
     CommonModule,
     NgSelectModule,
     MatSelectModule,
+    MatPaginatorModule,
     FormsModule,
     ReactiveFormsModule,
     BsDropdownModule,

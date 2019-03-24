@@ -1,0 +1,19 @@
+.grid-filters {
+  display: flex;
+  position: sticky;
+  z-index: 2;
+  background-color: $white;
+  margin-bottom: 20px;
+
+  &__filter {
+    width: 100%;
+  }
+
+  .select {
+    display: inline-flex;
+  }
+
+  .select + .select {
+    margin-left: em(30);
+  }
+}

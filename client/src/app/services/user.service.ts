@@ -5,7 +5,6 @@ import { Subject } from 'rxjs/internal/Subject';
 import { User } from '../interfaces/user.interface';
 import { CONFIG } from '../app.config';
 import { ApiService } from './api.service';
-import { UserResponse } from '../interfaces/user-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +38,6 @@ export class UserService {
 
   logout(): void {
     this.currentUser = null;
+    localStorage.removeItem(CONFIG.localStorageUserKey);
   }
 }

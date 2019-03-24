@@ -36,6 +36,7 @@
 
     &__link {
       cursor: pointer;
+      position: relative;
     }
 
     li {
@@ -85,7 +86,6 @@
       }
     }
   }
-
 
   &__toggle-link {
     font-family: 'Futura', sans-serif;

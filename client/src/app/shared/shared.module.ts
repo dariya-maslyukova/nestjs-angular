@@ -10,12 +10,15 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MatControlModule } from './components/mat-control/mat-control.module';
 import { FormControlModule } from './components/form-control/form-control.module';
 import { FocusBlurModule } from './directives/focus-blur/focus-blur.module';
+import { OverlayModule } from './components/overlay/overlay.module';
+import { GridPagerComponent } from './components/grid-pager/grid-pager.component';
 
 const DIRECTIVES = [];
 
 const PIPES = [];
 
 const COMPONENTS = [
+  GridPagerComponent
 ];
 
 @NgModule({
@@ -35,6 +38,7 @@ const COMPONENTS = [
     NgSelectModule,
     AngularSvgIconModule,
     LoadersCssModule,
+    OverlayModule
   ],
   exports: [
     ...COMPONENTS,
@@ -47,6 +51,7 @@ const COMPONENTS = [
     AngularSvgIconModule,
     LoadersCssModule,
     MatButtonModule,
+    OverlayModule
   ],
 })
 export class SharedModule {

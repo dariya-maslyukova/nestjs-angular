@@ -15,6 +15,7 @@ import { ToasterService } from 'angular2-toaster';
 import { AuthorizedGuard } from './guards/authorized.guard';
 import { SharedModule } from './shared/shared.module';
 import { CollectionLayoutComponent } from './components/collection-layout/collection-layout.component';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 export function appInitFactory(is: IconsService): Function {
   return () => Promise.all([
@@ -40,7 +41,8 @@ export function baseUrl(): string {
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    BsDropdownModule.forRoot()
   ],
   declarations: [
     AppComponent,

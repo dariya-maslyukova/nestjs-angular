@@ -7,6 +7,7 @@ import { diff } from 'deep-diff';
 
 import { environment } from '../../environments/environment';
 import { Model } from '../interfaces/model.interface';
+import { Product } from '../interfaces/product/product.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,11 @@ export class UtilsService {
 
   /** ObjectID has structure ID:00000. So yeah ¯\_(ツ)_/¯ */
   getId(data: Model | string): string {
-    const id = typeof data === 'object' ? data.id : data;
+    return typeof data === 'object' ? data.id : data;
+  }
 
-    return id.split(':')[ 1 ];
+  getProductSKU(data: Product): string {
+    return typeof data === 'object' ? data.sku : data;
   }
 
   /** ObjectID can be ID:00000 or NEW:00000 in case of new object creation */

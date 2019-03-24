@@ -1,1 +1,39 @@
-<app-women-filters></app-women-filters>
+<div class="page-content">
+  <app-overlay [isActive]="isLoading"></app-overlay>
+
+  <app-women-filters></app-women-filters>
+  <div class="grid">
+    <div class="grid__body">
+      <div class="row">
+        <div class="col-12 col-md-3 grid__item" *ngFor="let product of products">
+          <div class="">
+            <div class="grid__item-wrapper">
+              <div class="grid__item__image">
+                <div class="">
+                  <a [routerLink]="getDetailsUrl(product)"><img alt="" [src]="product.baseImage"></a>
+                </div>
+                <!--<button type="button" class="add-to-wishlist"><i class="fa fa-heart"></i></button>-->
+              </div>
+              <div class="grid-item__content">
+                <div class="pc-inner">
+                  <div class="grid__item__title">
+                    <a href="#">{{ product.name }}</a>
+                  </div>
+                  <a href="#">
+                    <span class="grid__item__price">{{ product.price }} $</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <mat-paginator [length]="response.totalDocs"
+                     [pageSize]="response.limit"
+                     [pageSizeOptions]="[32, 64, 96]"
+                     (page)="onPagerUpdate($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

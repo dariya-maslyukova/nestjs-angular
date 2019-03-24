@@ -32,12 +32,34 @@
             </span>
             <span class="d-none d-lg-block">Menu</span>
           </li>
-          <li>
-            <a class="h__menu__link" [routerLink]="currentUser ? '/profile' : '/auth'">
+
+          <li class="h__menu__link" *ngIf="!currentUser">
+            <span [routerLink]="'/auth'">
               <svg-icon class="d-lg-none" name="user"></svg-icon>
-              <span class="d-none d-lg-block">{{ currentUser ? userName : 'My account' }}</span>
-            </a>
+              <span class="d-none d-lg-block">My account</span>
+            </span>
           </li>
+
+          <li class="h__profile" *ngIf="currentUser">
+            <div class="h__menu__link" dropdown triggers="mouseover">
+              <span dropdownToggle>
+                <svg-icon class="d-lg-none" name="user"></svg-icon>
+                <span class="d-none d-lg-block">{{ userName }}</span>
+              </span>
+
+              <ul class="dropdown-menu" *dropdownMenu>
+                <li class="dropdown-item" *ngFor="let menuItem of profileMenu">
+                  <a [routerLink]="menuItem.route" [routerLinkActive]="'dropdown-item--active'">
+                    <span>{{ menuItem.label }}</span>
+                  </a>
+                </li>
+                <li class="dropdown-item logout-item" (click)="logout()">
+                  <span>Logout</span>
+                </li>
+              </ul>
+            </div>
+          </li>
+
           <li *ngFor="let item of userMenu">
             <a class="h__menu__link" [routerLink]="item.route">
               <svg-icon class="d-lg-none" [src]="item.icon"></svg-icon>

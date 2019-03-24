@@ -5,11 +5,13 @@ import { Subject } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+// import { AuthService } from '../../services/auth.service';
+import { DROPDOWN_ANIMATIONS } from '../../app.animations';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  animations: [...DROPDOWN_ANIMATIONS]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
@@ -28,6 +30,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
       label: 'Cart',
       route: '/cart',
       icon: 'assets/images/icons/cart.svg'
+    },
+  ];
+
+  profileMenu: NavItem[] = [
+    {
+      label: 'Profile',
+      route: '/profile',
+      icon: 'assets/images/icons/user.svg'
+    },
+    {
+      label: 'Settings',
+      route: '/settings',
+      icon: ''
     },
   ];
 
@@ -55,7 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private r: Router,
     private us: UserService,
-    private as: AuthService,
+    // private as: AuthService,
   ) {
   }
 
@@ -81,14 +96,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.as
-      .logout()
-      .subscribe(
-        () => {
-          this.us.logout();
-          this.r.navigate(['/auth']);
-        }
-      );
+    this.us.logout();
+    this.r.navigate(['/auth']);
+
+    // this.as
+    //   .logout()
+    //   .subscribe(
+    //     () => {
+    //       this.us.logout();
+    //       this.r.navigate(['/auth']);
+    //     }
+    //   );
   }
 
 

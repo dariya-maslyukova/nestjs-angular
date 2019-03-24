@@ -170,6 +170,12 @@ svg-icon {
   line-height: 22px;
   font-family: $f-secondary;
 
+  &.container {
+    @include media-breakpoint-up(xl) {
+      max-width: 1360px;
+    }
+  }
+
   h4 {
     margin-bottom: rem(30);
   }

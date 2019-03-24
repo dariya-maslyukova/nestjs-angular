@@ -1,22 +1,21 @@
 import { NavigationExtras } from '@angular/router/src/router';
 import { OnDestroy } from '@angular/core';
+import { MatPaginator } from '@angular/material';
 
 import { Subject } from 'rxjs';
 
-import { PaginationQueryPart } from '../../../interfaces/queries/pagination-query-part.interface';
 import { QueryParamsService } from '../../../services/query-params.service';
 import { BasicQueryModel } from '../../../models/basic-query.model';
 import { Model } from '../../../interfaces/model.interface';
 import { DocsResponse } from '../../../interfaces/docs-response.interface';
 
-export class ListPage<T, Q extends BasicQueryModel> implements OnDestroy {
+export class GridPage<T, Q extends BasicQueryModel> implements OnDestroy {
 
   width: number;
   isLoading = false;
   response: DocsResponse<T> = {
     docs: [],
     limit: 32,
-    offset: 0,
     page: 1
   };
   selectedItems: Model[] = [];
@@ -47,21 +46,11 @@ export class ListPage<T, Q extends BasicQueryModel> implements OnDestroy {
     return { queryParams: params };
   }
 
-  onPagerUpdate(paginationParams: PaginationQueryPart): void {
-    this.qps.updatePaginationParams(paginationParams);
+  onPagerUpdate(paginationParams: MatPaginator): void {
+    const limit = paginationParams.pageSize;
+    const page = paginationParams.pageIndex + 1;
+    this.qps.updatePaginationParams({ limit, page });
   }
-
-  // onSort(event: DatatableSortEvent): void {
-  //   const sortPropDir = event.sorts[ 0 ];
-  //
-  //   if (sortPropDir) {
-  //     this.qps.updateSortParams(sortPropDir);
-  //   }
-  // }
-
-  // get tableSortPropDir(): SortPropDir[] {
-  //   return this.qps.tableSortPropDir;
-  // }
 
   ngOnDestroy(): void {
     this.destroyedSubject.next();
