@@ -11,6 +11,7 @@ import { ProductsService } from '../../../../../../services/products.service';
 import { ProductsFilters } from '../../../../../../interfaces/product/product-filters.interface';
 import { UtilsService } from '../../../../../../services/utils.service';
 import { GridPage } from '../../../../classes/grid-page.class';
+import { WishlistService } from '../../../../../../services/wishlist.service';
 
 @Component({
   selector: 'app-women',
@@ -26,8 +27,11 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
     page: 1,
   };
 
+  isAddedToWishlist = {};
+
   constructor(
     qps: QueryParamsService<ProductsQueryModel>,
+    private ws: WishlistService,
     private r: Router,
     private ar: ActivatedRoute,
     private ps: ProductsService,
@@ -67,6 +71,8 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
       .subscribe(params => {
         this.qps.query = new ProductsQueryModel({ ...this.urlParams, ...params });
       });
+
+    this.isAddedToWishlist = this.ws.isAddedToWishlist;
   }
 
   getData(query: ProductsQuery): void {
@@ -83,6 +89,10 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
 
   get products(): Product[] {
     return (this.response.docs || []);
+  }
+
+  addToWishlist(product) {
+    this.ws.addToWishlist(product);
   }
 
   getDetailsUrl(product: Product): string {

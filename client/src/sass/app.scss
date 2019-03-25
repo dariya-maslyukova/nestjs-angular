@@ -5,6 +5,7 @@
 @import "~bootstrap/scss/bootstrap-grid";
 @import '~bootstrap/scss/mixins/_breakpoints';
 @import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/carousel";
 
 
 @import '~@angular/material/theming';
@@ -34,7 +35,7 @@ $app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
 @import "components/animate-product-section";
 @import "components/grid/grid-filters";
 @import "components/grid/grid";
-@import "components/product";
+@import "components/product/product";
 @import "components/overlay";
 @import "components/dropdowns";
 

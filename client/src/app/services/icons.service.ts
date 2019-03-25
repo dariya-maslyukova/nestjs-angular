@@ -13,6 +13,8 @@ export class IconsService {
     { url: '/assets/images/icons/search.svg', name: 'search' },
     { url: '/assets/images/icons/error.svg', name: 'error' },
     { url: '/assets/images/icons/user.svg', name: 'user' },
+    { url: '/assets/images/icons/heart.svg', name: 'heart' },
+    { url: '/assets/images/icons/heart-black.svg', name: 'heart-black' },
   ];
 
   constructor(private iconReg: SvgIconRegistryService) {

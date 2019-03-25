@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, CarouselModule } from 'ngx-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { WomenFiltersComponent } from './components/women-filters/women-filters.component';
@@ -58,7 +58,8 @@ const COMPONENTS = [
     BsDropdownModule,
     WomenRoutingModule,
     AngularSvgIconModule,
-    SharedModule
+    SharedModule,
+    CarouselModule.forRoot()
   ],
   declarations: [
     [...COMPONENTS],

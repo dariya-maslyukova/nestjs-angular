@@ -6,4 +6,5 @@ export interface NavItem {
   isDisabled?: boolean;
   secondaryRoute?: string;
   icon?: string;
+  count?: number;
 }

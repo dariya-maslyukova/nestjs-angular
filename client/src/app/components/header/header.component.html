@@ -34,10 +34,10 @@
           </li>
 
           <li class="h__menu__link" *ngIf="!currentUser">
-            <span [routerLink]="'/auth'">
+            <a [routerLink]="'/auth'">
               <svg-icon class="d-lg-none" name="user"></svg-icon>
               <span class="d-none d-lg-block">My account</span>
-            </span>
+            </a>
           </li>
 
           <li class="h__profile" *ngIf="currentUser">
@@ -63,7 +63,8 @@
           <li *ngFor="let item of userMenu">
             <a class="h__menu__link" [routerLink]="item.route">
               <svg-icon class="d-lg-none" [src]="item.icon"></svg-icon>
-              <span class="d-none d-lg-block">{{ item.label }}</span>
+              <span class="d-none d-lg-inline-block">{{ item.label }}</span>
+              <span *ngIf="item.count > 0"> ({{ item.count }})</span>
             </a>
           </li>
         </ul>

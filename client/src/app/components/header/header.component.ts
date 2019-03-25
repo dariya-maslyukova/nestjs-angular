@@ -1,19 +1,21 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { NavItem } from '../../interfaces/nav/nav-item.interface';
 import { User } from '../../interfaces/user.interface';
 import { Subject } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
-// import { AuthService } from '../../services/auth.service';
 import { DROPDOWN_ANIMATIONS } from '../../app.animations';
+import { WishlistService } from '../../services/wishlist.service';
+import { Product } from '../../interfaces/product/product.interface';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  animations: [...DROPDOWN_ANIMATIONS]
+  animations: [...DROPDOWN_ANIMATIONS],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
 
   toggleLink = false;
   toggleButton = false;
@@ -24,12 +26,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     {
       label: 'Wishlist',
       route: '/wishlist',
-      icon: 'assets/images/icons/heart.svg'
+      icon: 'assets/images/icons/heart.svg',
+      count: 0,
     },
     {
       label: 'Cart',
       route: '/cart',
-      icon: 'assets/images/icons/cart.svg'
+      icon: 'assets/images/icons/cart.svg',
+      count: 0,
     },
   ];
 
@@ -37,12 +41,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     {
       label: 'Profile',
       route: '/profile',
-      icon: 'assets/images/icons/user.svg'
+      icon: 'assets/images/icons/user.svg',
     },
     {
       label: 'Settings',
       route: '/settings',
-      icon: ''
+      icon: '',
     },
   ];
 
@@ -62,7 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     {
       label: 'Sale',
       route: '/collection/sale',
-    }
+    },
   ];
 
   private destroyedSubject = new Subject<void>();
@@ -70,20 +74,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private r: Router,
     private us: UserService,
-    // private as: AuthService,
+    private ws: WishlistService,
+    protected cdr: ChangeDetectorRef,
   ) {
   }
 
   ngOnInit() {
     this.currentUser = this.us.currentUser;
+
     this.us
       .currentUser$
       .pipe(
-        takeUntil(this.destroyedSubject)
+        takeUntil(this.destroyedSubject),
       )
       .subscribe((newUser: User) => {
         this.currentUser = newUser;
       });
+
+    this.ws.wishlistProducts$
+      .pipe(
+        takeUntil(this.destroyedSubject),
+      )
+      .subscribe((wishlistProducts: Product[]) => {
+        this.userMenu[0].count = wishlistProducts.length;
+        this.cdr.detectChanges();
+      });
+  }
+
+  ngOnChanges(): void {
+    this.cdr.detectChanges();
   }
 
   get userName(): string {
@@ -108,7 +127,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //     }
     //   );
   }
-
 
 
 }

@@ -13,5 +13,79 @@
       font-family: $f-primary;
       font-weight: 600;
     }
+
+    &__wrapper-image {
+      position: relative;
+
+      .btn {
+        &--to-wishlist {
+          position: absolute;
+          top: 20px;
+          left: 10%;
+          z-index: 1;
+        }
+
+        &.active {
+          svg-icon {
+            path, g {
+              fill: $black;
+            }
+          }
+        }
+      }
+    }
+
+    &__wrapper-content {
+      text-align: center;
+    }
+  }
+
+  .image-carousel {
+
+    .slide {
+      overflow: hidden;
+
+      .carousel-control {
+        transition: 300ms ease-out;
+        cursor: pointer;
+
+        .carousel-control-next-icon {
+          background-image: url("assets/images/arrow-right.svg");
+        }
+
+        .carousel-control-prev-icon {
+          background-image: url("assets/images/arrow-left.svg");
+        }
+
+        .carousel-control-next-icon,
+        .carousel-control-prev-icon {
+
+        }
+
+        .sr-only {
+          display: none;
+        }
+
+        &.carousel-control-prev {
+          left: -15%;
+        }
+
+        &.carousel-control-next {
+          right: -15%;
+        }
+      }
+
+      &:hover {
+        .carousel-control {
+          &.carousel-control-prev {
+            left: 0;
+          }
+
+          &.carousel-control-next {
+            right: 0;
+          }
+        }
+      }
+    }
   }
 }

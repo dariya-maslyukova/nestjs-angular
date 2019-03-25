@@ -16,14 +16,16 @@ export class GridPage<T, Q extends BasicQueryModel> implements OnDestroy {
   response: DocsResponse<T> = {
     docs: [],
     limit: 32,
-    page: 1
+    page: 1,
   };
   selectedItems: Model[] = [];
   urlParams: any;
 
   protected destroyedSubject = new Subject<void>();
 
-  constructor(protected qps: QueryParamsService<Q>) {
+  constructor(
+    protected qps: QueryParamsService<Q>
+  ) {
   }
 
   onItemsSelected({ selected }): void {
@@ -37,10 +39,10 @@ export class GridPage<T, Q extends BasicQueryModel> implements OnDestroy {
       .keys(this.urlParams)
       .forEach(
         key => {
-          if (this.urlParams[ key ] || typeof this.urlParams[ key ] === 'number') {
-            params[ key ] = this.urlParams[ key ];
+          if (this.urlParams[key] || typeof this.urlParams[key] === 'number') {
+            params[key] = this.urlParams[key];
           }
-        }
+        },
       );
 
     return { queryParams: params };
