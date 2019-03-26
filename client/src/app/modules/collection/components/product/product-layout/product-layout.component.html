@@ -1,0 +1,8 @@
+<div class="product-page">
+  <div class="page page--details"
+       [ngClass]="{'page--loading': isLoading}"
+       [@detailsRouterTransition]="getState()">
+    <app-overlay [isActive]="isLoading"></app-overlay>
+    <router-outlet *ngIf="isDataLoaded"></router-outlet>
+  </div>
+</div>

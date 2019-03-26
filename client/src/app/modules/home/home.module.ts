@@ -5,6 +5,7 @@ import { FlexSliderModule } from '../../shared/components/flex-slider/flex-slide
 import { HomeRoutingModule } from './home-routing.module';
 import { AnimateProductsSectionComponent } from './components/animate-products-section/animate-products-section.component';
 import { OwlCarouselComponent } from '../../shared/components/owl-carousel/owl-carousel.component';
+import { OverlayModule } from '../../shared/components/overlay/overlay.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { OwlCarouselComponent } from '../../shared/components/owl-carousel/owl-c
   imports: [
     CommonModule,
     FlexSliderModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    OverlayModule
   ]
 })
 export class HomeModule {

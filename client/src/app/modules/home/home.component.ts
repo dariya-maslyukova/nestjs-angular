@@ -4,19 +4,21 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { HomeSliderService } from '../../services/home-slider.service';
+import { MAIN_ROUTE_ANIMATION } from '../../app.animations';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  animations: [ MAIN_ROUTE_ANIMATION ]
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
   response;
-  isLoading = false;
+  isLoading = true;
 
   protected destroyedSubject = new Subject<void>();
 
@@ -27,15 +29,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    this.isLoading = true;
-
     this.hs
       .getList()
-      .pipe(takeUntil(this.destroyedSubject))
+      .pipe(
+        takeUntil(this.destroyedSubject),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdr.markForCheck();
+        })
+        )
       .subscribe(response => {
         this.response = response;
-        this.isLoading = false;
+        // this.isLoading = this.response.docs;
         this.cdr.detectChanges();
       });
   }

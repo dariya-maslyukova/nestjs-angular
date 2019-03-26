@@ -5,12 +5,11 @@ import { CommonModule } from '@angular/common';
 import { SitemapComponent } from './components/sitemap/sitemap.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AuthorizedGuard } from './guards/authorized.guard';
-import { CollectionLayoutComponent } from './components/collection-layout/collection-layout.component';
 
 const routes: Routes = [
   { path: '', loadChildren: './modules/home/home.module#HomeModule' },
   { path: 'auth', loadChildren: './modules/auth/auth.module#AuthModule' },
-  { path: 'collection', loadChildren: './modules/collection/collection.module#CollectionModule', component: CollectionLayoutComponent },
+  { path: 'collection', loadChildren: './modules/collection/collection.module#CollectionModule' },
   { path: 'profile', loadChildren: './modules/profile/profile.module#ProfileModule', canActivate: [AuthorizedGuard] },
   { path: 'sitemap', component: SitemapComponent },
   { path: '**', component: NotFoundComponent },

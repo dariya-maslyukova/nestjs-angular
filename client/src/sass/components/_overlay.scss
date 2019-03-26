@@ -18,9 +18,11 @@
     align-items: center;
     justify-content: center;
 
-    .ball-pulse {
+    .line-scale-pulse-out {
       > div {
-        background-color: $blue-gem;
+        background-color: $cerise;
+        width: 2px;
+        height: 30px;
       }
     }
   }

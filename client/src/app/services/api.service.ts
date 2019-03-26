@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/internal/Observable';
@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
 
@@ -15,6 +15,10 @@ export class ApiService {
 
   get<T>(url: string, params?: HttpParams | any): Observable<T> {
     return this.httpClient.get<T>(environment.apiUrl + url, { params });
+  }
+
+  getByParameterFromURL<T>(url: string, parameter?: any): Observable<T> {
+    return this.httpClient.get<T>(environment.apiUrl + url + `/${parameter}`);
   }
 
   post<T>(url: string, body?: any): Observable<T> {

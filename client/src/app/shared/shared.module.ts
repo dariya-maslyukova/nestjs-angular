@@ -12,13 +12,15 @@ import { FormControlModule } from './components/form-control/form-control.module
 import { FocusBlurModule } from './directives/focus-blur/focus-blur.module';
 import { OverlayModule } from './components/overlay/overlay.module';
 import { GridPagerComponent } from './components/grid-pager/grid-pager.component';
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 
 const DIRECTIVES = [];
 
 const PIPES = [];
 
 const COMPONENTS = [
-  GridPagerComponent
+  GridPagerComponent,
+  BreadcrumbsComponent
 ];
 
 @NgModule({

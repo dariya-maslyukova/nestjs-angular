@@ -49,8 +49,7 @@ export function baseUrl(): string {
     NotFoundComponent,
     HeaderComponent,
     FooterComponent,
-    SitemapComponent,
-    CollectionLayoutComponent
+    SitemapComponent
   ],
   providers: [
     ToasterService,

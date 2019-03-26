@@ -4,7 +4,7 @@ import { User } from '../../interfaces/user.interface';
 import { Subject } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { takeUntil } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { DROPDOWN_ANIMATIONS } from '../../app.animations';
 import { WishlistService } from '../../services/wishlist.service';
 import { Product } from '../../interfaces/product/product.interface';
@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
   navItems: NavItem[] = [
     {
       label: 'Collection',
-      route: '/collection',
+      route: '/collection/look',
     },
     {
       label: 'Women',
@@ -127,6 +127,5 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
     //     }
     //   );
   }
-
 
 }

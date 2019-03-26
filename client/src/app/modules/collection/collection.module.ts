@@ -5,8 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollectionRoutingModule } from './collection-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { CollectionComponent } from './components/collection/collection.component';
+import { CollectionLayoutComponent } from '../../components/collection-layout/collection-layout.component';
 
 const MODALS = [];
+const COMPONENTS = [
+  CollectionComponent,
+  CollectionLayoutComponent,
+];
 
 @NgModule({
   entryComponents: MODALS,
@@ -22,8 +27,8 @@ const MODALS = [];
   ],
   declarations: [
     ...MODALS,
-    CollectionComponent,
-  ],
+    ...COMPONENTS
+  ]
 })
 export class CollectionModule {
 }

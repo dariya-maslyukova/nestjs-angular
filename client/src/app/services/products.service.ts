@@ -24,13 +24,17 @@ export class ProductsService {
     return this.getProducts(query);
   }
 
-  // getById(id: string | string[]): Observable<DocsResponse<Product>> {
-  //   const query: ProductsQuery = {
-  //     // queryParams: { id },
-  //   };
-  //
-  //   return this.getProducts(query);
-  // }
+  getBySKU(sku: string): Observable<Product> {
+    return this.getProductBySku(sku);
+  }
+
+  getById(id: string): Observable<DocsResponse<Product>> {
+    const query: ProductsQuery = {
+      id,
+    };
+
+    return this.getProducts(query);
+  }
 
   set selectedProduct(product) {
     this._selectedProduct = product;
@@ -53,6 +57,13 @@ export class ProductsService {
     return this.as.get<DocsResponse<Product>>(
       CONFIG.apiUrls.Products,
       query
+    );
+  }
+
+  private getProductBySku(sku?: string): Observable<Product> {
+    return this.as.getByParameterFromURL<Product>(
+      CONFIG.apiUrls.Products,
+      sku
     );
   }
 

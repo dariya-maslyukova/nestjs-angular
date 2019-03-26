@@ -8,45 +8,45 @@ import { Category } from '../../../shared/enums/category.enum';
 export class ProductVm extends ModelVm {
   @ApiModelProperty()
   @IsString()
-  readonly name: string;
+  name: string;
 
   @ApiModelProperty()
   @MinLength(6, { message: 'SKU must contain 6 letters and be unique' })
-  readonly sku: string;
+  sku: string;
 
   @ApiModelPropertyOptional()
   @IsString()
-  readonly description: string;
+  description: string;
 
   @ApiModelProperty()
   @IsInt()
-  readonly price: number;
+  price: number;
 
   @ApiModelPropertyOptional()
   @IsInt()
-  readonly discountPrice: number;
+  discountPrice: number;
 
   @ApiModelPropertyOptional({ enum: EnumToArray(Category) })
   @IsEnum({ enum: EnumToArray(Category) })
-  readonly categories?: Category[];
+  categories?: Category[];
 
   @ApiModelProperty()
   @IsInt()
-  readonly quantity: number;
+  quantity: number;
 
   @ApiModelPropertyOptional()
   @IsString()
-  readonly baseImage: string;
+  baseImage: string;
 
   @ApiModelPropertyOptional()
   @IsArray()
-  readonly additionalImages: string[];
+  additionalImages: string[];
 
   @ApiModelPropertyOptional()
   @IsArray()
-  readonly images: string[];
+  images: string[];
 
   @ApiModelPropertyOptional({ enum: EnumToArray(ObjectClass) })
   @IsEnum({ enum: EnumToArray(ObjectClass) })
-  readonly objectClass?: ObjectClass;
+  objectClass?: ObjectClass;
 }

@@ -96,7 +96,7 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
   }
 
   getDetailsUrl(product: Product): string {
-    return `/women/product/${this.us.getProductSKU(product)}`;
+    return `/collection/women/product/${this.us.getProductSKU(product)}`;
   }
 
 

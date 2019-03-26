@@ -1,5 +1,13 @@
-<main class="content" role="main" [@mainRouterTransition]="getState(o)">
+<main class="content" role="main">
   <div class="content__body">
-    <router-outlet #o="outlet"></router-outlet>
+    <app-breadcrumbs></app-breadcrumbs>
+    <div class="page page--details"
+         [ngClass]="{'page--loading': isLoading}">
+      {{ sectionName }}
+      <app-overlay [isActive]="isLoading"></app-overlay>
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </main>
+
+

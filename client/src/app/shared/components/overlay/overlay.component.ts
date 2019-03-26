@@ -16,7 +16,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
           'void => *',
           [
             animate(
-              200,
+              300,
               style({ opacity: '1' })
             )
           ]
@@ -25,7 +25,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
           '* => void',
           [
             animate(
-              200,
+              300,
               style({ opacity: '0' })
             )
           ]

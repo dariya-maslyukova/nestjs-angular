@@ -1,12 +1,12 @@
 import {
   Body,
-  Controller, Delete,
+  Controller, Delete, FileInterceptor,
   Get,
   HttpException,
   HttpStatus,
   InternalServerErrorException,
   Param,
-  Post, Query,
+  Post, Put, Query, UploadedFile, UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiBearerAuth, ApiUseTags, ApiCreatedResponse, ApiBadRequestResponse, ApiOperation, ApiOkResponse,
@@ -85,7 +85,7 @@ export class ProductController {
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Product.modelName, 'Find product by sku'))
   async find(
-    @Param('sku') sku: number,
+    @Param('sku') sku: string,
   ): Promise<ProductVm> {
     try {
       const product = await this.productService.findOne({ sku });
@@ -177,6 +177,108 @@ export class ProductController {
       return await this.productService.clearCollection();
     } catch (e) {
       throw new InternalServerErrorException(e);
+    }
+  }
+
+  @Put()
+  @ApiOkResponse({ type: ProductVm })
+  @ApiBadRequestResponse({ type: ApiException })
+  @ApiOperation(GetOperationId(Product.modelName, 'Product Update'))
+  @ApiImplicitQuery({ name: 'objectClass', enum: EnumToArray(ObjectClass), required: false })
+  @ApiImplicitQuery({ name: 'additionalImages', required: false })
+  @ApiImplicitQuery({ name: 'baseImage', required: false })
+  @ApiImplicitQuery({ name: 'quantity', required: false })
+  @ApiImplicitQuery({ name: 'categories', enum: EnumToArray(Category), isArray: true, required: false })
+  @ApiImplicitQuery({ name: 'discountPrice', required: false })
+  @ApiImplicitQuery({ name: 'price', required: false })
+  @ApiImplicitQuery({ name: 'description', required: false })
+  @ApiImplicitQuery({ name: 'name', required: false })
+  @ApiImplicitQuery({ name: 'sku', required: false })
+  @ApiImplicitQuery({ name: 'id', required: true })
+  async update(
+    @Body('additionalImages') additionalImages: string[],
+    @Query('baseImage') baseImage: string,
+    @Query('quantity') quantity: number,
+    @Query('categories') categories: Category[] = [],
+    @Query('discountPrice') discountPrice: number,
+    @Query('price') price: number,
+    @Query('description') description: string,
+    @Query('name') name: string,
+    @Query('objectClass') objectClass: ObjectClass,
+    @Query('sku') sku: string,
+    @Query('id') id: string,
+  ): Promise<ProductVm> {
+    const vm: ProductVm = {
+      id,
+      sku,
+      objectClass,
+      name,
+      description,
+      price,
+      discountPrice,
+      categories,
+      quantity,
+      baseImage,
+      additionalImages,
+      images: [],
+    };
+
+    if (!vm || !id) {
+      throw new HttpException('Missing parameters', HttpStatus.BAD_REQUEST);
+    }
+
+    const exist = await this.productService.findById(id);
+
+    if (!vm) {
+      throw new HttpException(`${id} Not found`, HttpStatus.NOT_FOUND);
+    }
+
+    if (vm.name) {
+      exist.name = name;
+    }
+    if (vm.objectClass) {
+      exist.objectClass = objectClass;
+    }
+    if (vm.quantity) {
+      exist.quantity = quantity;
+    }
+    if (vm.price) {
+      exist.price = price;
+    }
+    if (vm.discountPrice) {
+      exist.discountPrice = discountPrice;
+    }
+    if (vm.categories) {
+      exist.categories = [];
+
+      if (typeof categories === 'string') {
+        exist.categories.push(categories);
+      } else {
+        categories.map(category => {
+          exist.categories.push(category);
+        });
+      }
+    }
+
+    if (vm.baseImage) {
+      exist.baseImage = `public/catalog/${sku}/${baseImage}`;
+      exist.images.push(exist.baseImage);
+    }
+    if (vm.description) {
+      exist.description = description;
+    }
+    if (vm.additionalImages) {
+      exist.additionalImages = additionalImages.map(img => {
+        const addImg = `public/catalog/${sku}/${img}`;
+        exist.images.push(addImg);
+        return addImg;
+      });
+    }
+
+    try {
+      return await this.productService.update(id, exist);
+    } catch (e) {
+      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
