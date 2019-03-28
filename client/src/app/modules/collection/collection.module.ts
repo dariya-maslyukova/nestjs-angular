@@ -6,11 +6,13 @@ import { CollectionRoutingModule } from './collection-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { CollectionComponent } from './components/collection/collection.component';
 import { CollectionLayoutComponent } from '../../components/collection-layout/collection-layout.component';
+import { CategoryHeaderComponent } from './components/category-header/category-header.component';
 
 const MODALS = [];
 const COMPONENTS = [
   CollectionComponent,
   CollectionLayoutComponent,
+  CategoryHeaderComponent
 ];
 
 @NgModule({
@@ -27,7 +29,7 @@ const COMPONENTS = [
   ],
   declarations: [
     ...MODALS,
-    ...COMPONENTS
+    ...COMPONENTS,
   ]
 })
 export class CollectionModule {

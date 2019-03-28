@@ -1,13 +1,36 @@
-<main class="content" role="main">
+<main class="content container-fluid" role="main">
   <div class="content__body">
-    <app-breadcrumbs></app-breadcrumbs>
-    <div class="page page--details"
-         [ngClass]="{'page--loading': isLoading}">
-      {{ sectionName }}
-      <app-overlay [isActive]="isLoading"></app-overlay>
-      <router-outlet></router-outlet>
+    <div class="page page--category">
+
+      <div
+        class="category"
+        [ngClass]="{
+          '-sidebar-collapsed': isSidebarCollapsed
+        }">
+        <app-overlay [isActive]="isLoading"></app-overlay>
+        <div class="category__header">
+          {{ sectionName }}
+          {{ sectionDescription }}
+          <app-category-header></app-category-header>
+        </div>
+        <div class="category__content">
+          <div class="row no-gutters">
+            <div class="col-12 col-md-3">
+              <app-filter-sidebar></app-filter-sidebar>
+            </div>
+            <div class="col-12 col-md-9">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+
     </div>
+
   </div>
 </main>
-
 

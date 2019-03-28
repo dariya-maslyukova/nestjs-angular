@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CategoryContentComponent } from './category-content.component';
+import { CategoryHeaderComponent } from './category-header.component';
 
-describe('CategoryContentComponent', () => {
-  let component: CategoryContentComponent;
-  let fixture: ComponentFixture<CategoryContentComponent>;
+describe('CategoryHeaderComponent', () => {
+  let component: CategoryHeaderComponent;
+  let fixture: ComponentFixture<CategoryHeaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CategoryContentComponent ]
+      declarations: [ CategoryHeaderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CategoryContentComponent);
+    fixture = TestBed.createComponent(CategoryHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

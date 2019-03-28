@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { ProductsService } from '../../../../../services/products.service';
-import { Product } from '../../../../../interfaces/product/product.interface';
 import { Subject } from 'rxjs';
+
+import { Product } from '../../../../../interfaces/product/product.interface';
 import { DetailsPageLayoutService } from '../../../../../services/details-page-layout.service';
+import { ProductsService } from '../../../../../services/products.service';
 
 @Component({
   selector: 'app-product-details',

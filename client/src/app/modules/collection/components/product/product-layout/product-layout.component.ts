@@ -1,20 +1,18 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToasterService } from 'angular2-toaster';
+import { Observable } from 'rxjs';
+
 import { ProductDetailsLayoutClass } from '../../../classes/product-details-layout.class';
 import { ProductsService } from '../../../../../services/products.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { UtilsService } from '../../../../../services/utils.service';
-import { Observable } from 'rxjs';
 import { Product } from '../../../../../interfaces/product/product.interface';
 import { ObjectClass } from '../../../../../enums/object-class.enum';
-import { DETAILS_ROUTE_ANIMATION } from '../../../../../app.animations';
 import { DetailsPageLayoutService } from '../../../../../services/details-page-layout.service';
-import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-product-layout',
-  // templateUrl: '../../templates/product-details-layout.template.html',
-  templateUrl: 'product-layout.component.html',
-  animations: [ DETAILS_ROUTE_ANIMATION ]
+  templateUrl: './product-layout.component.html',
 })
 export class ProductLayoutComponent extends ProductDetailsLayoutClass {
 

@@ -1,12 +1,6 @@
 <app-header></app-header>
-<div class="page-container" [ngClass]="{'home-page' : isHomePage}">
-  <div [ngClass]="{'container-fluid' : !isHomePage}">
+<div class="page-container">
     <router-outlet></router-outlet>
-  </div>
-
-  <!--<div [ngClass]="{'container main-content' : !isHomePage}">-->
-    <!--<router-outlet></router-outlet>-->
-  <!--</div>-->
 </div>
 <app-footer></app-footer>
 

@@ -1,31 +1,13 @@
 .page {
   position: relative;
-  // TODO: update and fix in future
-  //min-height: 200px;
-  //transition: height 0.2s linear;
-  //background-color: $white;
-  //border-radius: 4px;
-  //box-shadow: 0 1px 3px 0 transparentize($black, 0.88);
+  min-height: calc(100vh - 95px);
 
-  &.no-effect {
-    border: 0;
-    box-shadow: none;
-  }
+  .overlay__loader {
+    align-items: end;
 
-  &:not(&--details) {
-    min-height: 370px;
-  }
-
-  &--details {
-    min-height: calc(100vh - 100px);
-
-    .overlay__loader {
-      align-items: end;
-
-      loaders-css {
-        position: sticky;
-        top: 54vh;
-      }
+    loaders-css {
+      position: sticky;
+      top: 54vh;
     }
   }
 

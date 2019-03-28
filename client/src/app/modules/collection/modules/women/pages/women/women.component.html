@@ -1,49 +1,46 @@
-<div class="page-content" *ngIf="response">
-  <app-overlay [isActive]="isLoading"></app-overlay>
-
-  <app-women-filters></app-women-filters>
-  <div class="grid">
-    <div class="grid__body">
-      <div class="row">
-        <div class="col-12 col-md-3 grid__item" *ngFor="let product of products">
-          <div class="">
-            <div class="grid__item__wrapper-image">
-              <carousel
-                class="grid__item__image image-carousel"
-                [showIndicators]="false"
-                [interval]="0"
-              >
-                <slide *ngFor="let image of product.images">
-                  <a [routerLink]="getDetailsUrl(product)">
-                    <img [src]="image" alt="">
-                  </a>
-                </slide>
-              </carousel>
-              <button type="button"
-                      class="btn btn--to-wishlist"
-                      [ngClass]="{'active' : isAddedToWishlist[product.id]}"
-                      (click)="addToWishlist(product)"
-              ><svg-icon [name]="isAddedToWishlist[product.id] ? 'heart-black' : 'heart'"></svg-icon></button>
-            </div>
-              <div class="grid__item__wrapper-content">
-                <div class="pc-inner">
-                  <div class="grid__item__title">
-                    <a href="#">{{ product.name }}</a>
-                  </div>
-                  <a href="#">
-                    <span class="grid__item__price">{{ product.price }} $</span>
-                  </a>
-                </div>
+<div class="grid">
+  <div class="grid__body">
+    <div class="row no-gutters">
+      <div class="col-12 col-md-4 grid__item" *ngFor="let product of products">
+        <div class="">
+          <div class="grid__item__wrapper-image">
+            <carousel
+              class="grid__item__image image-carousel"
+              [showIndicators]="false"
+              [interval]="0"
+            >
+              <slide *ngFor="let image of product.images">
+                <a [routerLink]="getDetailsUrl(product)">
+                  <img [src]="image" alt="">
+                </a>
+              </slide>
+            </carousel>
+            <button type="button"
+                    class="btn btn--to-wishlist"
+                    [ngClass]="{'active' : isAddedToWishlist[product.id]}"
+                    (click)="addToWishlist(product)"
+            >
+              <svg-icon [name]="isAddedToWishlist[product.id] ? 'heart-black' : 'heart'"></svg-icon>
+            </button>
+          </div>
+          <div class="grid__item__wrapper-content">
+            <div class="pc-inner">
+              <div class="grid__item__title">
+                <a href="#">{{ product.name }}</a>
               </div>
+              <a href="#">
+                <span class="grid__item__price">{{ product.price }} $</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
-
-      <mat-paginator [length]="response.totalDocs"
-                     [pageSize]="response.limit"
-                     [pageSizeOptions]="[32, 64, 96]"
-                     (page)="onPagerUpdate($event)">
-      </mat-paginator>
     </div>
+
+    <mat-paginator [length]="response.totalDocs"
+                   [pageSize]="response.limit"
+                   [pageSizeOptions]="[32, 64, 96]"
+                   (page)="onPagerUpdate($event)">
+    </mat-paginator>
   </div>
 </div>

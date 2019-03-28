@@ -1,4 +1,6 @@
 export enum Category {
+  All = 'All',
+  Clear = 'Clear',
   Women = 'Women',
   Men = 'Men',
   Collection = 'Collection',

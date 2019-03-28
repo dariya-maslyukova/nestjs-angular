@@ -1,3 +1,12 @@
-<p>
-  product-details works!
-</p>
+<div class="row no-gutters">
+  <div class="col-12 col-md-8">
+    <div class="row no-gutters">
+      <div class="col-6" *ngFor="let image of product.images">
+        <span class="product__image-container">
+          <img class="img-fluid" [src]="image" alt="">
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-4"></div>
+</div>

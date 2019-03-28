@@ -12,6 +12,7 @@ import { ProductsFilters } from '../../../../../../interfaces/product/product-fi
 import { UtilsService } from '../../../../../../services/utils.service';
 import { GridPage } from '../../../../classes/grid-page.class';
 import { WishlistService } from '../../../../../../services/wishlist.service';
+import { Category } from '../../../../../../enums/category.enum';
 
 @Component({
   selector: 'app-women',
@@ -25,6 +26,7 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
   urlParams: PaginationQueryPart & ProductsFilters = {
     limit: 32,
     page: 1,
+    category: Category.Women
   };
 
   isAddedToWishlist = {};

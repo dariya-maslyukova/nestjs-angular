@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatExpansionModule,
+  MatSelectModule,
+} from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { LoadersCssModule } from 'angular2-loaders-css';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -12,7 +17,7 @@ import { FormControlModule } from './components/form-control/form-control.module
 import { FocusBlurModule } from './directives/focus-blur/focus-blur.module';
 import { OverlayModule } from './components/overlay/overlay.module';
 import { GridPagerComponent } from './components/grid-pager/grid-pager.component';
-import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { FilterSidebarComponent } from './components/filter-sidebar/filter-sidebar.component';
 
 const DIRECTIVES = [];
 
@@ -20,7 +25,7 @@ const PIPES = [];
 
 const COMPONENTS = [
   GridPagerComponent,
-  BreadcrumbsComponent
+  FilterSidebarComponent
 ];
 
 @NgModule({
@@ -40,7 +45,10 @@ const COMPONENTS = [
     NgSelectModule,
     AngularSvgIconModule,
     LoadersCssModule,
-    OverlayModule
+    OverlayModule,
+    MatSelectModule,
+    MatExpansionModule,
+    MatCheckboxModule,
   ],
   exports: [
     ...COMPONENTS,
@@ -53,7 +61,10 @@ const COMPONENTS = [
     AngularSvgIconModule,
     LoadersCssModule,
     MatButtonModule,
-    OverlayModule
+    OverlayModule,
+    MatSelectModule,
+    MatExpansionModule,
+    MatCheckboxModule,
   ],
 })
 export class SharedModule {

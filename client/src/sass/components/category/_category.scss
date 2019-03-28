@@ -1,0 +1,10 @@
+.category {
+
+  &__content {
+    display: flex;
+
+    .row {
+      width: 100%;
+    }
+  }
+}

@@ -6,6 +6,7 @@
 @import '~bootstrap/scss/mixins/_breakpoints';
 @import "~bootstrap/scss/dropdown";
 @import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/images";
 
 
 @import '~@angular/material/theming';
@@ -41,5 +42,7 @@ $app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
 @import "components/product/product";
 @import "components/overlay";
 @import "components/dropdowns";
+@import "components/breadcrumbs";
+@import "components/category/category";
 
 @import "animation";

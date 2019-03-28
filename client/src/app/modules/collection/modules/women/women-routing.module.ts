@@ -31,7 +31,7 @@ const routing: Routes = [
   },
   {
     path: '', component: WomenComponent,
-    data: { state: 'women' },
+    data: { state: 'women', breadcrumb: 'Women' },
     children: [
       {
         path: 'dresses',
