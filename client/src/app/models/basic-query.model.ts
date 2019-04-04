@@ -4,13 +4,15 @@ export class BasicQueryModel implements BasicQuery {
   queryParams?: any;
   limit?: number;
   page?: number;
+  category?: string;
 
   /* tslint:enable variable-name */
 
   constructor(params: any) {
     const attrs = [
       'limit',
-      'page'
+      'page',
+      'category'
     ];
 
     attrs.forEach(attr => {

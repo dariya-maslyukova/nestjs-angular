@@ -1,15 +1,17 @@
-<div class="row no-gutters align-items-center">
+<div class="row no-gutters align-items-center" *ngIf="totalFound">
   <div class="col">
-    Show filters
+    <span class="sidebar--toggle-link" (click)="toggleSidebar($event)">Show filters <i class="icon icon__select-arrow"></i></span>
   </div>
   <div class="col text-center">
-    items found
+    {{ totalFound }} items found
   </div>
   <div class="col d-flex justify-content-end">
-    <div class="select">
+    <div class="form-group no-styles">
+      <label>Order by: </label>
       <mat-form-field>
-        <mat-label>Order by</mat-label>
         <mat-select
+          disableRipple
+          [value]="filters.sort"
           (valueChange)="onValueChange($event, 'sort')"
         >
           <mat-option

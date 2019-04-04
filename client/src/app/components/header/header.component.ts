@@ -4,10 +4,10 @@ import { User } from '../../interfaces/user.interface';
 import { Subject } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { takeUntil } from 'rxjs/operators';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { DROPDOWN_ANIMATIONS } from '../../app.animations';
 import { WishlistService } from '../../services/wishlist.service';
-import { Product } from '../../interfaces/product/product.interface';
+import { DropdownService } from '../../services/dropdown.service';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +15,7 @@ import { Product } from '../../interfaces/product/product.interface';
   animations: [...DROPDOWN_ANIMATIONS],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   toggleLink = false;
   toggleButton = false;
@@ -75,7 +75,8 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
     private r: Router,
     private us: UserService,
     private ws: WishlistService,
-    protected cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
+    private ds: DropdownService,
   ) {
   }
 
@@ -95,37 +96,29 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
       .pipe(
         takeUntil(this.destroyedSubject),
       )
-      .subscribe((wishlistProducts: Product[]) => {
-        this.userMenu[0].count = wishlistProducts.length;
+      .subscribe(products => {
+        this.userMenu[0].count = products.length;
         this.cdr.detectChanges();
       });
-  }
-
-  ngOnChanges(): void {
-    this.cdr.detectChanges();
   }
 
   get userName(): string {
     return this.currentUser.FullName;
   }
 
-  ngOnDestroy(): void {
-    this.destroyedSubject.next();
-    this.destroyedSubject.complete();
+  toggleDropdown(event: Event): void {
+    event.stopPropagation();
+    this.ds.toggleDropdown();
   }
 
   logout(): void {
     this.us.logout();
     this.r.navigate(['/auth']);
+  }
 
-    // this.as
-    //   .logout()
-    //   .subscribe(
-    //     () => {
-    //       this.us.logout();
-    //       this.r.navigate(['/auth']);
-    //     }
-    //   );
+  ngOnDestroy(): void {
+    this.destroyedSubject.next();
+    this.destroyedSubject.complete();
   }
 
 }

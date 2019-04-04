@@ -6,8 +6,6 @@ import { Subject } from 'rxjs';
 import { ApiService } from './api.service';
 import { CONFIG } from '../app.config';
 import { Product } from '../interfaces/product/product.interface';
-import { ProductsQuery } from '../interfaces/queries/products.query.interface';
-import { DocsResponse } from '../interfaces/docs-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,20 +18,8 @@ export class ProductsService {
   constructor(private as: ApiService) {
   }
 
-  getList(query: ProductsQuery = {} as ProductsQuery): Observable<DocsResponse<Product>> {
-    return this.getProducts(query);
-  }
-
   getBySKU(sku: string): Observable<Product> {
     return this.getProductBySku(sku);
-  }
-
-  getById(id: string): Observable<DocsResponse<Product>> {
-    const query: ProductsQuery = {
-      id,
-    };
-
-    return this.getProducts(query);
   }
 
   set selectedProduct(product) {
@@ -53,12 +39,6 @@ export class ProductsService {
     this.selectedProduct = null;
   }
 
-  private getProducts(query: ProductsQuery): Observable<DocsResponse<Product>> {
-    return this.as.get<DocsResponse<Product>>(
-      CONFIG.apiUrls.Products,
-      query
-    );
-  }
 
   private getProductBySku(sku?: string): Observable<Product> {
     return this.as.getByParameterFromURL<Product>(

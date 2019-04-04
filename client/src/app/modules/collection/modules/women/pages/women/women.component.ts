@@ -5,14 +5,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../../../../../interfaces/product/product.interface';
 import { QueryParamsService } from '../../../../../../services/query-params.service';
 import { ProductsQueryModel } from '../../../../../../models/products-query.model';
-import { PaginationQueryPart } from '../../../../../../interfaces/queries/pagination-query-part.interface';
-import { ProductsQuery } from '../../../../../../interfaces/queries/products.query.interface';
-import { ProductsService } from '../../../../../../services/products.service';
-import { ProductsFilters } from '../../../../../../interfaces/product/product-filters.interface';
 import { UtilsService } from '../../../../../../services/utils.service';
 import { GridPage } from '../../../../classes/grid-page.class';
 import { WishlistService } from '../../../../../../services/wishlist.service';
+import { CategoryService } from '../../../../../../services/category.service';
 import { Category } from '../../../../../../enums/category.enum';
+import { ProductsFilters } from '../../../../../../interfaces/product/product-filters.interface';
+import { PaginationQueryPart } from '../../../../../../interfaces/queries/pagination-query-part.interface';
+import { DetailsPageLayoutService } from '../../../../../../services/details-page-layout.service';
+import { DocsResponse } from '../../../../../../interfaces/docs-response.interface';
 
 @Component({
   selector: 'app-women',
@@ -26,9 +27,10 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
   urlParams: PaginationQueryPart & ProductsFilters = {
     limit: 32,
     page: 1,
-    category: Category.Women
+    category: Category.Women,
   };
 
+  response: DocsResponse<Product[]>;
   isAddedToWishlist = {};
 
   constructor(
@@ -36,11 +38,12 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
     private ws: WishlistService,
     private r: Router,
     private ar: ActivatedRoute,
-    private ps: ProductsService,
+    cs: CategoryService,
     private cdr: ChangeDetectorRef,
     private us: UtilsService,
+    private dpls: DetailsPageLayoutService
   ) {
-    super(qps);
+    super(qps, cs);
   }
 
 
@@ -53,10 +56,8 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
     this.qps
       .query$
       .pipe(takeUntil(this.destroyedSubject))
-      .subscribe(query => {
+      .subscribe(() => {
         this.r.navigate(['/collection/women'], this.qps.getParamsForUrl());
-        this.isLoading = true;
-        this.getData(query);
       });
 
     /**
@@ -74,23 +75,24 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
         this.qps.query = new ProductsQueryModel({ ...this.urlParams, ...params });
       });
 
+    this.cs
+      .selectedCategoryProducts$
+      .pipe(takeUntil(this.destroyedSubject))
+      .subscribe(response => {
+        this.loadCategory(response);
+        this.cs.totalFoundProducts = response ? response.totalDocs : 0;
+        this.cdr.markForCheck();
+
+      });
+
     this.isAddedToWishlist = this.ws.isAddedToWishlist;
   }
 
-  getData(query: ProductsQuery): void {
-
-    this.ps.getList(query)
-      .pipe(takeUntil(this.destroyedSubject))
-      .subscribe(response => {
-        this.response = response;
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      });
-
-  }
-
-  get products(): Product[] {
-    return (this.response.docs || []);
+  loadCategory(response: DocsResponse<Product[]>) {
+    if (response) {
+      this.response = response;
+      this.dpls.isLoading = false;
+    }
   }
 
   addToWishlist(product) {

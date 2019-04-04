@@ -7,12 +7,18 @@ import { SharedModule } from '../../shared/shared.module';
 import { CollectionComponent } from './components/collection/collection.component';
 import { CollectionLayoutComponent } from '../../components/collection-layout/collection-layout.component';
 import { CategoryHeaderComponent } from './components/category-header/category-header.component';
+import { ModalService } from '../../services/modal.service';
+import { CarouselModalComponent } from './components/carousel-modal/carousel-modal.component';
+import { CarouselModule, ModalModule } from 'ngx-bootstrap';
 
-const MODALS = [];
+const MODALS = [
+  CarouselModalComponent,
+];
+
 const COMPONENTS = [
   CollectionComponent,
   CollectionLayoutComponent,
-  CategoryHeaderComponent
+  CategoryHeaderComponent,
 ];
 
 @NgModule({
@@ -22,14 +28,16 @@ const COMPONENTS = [
     FormsModule,
     ReactiveFormsModule,
     CollectionRoutingModule,
-    SharedModule
+    SharedModule,
+    CarouselModule,
+    ModalModule.forRoot(),
   ],
   providers: [
-    // ModalService
+    ModalService
   ],
   declarations: [
     ...MODALS,
-    ...COMPONENTS,
+    ...COMPONENTS
   ]
 })
 export class CollectionModule {

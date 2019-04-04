@@ -2,12 +2,13 @@
   min-height: -webkit-calc(100vh - 95px);
   min-height: -moz-calc(100vh - 95px);
   min-height: calc(100vh - 95px);
-  padding-top: 100px;
   background: $white;
   box-shadow:   0 8px 6px -6px rgba(0, 0, 0, 0.1);
   max-width: 1920px;
   margin-left: auto;
   margin-right: auto;
+  font-size: 15px;
+  padding: 100px 3px 50px 3px;
 
   @include media-breakpoint-down(lg) {
     min-height: 500px;
@@ -18,15 +19,14 @@
   }
 }
 
-.content {
+.main-content {
+  padding-top: 50px;
   padding-bottom: 50px;
-  font-size: 14px;
-  line-height: 22px;
-  font-family: $f-secondary;
 
-  &.container-fluid {
-    padding-left: 5px;
-    padding-right: 5px;
+  &.container {
+    @include media-breakpoint-up(xl) {
+      max-width: 1360px;
+    }
   }
 
   h4 {
@@ -43,5 +43,35 @@
     li {
       list-style: circle;
     }
+  }
+}
+
+.no-gutters {
+  margin-right: -3px;
+  margin-left: -3px;
+  & > .col,
+  & > [class*="col-"] {
+    padding-right: 3px;
+    padding-left: 3px;
+  }
+}
+
+.inner-container {
+  padding-left: rem(25);
+  padding-right: rem(25);
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.title-with-icon {
+  position: relative;
+  padding-right: em(40);
+
+  i, .icon {
+    position: absolute;
+    right: 0;
+    top: 5px;
   }
 }

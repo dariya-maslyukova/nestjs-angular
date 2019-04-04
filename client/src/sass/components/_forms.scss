@@ -13,6 +13,77 @@ $input-font-size: 13px;
   margin-bottom: rem(30);
 }
 
+.form-group {
+  display: flex;
+  align-items: baseline;
+
+  app-mat-control {
+    width: 100%;
+  }
+
+  label {
+    display: inline-flex;
+    margin-right: 10px;
+  }
+
+  .mat-select-arrow {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid;
+    color: $shark;
+  }
+
+  &.no-styles {
+    .mat-form-field-infix {
+      padding: 0;
+      border: 0;
+      width: 125px;
+    }
+
+
+    .mat-form-field-appearance-legacy {
+      .mat-form-field-underline {
+        display: none;
+      }
+
+      .mat-form-field-wrapper {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+
+  .mat-form-field {
+    font-family: $f-main;
+  }
+
+  .mat-select {
+    font-family: inherit;
+  }
+}
+
+.checkbox {
+  .mat-checkbox-inner-container {
+    width: 14px;
+    height: 14px;
+  }
+  .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-radius: 0;
+  }
+
+  .mat-checkbox-frame {
+    border-width: 1.2px;
+    border-color: $shark;
+  }
+
+  .mat-checkbox-layout {
+    padding: 5px 0;
+  }
+}
+
+
+
 label {
   color: $shark;
 
@@ -40,10 +111,6 @@ textarea {
     color: $manatee;
   }
   font-size: $input-font-size;
-
-  &.lg-textarea {
-    height: 100px !important;
-  }
 }
 
 .form-control {
@@ -58,88 +125,5 @@ textarea {
   &:disabled {
     color: $shark-light;
     background-color: $hint-of-red;
-  }
-}
-
-
-.form-control-wrapper {
-  position: relative;
-
-  &--error,
-  &.-highlighted {
-    .form-control {
-
-      border-color: $radical-red !important;
-    }
-
-    .form-control-wrapper__excl-mark {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .ng-select-container,
-    .ng-editable-select-wrapper-input,
-    .form-control {
-      border-color: $radical-red !important;
-
-      &.ng-editable-select-wrapper-search {
-        border-color: $white-smoke !important;
-      }
-    }
-  }
-
-  .form-control {
-    position: relative;
-    transition: border-color 0.2s linear;
-    box-shadow: none;
-  }
-
-  .ng-select-container {
-    transition: border-color 0.2s linear;
-  }
-
-  &__excl-mark {
-    display: inline-block;
-    position: absolute;
-    top: 12px;
-    right: 10px;
-    z-index: 2;
-    width: 15px;
-    height: 15px;
-    transition: opacity 0.2s linear;
-    font-size: 12px;
-    line-height: 15px;
-    color: $white;
-    text-align: center;
-    background-color: $white;
-    border-radius: 8px;
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  &__error {
-    position: absolute;
-    top: -9px;
-    left: 0;
-    padding: 9px 12px;
-    font-size: 13px;
-    color: $radical-red;
-    background-color: $white;
-    border: 1px solid $white-smoke;
-    transform: translateY(-100%);
-    box-shadow: 0 -3px 26px 0 transparentize($black, 0.88);
-
-    &:before {
-      content: "";
-      display: inline-block;
-      position: absolute;
-      bottom: -5px;
-      width: 10px;
-      height: 10px;
-      background-color: $white;
-      border-bottom: 1px solid $white-smoke;
-      border-left: 1px solid $white-smoke;
-      transform: rotate(-45deg);
-    }
   }
 }

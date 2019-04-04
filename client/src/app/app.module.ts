@@ -3,6 +3,8 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BsDropdownModule, ModalModule } from 'ngx-bootstrap';
+import { ToasterService } from 'angular2-toaster';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,11 +13,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SitemapComponent } from './components/sitemap/sitemap.component';
 import { IconsService } from './services/icons.service';
-import { ToasterService } from 'angular2-toaster';
 import { AuthorizedGuard } from './guards/authorized.guard';
 import { SharedModule } from './shared/shared.module';
-import { CollectionLayoutComponent } from './components/collection-layout/collection-layout.component';
-import { BsDropdownModule } from 'ngx-bootstrap';
 
 export function appInitFactory(is: IconsService): Function {
   return () => Promise.all([
@@ -42,7 +41,8 @@ export function baseUrl(): string {
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
   ],
   declarations: [
     AppComponent,

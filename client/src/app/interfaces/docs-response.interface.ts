@@ -1,7 +1,7 @@
 import { Model } from './model.interface';
 
 export interface DocsResponse<T = Model> {
-  docs: T[];
+  docs: T;
   totalDocs?: number;
   limit: number;
   page: number;

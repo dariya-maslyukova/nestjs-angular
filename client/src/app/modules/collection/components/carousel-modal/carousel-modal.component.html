@@ -1,0 +1,18 @@
+<div class="modal-body">
+  <app-overlay [isActive]="isLoading"></app-overlay>
+  <span class="close-icon"><i class="icon icon__plus icon__plus--close icon__plus--bright icon--large"
+                              (click)="close(modalCloseResult.DISMISS)"></i></span>
+
+    <carousel
+      class="image-carousel"
+      [showIndicators]="false"
+      [interval]="0"
+      [(activeSlide)]="activeSlide"
+    >
+      <slide *ngFor="let image of images"
+             [id]="slideId"
+             (click)="close(modalCloseResult.DISMISS)">
+        <img [src]="image" alt="">
+      </slide>
+    </carousel>
+</div>

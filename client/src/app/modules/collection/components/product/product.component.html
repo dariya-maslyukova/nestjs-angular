@@ -1,0 +1,157 @@
+<div class="row no-gutters">
+  <div class="col-12 col-md-8">
+    <div class="row no-gutters product__image-container">
+      <div class="col-6" *ngFor="let image of product.images; let i = index">
+        <span class="product__image-link" (click)="openCarouselModal(product.images, i)">
+          <img class="img-fluid" [src]="image" alt="">
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-4">
+    <section class="product__info-container">
+      <div class="text-center">
+        <div class="product__brand">EMPORIO ARMANI</div>
+        <div class="product__title">{{ product.name }}</div>
+        <div class="product__price">{{ product.price }} $</div>
+        <div class="product__description">
+          Between office appointments and evening plans, finding the right balance for your clothing is almost mission
+          impossible: But Emporio Armani has managed to create the perfect dress to navigate between work and play. The
+          combination of feminine lines and contemporary details is, in fact, the winning choice.
+        </div>
+      </div>
+
+      <form [formGroup]="form">
+        <mat-accordion class="accordion" displayMode="flat" multi>
+          <mat-expansion-panel class="accordion__panel" expanded>
+            <mat-expansion-panel-header class="accordion__header">
+              <mat-panel-title class="accordion__header__title">
+                Color: <span *ngIf="form.get('Color.Value').value">{{ form.get('Color.Value').value }}</span>
+                <span class="grey-text" *ngIf="!form.get('Color.Value').value"> Please select a size</span>
+                <i class="icon icon__down"></i>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+              <section class="accordion__content">
+                <div class="form-group" formGroupName="Color">
+                  <mat-radio-group aria-label="Select an option" formControlName="Value">
+                    <mat-radio-button
+                      *ngFor="let option of colorOptions;"
+                      class="checkbox"
+                      [disableRipple]="true"
+                      (change)="onOptionsCheckToCart($event, 'color')"
+                      [value]="option.value"
+                    >{{ option.label }}</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </section>
+            </ng-template>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="accordion__panel" expanded>
+            <mat-expansion-panel-header class="accordion__header">
+              <mat-panel-title class="accordion__header__title">
+                Size: <span *ngIf="form.get('Size.Value').value">{{ form.get('Size.Value').value }}</span>
+                <span class="grey-text" *ngIf="!form.get('Size.Value').value"> Please select a size</span>
+                <i class="icon icon__down"></i>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+              <section class="accordion__content">
+                <div class="form-group" formGroupName="Size">
+                  <mat-radio-group aria-label="Select an option" formControlName="Value">
+                    <mat-radio-button
+                      *ngFor="let option of sizeOptions;"
+                      class="checkbox"
+                      [disableRipple]="true"
+                      (change)="onOptionsCheckToCart($event, 'size')"
+                      [value]="option.value"
+                    >{{ option.label }}</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </section>
+            </ng-template>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+
+        <div class="product__buttons">
+          <button class="btn btn-full btn--secondary"
+                  type="button"
+                  (click)="addOptionsToCart()"
+                  [disabled]="form.invalid"
+          ><span>Add to Shopping Bag</span>
+            <!--<loaders-css [loader]="'ball-pulse'" *ngIf="isLoading"></loaders-css>-->
+          </button>
+          <button class="btn btn-full btn--primary no-animation" type="button">
+            <svg-icon name="heart" class="mr-3"></svg-icon>
+            <span>Add to Wish List</span>
+            <!--<loaders-css [loader]="'ball-pulse'" *ngIf="isLoading"></loaders-css>-->
+          </button>
+        </div>
+      </form>
+
+      <mat-accordion class="accordion" displayMode="flat">
+        <mat-expansion-panel class="accordion__panel">
+          <mat-expansion-panel-header class="accordion__header">
+            <mat-panel-title class="accordion__header__title">Details</mat-panel-title>
+            <i class="icon icon__plus"></i>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <section class="accordion__content">
+              {{ product.description }}
+            </section>
+          </ng-template>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="accordion__panel">
+          <mat-expansion-panel-header class="accordion__header">
+            <mat-panel-title class="accordion__header__title">Shipping & Returns</mat-panel-title>
+            <i class="icon icon__plus"></i>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <section class="accordion__content">
+              <p>Express Shipping</p>
+              <p>Delivery in 3-6 working days</p>
+              <p>You may be required to pay additional import fees, taxes, brokerage fees, handling fees and/or other
+                duties specific to the destination Country in order to receive your order. These additional fees cannot
+                be
+                collected by us, nor are they controlled in any way by our Online Store. Please remember that this is
+                not
+                the shipping fee: shipping costs are included in the price you already paid to us.</p>
+              <p>
+                <b>Easy returns</b><br>
+                You have 30 days from delivery to follow our quick and easy return procedure. Send your returns with a
+                shipping service of your choice, making sure that they reach our warehouse within 30 days of delivery.
+                The
+                shipping cost is at your expense. You can find more information in ‎‎Returns and Refunds‎‎.
+              </p>
+            </section>
+          </ng-template>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="accordion__panel">
+          <mat-expansion-panel-header class="accordion__header">
+            <mat-panel-title class="accordion__header__title">Share</mat-panel-title>
+            <i class="icon icon__plus"></i>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <section class="accordion__content product__social">
+              <a href="">
+                <svg-icon name="facebook"></svg-icon>
+              </a>
+              <a href="">
+                <svg-icon name="instagram"></svg-icon>
+              </a>
+              <a href="">
+                <svg-icon name="google"></svg-icon>
+              </a>
+              <a href="">
+                <svg-icon name="twitter"></svg-icon>
+              </a>
+            </section>
+          </ng-template>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <div class="product__code">Product code: {{ product.sku }}</div>
+
+    </section>
+  </div>
+</div>

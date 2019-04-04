@@ -1,0 +1,81 @@
+<div class="sidebar" [ngClass]="sidebarClasses">
+  <section class="sidebar__section">
+    <div class="sidebar__section__title">
+      <h6 class="title-with-icon mb-0">Filter By <i class="icon icon__plus icon__plus--close" (click)="onCloseSidebar($event)"></i></h6>
+    </div>
+    <div class="sidebar__section__content">
+      <div class="sidebar__section__content__inner">
+        <mat-accordion class="accordion" displayMode="flat">
+          <mat-expansion-panel [expanded]="0" hideToggle class="accordion__panel">
+            <mat-expansion-panel-header class="accordion__header">
+              <mat-panel-title class="accordion__header__title">Category</mat-panel-title>
+              <i class="icon icon__plus"></i>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+              <section class="accordion__content d-flex justify-content-between">
+                <div class="checkbox-group">
+                  <div *ngFor="let option of categoryOptions;">
+                    <mat-checkbox
+                      class="checkbox"
+                      [disableRipple]="true"
+                      (change)="onValueChange($event, 'category')"
+                      [value]="option.value"
+                      #categoryFilter
+                    >{{ option.label }}</mat-checkbox>
+                  </div>
+                </div>
+                <span class="action-link" (click)="onClearFilter('category')">Clear</span>
+              </section>
+            </ng-template>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel class="accordion__panel">
+            <mat-expansion-panel-header class="accordion__header">
+              <mat-panel-title class="accordion__header__title">Color</mat-panel-title>
+              <i class="icon icon__plus"></i>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+              <section class="accordion__content d-flex justify-content-between">
+                <div class="checkbox-group">
+                  <div *ngFor="let option of colorOptions;">
+                    <mat-checkbox
+                      class="checkbox"
+                      [disableRipple]="true"
+                      (change)="onValueChange($event, 'color')"
+                      [value]="option.value"
+                      #colorFilter
+                    >{{ option.label }}</mat-checkbox>
+                  </div>
+                </div>
+                <span class="action-link" (click)="onClearFilter('color')">Clear</span>
+              </section>
+            </ng-template>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel class="accordion__panel">
+            <mat-expansion-panel-header class="accordion__header">
+              <mat-panel-title class="accordion__header__title">Size</mat-panel-title>
+              <i class="icon icon__plus"></i>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+              <section class="accordion__content d-flex justify-content-between">
+                <div class="checkbox-group">
+                  <div *ngFor="let option of sizeOptions;">
+                    <mat-checkbox
+                      class="checkbox"
+                      [disableRipple]="true"
+                      (change)="onValueChange($event, 'size')"
+                      [value]="option.value"
+                      #sizeFilter
+                    >{{ option.label }}</mat-checkbox>
+                  </div>
+                </div>
+                <span class="action-link" (click)="onClearFilter('size')">Clear</span>
+              </section>
+            </ng-template>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </section>
+</div>

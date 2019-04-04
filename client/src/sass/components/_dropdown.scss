@@ -1,0 +1,129 @@
+.dropdown {
+  position: fixed;
+  top: 0;
+  right: -40.625em;
+  width: 100%;
+  max-width: 40.625em;
+  background: $black;
+  z-index: 12;
+  height: 100%;
+  color: $white;
+  padding: em(50) em(40);
+  transition: 0.75s;
+  text-transform: none;
+
+  &--open {
+    right: 0;
+  }
+
+  &__content-empty {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+
+    .btn {
+      margin-top: em(35);
+    }
+  }
+
+  &__title {
+    padding-bottom: rem(25);
+    border-bottom: 1px solid $white;
+    margin-bottom: rem(40);
+    font-size: 18px;
+  }
+
+  &__item {
+    display: flex;
+    margin-bottom: rem(40);
+
+    &--remove {
+      margin-top: 6px;
+      cursor: pointer;
+    }
+
+    &__image {
+      width: 80px;
+      border: 1px solid $white;
+      padding: 3px;
+    }
+
+    &__info {
+      width: calc(100% - 80px);
+      padding-left: rem(25);
+      font-family: $f-primary;
+      padding-top: 7px;
+
+      &__name {
+        font-size: 17px;
+        letter-spacing: 1.2px;
+      }
+
+      &__price {
+        font-family: $f-main;
+        font-size: 20px;
+        margin-bottom: rem(20);
+      }
+
+      span {
+        display: block;
+      }
+
+      span + span {
+        margin-top: 7px;
+      }
+    }
+  }
+
+  h2 {
+    margin-bottom: rem(30);
+    letter-spacing: rem(5.5);
+  }
+
+  h5 {
+    font-family: $f-secondary;
+  }
+
+  &__buttons {
+    margin-top: rem(50);
+    display: flex;
+    justify-content: space-between;
+
+    .btn--secondary {
+      background: $cerise;
+      border: 1px solid $cerise;
+    }
+  }
+
+  &__total {
+    border-top: 1px solid $white;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-top: rem(25);
+    margin-top: rem(40);
+    font-size: 18px;
+
+    &__price {
+      font-weight: 700;
+      font-size: 22px;
+      margin-left: 15px;
+    }
+  }
+
+  .close-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: rem(90);
+    height: rem(90);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 11;
+    cursor: pointer;
+  }
+}

@@ -10,8 +10,15 @@
 
     &__price {
       font-size: 20px;
-      font-family: $f-primary;
+      font-family: $f-main;
       font-weight: 600;
+      margin-top: rem(10);
+    }
+
+    &__title {
+      font-family: $f-primary;
+      font-size: 16px;
+      letter-spacing: 1.2px;
     }
 
     &__wrapper-image {
@@ -37,55 +44,7 @@
 
     &__wrapper-content {
       text-align: center;
-    }
-  }
-
-  .image-carousel {
-
-    .slide {
-      overflow: hidden;
-
-      .carousel-control {
-        transition: 300ms ease-out;
-        cursor: pointer;
-
-        .carousel-control-next-icon {
-          background-image: url("assets/images/arrow-right.svg");
-        }
-
-        .carousel-control-prev-icon {
-          background-image: url("assets/images/arrow-left.svg");
-        }
-
-        .carousel-control-next-icon,
-        .carousel-control-prev-icon {
-
-        }
-
-        .sr-only {
-          display: none;
-        }
-
-        &.carousel-control-prev {
-          left: -15%;
-        }
-
-        &.carousel-control-next {
-          right: -15%;
-        }
-      }
-
-      &:hover {
-        .carousel-control {
-          &.carousel-control-prev {
-            left: 0;
-          }
-
-          &.carousel-control-next {
-            right: 0;
-          }
-        }
-      }
+      margin: rem(10) 0 rem(20);
     }
   }
 }

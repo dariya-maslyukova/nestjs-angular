@@ -7,7 +7,7 @@
 @import "~bootstrap/scss/dropdown";
 @import "~bootstrap/scss/carousel";
 @import "~bootstrap/scss/images";
-
+@import "~bootstrap/scss/modal";
 
 @import '~@angular/material/theming';
 @include mat-core();
@@ -31,6 +31,7 @@ $app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
 @import "layout/main";
 @import "layout/footer";
 @import "layout/page";
+@import "layout/sidebar";
 
 @import "components/forms";
 @import "components/mat-control";
@@ -44,5 +45,10 @@ $app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
 @import "components/dropdowns";
 @import "components/breadcrumbs";
 @import "components/category/category";
+@import "components/icons";
+@import "components/accordion";
+@import "components/image-carousel";
+@import "components/modals";
+@import "components/dropdown";
 
 @import "animation";

@@ -4,4 +4,5 @@ export enum ObjectClass {
   MenProducts = 'cardin.store.MenProducts',
   Categories = 'cardin.store.Categories',
   User = 'cardin.store.User',
+  Cart = 'cardin.store.Cart',
 }

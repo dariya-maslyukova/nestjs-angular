@@ -13,8 +13,6 @@ export class WishlistService {
   private _isAddedToWishlist = {};
   private isAddedToWishlistSubject = new Subject<object>();
 
-  private _queryPath: string[] = [];
-
   constructor() {
   }
 
@@ -33,18 +31,16 @@ export class WishlistService {
     if (productIndex > -1) {
       const copy = this.wishlistProducts;
       copy.splice(productIndex, 1);
-      this._isAddedToWishlist[wishlistProduct.id] = false;
+      this.isAddedToWishlist[wishlistProduct.id] = false;
     } else {
       this.wishlistProducts = this._wishlistProducts.concat([(wishlistProduct)]);
-      this._isAddedToWishlist[wishlistProduct.id] = true;
+      this.isAddedToWishlist[wishlistProduct.id] = true;
     }
 
     this.wishlistProductsSubject.next(this._wishlistProducts);
-    this.isAddedToWishlistSubject.next(this._isAddedToWishlist);
   }
 
   deleteWishlistFrom(position: number): void {
-    this.queryPath.splice(position);
     this.wishlistProducts.splice(position);
     this.wishlistProductsSubject.next(this._wishlistProducts);
   }
@@ -53,16 +49,17 @@ export class WishlistService {
     return this.wishlistProductsSubject.asObservable();
   }
 
-  get queryPath(): string[] {
-    return this._queryPath;
-  }
-
-  set queryPath(productId: string[]) {
-    this._queryPath = this._queryPath.concat(productId);
-  }
-
   get isAddedToWishlist(): object {
     return this._isAddedToWishlist;
+  }
+
+  set isAddedToWishlist(wishlistProducts: object) {
+    this._isAddedToWishlist = wishlistProducts;
+    this.isAddedToWishlistSubject.next(this.isAddedToWishlistSubject);
+  }
+
+  get isAddedToWishlist$(): Observable<object> {
+    return this.isAddedToWishlistSubject.asObservable();
   }
 
 }

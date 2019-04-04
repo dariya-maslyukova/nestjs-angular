@@ -6,28 +6,24 @@ import { Observable } from 'rxjs/internal/Observable';
 import { NavItemGroup } from '../interfaces/nav/nav-item-group.interface';
 import { SidebarState } from '../enums/sidebar-state.enum';
 import { SidebarMode } from '../enums/sidebar-mode.enum';
-import { ObjectClass } from '../enums/object-class.enum';
 import { SectionBackOption } from '../interfaces/section-back-option.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FilterSidebarService {
+export class DropdownService {
 
   isDisabled = true;
   isNavigationDisabled = false;
-  sidebarLinkDropdown = true;
-  headerTitle = '';
-  isShowHistory = true;
-  backUrl = '';
-  currentObjectClass: ObjectClass;
+  sidebarHeaderDropdown = true;
+
   private _currentSectionNameSubject = new Subject<string>();
 
   private _sectionBackOption: SectionBackOption;
   private _sectionBackOptionSubject = new Subject<SectionBackOption>();
 
-  private _sidebarGroups: NavItemGroup[] = [];
-  private _sidebarGroupsSubject = new Subject<NavItemGroup[]>();
+  private _dropdownItems: NavItemGroup[] = [];
+  private _dropdownItemsSubject = new Subject<NavItemGroup[]>();
   private _stateSubject = new Subject<SidebarState>();
   private _modeSubject = new Subject<SidebarMode>();
 
@@ -42,13 +38,13 @@ export class FilterSidebarService {
     this._currentSectionNameSubject.next(name);
   }
 
-  get sidebarGroups(): NavItemGroup[] {
-    return this._sidebarGroups;
+  get dropdownItems(): NavItemGroup[] {
+    return this._dropdownItems;
   }
 
-  set sidebarGroups(groups: NavItemGroup[]) {
-    this._sidebarGroups = groups;
-    this._sidebarGroupsSubject.next(groups);
+  set dropdownItems(groups: NavItemGroup[]) {
+    this._dropdownItems = groups;
+    this._dropdownItemsSubject.next(groups);
   }
 
   private _state: SidebarState;
@@ -84,15 +80,15 @@ export class FilterSidebarService {
     return this._modeSubject.asObservable();
   }
 
-  get sidebarGroups$(): Observable<NavItemGroup[]> {
-    return this._sidebarGroupsSubject.asObservable();
+  get dropdownItems$(): Observable<NavItemGroup[]> {
+    return this._dropdownItemsSubject.asObservable();
   }
 
   get currentSectionName$(): Observable<string> {
     return this._currentSectionNameSubject.asObservable();
   }
 
-  toggleSidebar(): void {
+  toggleDropdown(): void {
     if (this.isDisabled) {
       return;
     }
@@ -117,16 +113,12 @@ export class FilterSidebarService {
       this.isDisabled = true;
     }
 
-    this.headerTitle = '';
-    this.sidebarGroups = [];
-    this.backUrl = '';
-    this.sidebarLinkDropdown = true;
-    this.isShowHistory = true;
-    this.currentObjectClass = null;
+    this.dropdownItems = [];
+    this.sidebarHeaderDropdown = true;
   }
 
-  refreshSidebarGroups(): void {
-    this._sidebarGroupsSubject.next(this._sidebarGroups);
+  refreshdropdownItems(): void {
+    this._dropdownItemsSubject.next(this._dropdownItems);
   }
 
   set sectionBackOption(option: SectionBackOption) {

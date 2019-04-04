@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   MatButtonModule,
   MatCheckboxModule,
-  MatExpansionModule,
+  MatExpansionModule, MatRadioModule,
   MatSelectModule,
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
@@ -17,7 +17,8 @@ import { FormControlModule } from './components/form-control/form-control.module
 import { FocusBlurModule } from './directives/focus-blur/focus-blur.module';
 import { OverlayModule } from './components/overlay/overlay.module';
 import { GridPagerComponent } from './components/grid-pager/grid-pager.component';
-import { FilterSidebarComponent } from './components/filter-sidebar/filter-sidebar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 
 const DIRECTIVES = [];
 
@@ -25,7 +26,8 @@ const PIPES = [];
 
 const COMPONENTS = [
   GridPagerComponent,
-  FilterSidebarComponent
+  SidebarComponent,
+  DropdownComponent,
 ];
 
 @NgModule({
@@ -49,11 +51,14 @@ const COMPONENTS = [
     MatSelectModule,
     MatExpansionModule,
     MatCheckboxModule,
+    MatRadioModule
   ],
   exports: [
     ...COMPONENTS,
     ...PIPES,
     ...DIRECTIVES,
+    FormsModule,
+    ReactiveFormsModule,
     FormControlModule,
     MatControlModule,
     FocusBlurModule,
@@ -65,6 +70,7 @@ const COMPONENTS = [
     MatSelectModule,
     MatExpansionModule,
     MatCheckboxModule,
+    MatRadioModule
   ],
 })
 export class SharedModule {

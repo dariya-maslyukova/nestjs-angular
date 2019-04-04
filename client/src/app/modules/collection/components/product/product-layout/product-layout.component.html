@@ -1,7 +1,1 @@
-<div class="product-page">
-  <div class="page"
-       [ngClass]="{'page--loading': isLoading}">
-    <app-overlay [isActive]="isLoading"></app-overlay>
-    <router-outlet *ngIf="isDataLoaded"></router-outlet>
-  </div>
-</div>
+<router-outlet *ngIf="isDataLoaded"></router-outlet>

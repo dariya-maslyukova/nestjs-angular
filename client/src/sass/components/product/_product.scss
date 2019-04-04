@@ -1,6 +1,81 @@
-.product-page {
-  .container-fluid {
-    //padding-left: 0;
-    //padding-right: 0;
+.product {
+
+  &__info-container {
+    padding: rem(60) rem(50);
+    position: sticky;
+    top: 100px;
+  }
+
+  &__image-link {
+    cursor: crosshair;
+  }
+
+  &__brand {
+    text-transform: uppercase;
+    font-family: $f-secondary;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 1.2px;
+  }
+
+  &__title {
+    font-family: $f-primary;
+    font-size: 18px;
+    letter-spacing: 1.2px;
+    margin: 5px 0 rem(15);
+  }
+
+  &__price {
+    font-size: 20px;
+    font-family: $f-main;
+    font-weight: 600;
+    margin-bottom: rem(30);
+  }
+
+  &__description {
+    padding-bottom: rem(50);
+    border-bottom: 1px solid $white-smoke;
+  }
+
+  &__buttons {
+    margin-top: rem(40);
+    padding-bottom: rem(30);
+    border-bottom: 1px solid $white-smoke;
+  }
+
+  &__code {
+    padding: rem(25) 0;
+    color: $dusty-gray;
+  }
+
+  .accordion {
+
+    .mat-expansion-panel-header {
+      padding: rem(32) 0;
+    }
+  }
+
+  &__social {
+    display: flex;
+    align-items: center;
+
+    a + a {
+      margin-left: rem(20);
+    }
+
+    a {
+      &:hover {
+        path {
+          fill: $cerise;
+        }
+      }
+    }
+
+    svg-icon {
+      svg {
+        height: 22px;
+        width: auto;
+      }
+    }
   }
 }

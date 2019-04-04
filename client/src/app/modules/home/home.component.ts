@@ -40,8 +40,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         )
       .subscribe(response => {
         this.response = response;
-        // this.isLoading = this.response.docs;
-        this.cdr.detectChanges();
       });
   }
 

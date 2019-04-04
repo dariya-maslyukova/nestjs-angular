@@ -8,12 +8,13 @@ import { QueryParamsService } from '../../../services/query-params.service';
 import { BasicQueryModel } from '../../../models/basic-query.model';
 import { Model } from '../../../interfaces/model.interface';
 import { DocsResponse } from '../../../interfaces/docs-response.interface';
+import { CategoryService } from '../../../services/category.service';
 
 export class GridPage<T, Q extends BasicQueryModel> implements OnDestroy {
 
   width: number;
   isLoading = false;
-  response: DocsResponse<T> = {
+  response: DocsResponse<T[]> = {
     docs: [],
     limit: 32,
     page: 1,
@@ -24,7 +25,8 @@ export class GridPage<T, Q extends BasicQueryModel> implements OnDestroy {
   protected destroyedSubject = new Subject<void>();
 
   constructor(
-    protected qps: QueryParamsService<Q>
+    protected qps: QueryParamsService<Q>,
+    protected cs: CategoryService,
   ) {
   }
 
@@ -55,6 +57,7 @@ export class GridPage<T, Q extends BasicQueryModel> implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.cs.totalFoundProducts = 0;
     this.destroyedSubject.next();
     this.destroyedSubject.complete();
   }

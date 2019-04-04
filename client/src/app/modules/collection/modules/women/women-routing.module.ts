@@ -14,7 +14,7 @@ import { WomenKnitwearComponent } from './pages/women-knitwear/women-knitwear.co
 import { WomenGymComponent } from './pages/women-gym/women-gym.component';
 import { WomenBeachwearComponent } from './pages/women-beachwear/women-beachwear.component';
 import { WomenBlousesTopsComponent } from './pages/women-blouses-tops/women-blouses-tops.component';
-import { ProductDetailsComponent } from '../../components/product/product-details/product-details.component';
+import { ProductComponent } from '../../components/product/product.component';
 import { ProductLayoutComponent } from '../../components/product/product-layout/product-layout.component';
 
 const routing: Routes = [
@@ -24,7 +24,7 @@ const routing: Routes = [
     children: [
       {
         path: '',
-        component: ProductDetailsComponent,
+        component: ProductComponent,
         data: { state: 'productDetails' },
       },
     ],

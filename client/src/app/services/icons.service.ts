@@ -15,6 +15,11 @@ export class IconsService {
     { url: '/assets/images/icons/user.svg', name: 'user' },
     { url: '/assets/images/icons/heart.svg', name: 'heart' },
     { url: '/assets/images/icons/heart-black.svg', name: 'heart-black' },
+    { url: '/assets/images/icons/social/facebook.svg', name: 'facebook' },
+    { url: '/assets/images/icons/social/instagram.svg', name: 'instagram' },
+    { url: '/assets/images/icons/social/google.svg', name: 'google' },
+    { url: '/assets/images/icons/social/twitter.svg', name: 'twitter' },
+    { url: '/assets/images/icons/trash.svg', name: 'trash' },
   ];
 
   constructor(private iconReg: SvgIconRegistryService) {

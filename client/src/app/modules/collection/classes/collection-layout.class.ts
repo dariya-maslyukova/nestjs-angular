@@ -1,28 +1,29 @@
 import { ChangeDetectorRef, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
-import { takeUntil } from 'rxjs/operators';
+import { concatMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/internal/Subject';
+import { Observable } from 'rxjs';
 
 import { UtilsService } from '../../../services/utils.service';
 import { DetailsPageLayoutService } from '../../../services/details-page-layout.service';
-import { SidebarState } from '../../../enums/sidebar-state.enum';
 import { ObjectClass } from '../../../enums/object-class.enum';
-import { FilterSidebarService } from '../../../services/filter-sidebar.service';
 import { DocsResponse } from '../../../interfaces/docs-response.interface';
 import { Product } from '../../../interfaces/product/product.interface';
-import { NavItemGroup } from '../../../interfaces/nav/nav-item-group.interface';
 import { CategoryService } from '../../../services/category.service';
+import { ProductsQuery } from '../../../interfaces/queries/products.query.interface';
+import { SidebarService } from '../../../services/sidebar.service';
+import { Model } from '../../../interfaces/model.interface';
 
 export abstract class CollectionLayoutClass implements OnInit, OnDestroy, OnChanges {
 
   destroyedSubject = new Subject<void>();
   isLoading;
   sectionName = '';
-  sectionDescription = '';
 
   @ViewChild('o') outlet: RouterOutlet;
-  // protected abstract objectClass: ObjectClass;
+
+  objectClass: ObjectClass;
 
   protected constructor(
     protected cs: CategoryService,
@@ -30,12 +31,18 @@ export abstract class CollectionLayoutClass implements OnInit, OnDestroy, OnChan
     protected r: Router,
     protected us: UtilsService,
     protected cdr: ChangeDetectorRef,
-    protected dpls: DetailsPageLayoutService
+    protected dpls: DetailsPageLayoutService,
+    protected sds: SidebarService
   ) {
   }
 
-  // abstract get isDataLoaded(): boolean;
+  abstract get isDataLoaded(): boolean;
 
+  abstract get isCategory(): boolean;
+
+  protected abstract get currSelectedCategory(): DocsResponse<Model[]>;
+
+  protected abstract set currSelectedCategory(data: DocsResponse<Model[]>);
 
   ngOnChanges(): void {
     this.cdr.detectChanges();
@@ -49,7 +56,7 @@ export abstract class CollectionLayoutClass implements OnInit, OnDestroy, OnChan
         sectionName => {
           this.sectionName = sectionName;
           this.cdr.detectChanges();
-        }
+        },
       );
 
     this.dpls
@@ -60,9 +67,32 @@ export abstract class CollectionLayoutClass implements OnInit, OnDestroy, OnChan
         // This is because of `ExpressionChangedAfterItHasBeenCheckedError`
         this.cdr.detectChanges();
       });
+
+    this.processNavParams();
+    this.loadSidebar();
+  }
+
+  processNavParams(): void {
+
+    this.ar
+      .queryParams
+      .pipe(
+        concatMap(params => {
+          this.currSelectedCategory = null;
+          this.dpls.isLoading = true;
+          return this.getDataFromAPI(params);
+        }),
+        takeUntil(this.destroyedSubject),
+      )
+      .subscribe((response: DocsResponse<Product[]>) => {
+        this.cs.totalFoundProducts = response.totalDocs;
+        this.onGetResponse(response);
+      });
   }
 
   ngOnDestroy(): void {
+    this.cleanupCurrentSelectedCategory();
+
     this.destroyedSubject.next();
     this.destroyedSubject.complete();
   }
@@ -70,12 +100,14 @@ export abstract class CollectionLayoutClass implements OnInit, OnDestroy, OnChan
   getState(): string {
     return this.outlet ? this.outlet.activatedRouteData.state : '';
   }
-  // protected abstract get itemLabel(): string;
-  //
-  // protected abstract getSidebarGroups(id: string): NavItemGroup[];
-  //
-  // protected setSidebarObjectClass(): void {
-  //   this.cs.currentObjectClass = this.objectClass;
-  // }
 
+  protected abstract cleanupCurrentSelectedCategory(): void;
+
+  protected abstract onGetResponse(response: DocsResponse<Product[]>): void;
+
+  protected abstract getDataFromAPI(query: ProductsQuery): Observable<DocsResponse<any>>;
+
+  protected loadSidebar(): void {
+    this.sds.isDisabled = false;
+  }
 }

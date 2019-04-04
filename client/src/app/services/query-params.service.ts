@@ -23,6 +23,7 @@ export class QueryParamsService<T extends BasicQueryModel> {
     this._query = {
       limit: query.limit,
       page: query.page,
+      category: query.category,
       ...query.queryParams,
     };
     this.querySubject.next(this._query);
@@ -35,26 +36,6 @@ export class QueryParamsService<T extends BasicQueryModel> {
   get filters(): any {
     return this._query.queryParams;
   }
-
-  // get tableSortPropDir(): SortPropDir[] {
-  //   if (!this._query || !this._query.sorterFactoryParams) {
-  //     return [];
-  //   }
-  //
-  //   const sorterFactoryParamsOrder: SorterFactoryParamsOrder = this._query.sorterFactoryParams.orderBy[ 0 ];
-  //
-  //   const dirMap = {
-  //     [ SortDirection.ASC ]: NgxSortDirection.asc,
-  //     [ SortDirection.DESC ]: NgxSortDirection.desc
-  //   };
-  //
-  //   return [
-  //     {
-  //       prop: Object.values(sorterFactoryParamsOrder)[ 0 ],
-  //       dir: dirMap[ Object.keys(sorterFactoryParamsOrder)[ 0 ] ]
-  //     }
-  //   ];
-  // }
 
   updateQueryParams(queryParams: any): void {
     const cleanQueryParams = {};
@@ -75,6 +56,7 @@ export class QueryParamsService<T extends BasicQueryModel> {
     const queryToServer = {
       limit: this._query.limit,
       page: this._query.page,
+      category: this._query.category,
       ...this._query.queryParams,
     };
 
@@ -88,6 +70,7 @@ export class QueryParamsService<T extends BasicQueryModel> {
     const queryToServer = {
       limit: this._query.limit,
       page: this._query.page,
+      category: this._query.category,
       ...this._query.queryParams,
     };
 
@@ -102,17 +85,9 @@ export class QueryParamsService<T extends BasicQueryModel> {
     const params: BasicQueryModel | any = {
       limit: this._query.limit,
       page: this._query.page,
+      category: this._query.category,
       ...this._query.queryParams,
     };
-
-    // if (this._query.sorterFactoryParams) {
-    //   const sortParams = this._query.sorterFactoryParams.orderBy[ 0 ];
-    //
-    //   if (sortParams) {
-    //     params.sortBy = Object.values(sortParams)[ 0 ];
-    //     params.sortDirection = Object.keys(sortParams)[ 0 ];
-    //   }
-    // }
 
     Object
       .keys(params)

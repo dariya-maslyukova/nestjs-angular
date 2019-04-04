@@ -1,6 +1,10 @@
 <app-header></app-header>
-<div class="page-container">
-    <router-outlet></router-outlet>
+<div
+  class="page-container"
+  [ngClass]="{ '-dropdown-toggled': isDropdownToggled }"
+>
+  <app-dropdown></app-dropdown>
+  <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>
 

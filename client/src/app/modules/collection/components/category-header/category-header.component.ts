@@ -1,16 +1,25 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Category } from '../../../../enums/category.enum';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { QueryParamsService } from '../../../../services/query-params.service';
 import { ProductsQueryModel } from '../../../../models/products-query.model';
 import { SelectOption } from '../../../../interfaces/select-option.interface';
 import { SortDirection } from '../../../../enums/sort-direction.enum';
+import { Category } from '../../../../enums/category.enum';
+import { CategoryService } from '../../../../services/category.service';
+import { DocsResponse } from '../../../../interfaces/docs-response.interface';
+import { Product } from '../../../../interfaces/product/product.interface';
+import { SidebarService } from '../../../../services/sidebar.service';
 
 @Component({
   selector: 'app-category-header',
-  templateUrl: './category-header.component.html'
+  templateUrl: './category-header.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CategoryHeaderComponent implements OnDestroy {
+export class CategoryHeaderComponent implements OnInit, OnDestroy {
+
+  totalFound: number;
 
   sortOptions: SelectOption<SortDirection>[] = [
     {
@@ -31,14 +40,34 @@ export class CategoryHeaderComponent implements OnDestroy {
     },
   ];
 
-  filters = {};
+  filters = {
+    sort: SortDirection.BEST_MATCH,
+  };
 
   private destroyedSubject = new Subject<void>();
 
   constructor(
     private qps: QueryParamsService<ProductsQueryModel>,
+    private cs: CategoryService,
+    private cdr: ChangeDetectorRef,
+    private sbs: SidebarService,
   ) {
 
+  }
+
+  ngOnInit(): void {
+    this.cs
+      .totalFoundProducts$
+      .pipe(takeUntil(this.destroyedSubject))
+      .subscribe(total => {
+        this.totalFound = total;
+        this.cdr.markForCheck();
+      });
+  }
+
+  toggleSidebar(event: Event): void {
+    event.stopPropagation();
+    this.sbs.toggleSidebar();
   }
 
   onValueChange(value: Category, attr: string): void {

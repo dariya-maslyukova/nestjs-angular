@@ -1,5 +1,5 @@
 <header class="h">
-  <div class="container-fluid">
+  <div class="inner-container">
     <div class="row align-items-center align-items-lg-baseline">
       <div class="col-sm-4">
         <div class=" d-none d-sm-block d-lg-none h__toggle-link"
@@ -61,11 +61,11 @@
           </li>
 
           <li *ngFor="let item of userMenu">
-            <a class="h__menu__link" [routerLink]="item.route">
+            <span class="h__menu__link" (click)="toggleDropdown($event)">
               <svg-icon class="d-lg-none" [src]="item.icon"></svg-icon>
               <span class="d-none d-lg-inline-block">{{ item.label }}</span>
               <span *ngIf="item.count > 0"> ({{ item.count }})</span>
-            </a>
+            </span>
           </li>
         </ul>
 

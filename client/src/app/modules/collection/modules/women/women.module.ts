@@ -25,7 +25,7 @@ import { WomenRoutingModule } from './women-routing.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule, MatSelectModule } from '@angular/material';
-import { ProductDetailsComponent } from '../../components/product/product-details/product-details.component';
+import { ProductComponent } from '../../components/product/product.component';
 import { ProductLayoutComponent } from '../../components/product/product-layout/product-layout.component';
 
 const COMPONENTS = [
@@ -46,7 +46,7 @@ const COMPONENTS = [
   WomenSweatshirtsComponent,
   WomenGymComponent,
   WomenCategoryComponent,
-  ProductDetailsComponent,
+  ProductComponent,
   ProductLayoutComponent
 ];
 
