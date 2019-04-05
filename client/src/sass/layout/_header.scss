@@ -44,6 +44,10 @@
       cursor: pointer;
       position: relative;
       display: block;
+
+      &__count {
+        font-family: $f-main;
+      }
     }
 
     li {

@@ -1,19 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Product } from '../../../../interfaces/product/product.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { ProductsService } from '../../../../services/products.service';
 import { DetailsPageLayoutService } from '../../../../services/details-page-layout.service';
-import { takeUntil } from 'rxjs/operators';
 import { ModalService } from '../../../../services/modal.service';
 import { ModalType } from '../../../../enums/modal-type.enum';
 import { SelectOption } from '../../../../interfaces/select-option.interface';
 import { Size } from '../../../../enums/size.enum';
 import { Color } from '../../../../enums/color.enum';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtilsService } from '../../../../services/utils.service';
 import { CartItem } from '../../../../interfaces/cart/cart-item.interface';
-import { CartItemModel } from '../../../../models/cart-item.model';
+import { Product } from '../../../../interfaces/product/product.interface';
 import { CartService } from '../../../../services/cart.service';
+import { WishlistService } from '../../../../services/wishlist.service';
+import { WishlistItem } from '../../../../interfaces/wishlist/wishlist-item.interface';
+
 
 @Component({
   selector: 'app-product',
@@ -23,6 +27,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   product: Product;
   isLoading;
+  isAddedToWishlist = {};
 
   colorOptions: SelectOption<Color>[] = [
     {
@@ -55,7 +60,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   ];
 
   form: FormGroup;
-  error = '';
 
   private destroyedSubject = new Subject<void>();
 
@@ -66,6 +70,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private us: UtilsService,
     private cs: CartService,
+    private ws: WishlistService,
   ) {
 
     this.form = this.fb.group({
@@ -75,24 +80,27 @@ export class ProductComponent implements OnInit, OnDestroy {
       Size: this.fb.group({
         Value: [null, Validators.required],
       }),
-      OrderItems: this.fb.array([]),
     });
   }
 
   ngOnInit() {
-
-    // Responsible for first data display when details layout already has a record loaded
     this.loadProduct(this.ps.selectedProduct);
-    // console.log(this.ps.selectedProduct);
-    //
-    // Responsible for case when we dynamically change selected item on the fly
+    this.isAddedToWishlist = this.ws.isAddedToWishlist;
+
     this.ps
       .selectedProduct$
       .pipe(takeUntil(this.destroyedSubject))
-      .subscribe(product => {
-
+      .subscribe(() => {
         this.dpls.isLoading = false;
-        // this.loadProduct(product);
+      });
+
+    this.cs
+      .cartItems$
+      .pipe(takeUntil(this.destroyedSubject))
+      .subscribe((cartRespone: CartItem[]) => {
+        setTimeout(() => {
+          this.isLoading = !cartRespone;
+        }, 500);
       });
   }
 
@@ -104,11 +112,21 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.dpls.isLoading = false;
   }
 
-  onOptionsCheckToCart(event, attr) {
+  addToWishlist(product: Product) {
+    const wishlistItem: WishlistItem = {
+      objectClass: product.objectClass,
+      sku: product.sku,
+      Name: product.name,
+      Price: product.price,
+      Image: product.baseImage,
+    };
 
+    this.ws.initWishlist(wishlistItem);
   }
 
-  addOptionsToCart(): void {
+  addToCart(): void {
+    this.isLoading = true;
+
     if (!this.form.valid) {
       return this.us.validateAllFormFields(this.form);
     }
@@ -125,6 +143,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       ],
       Color: color.value,
       Product: {
+        objectClass: this.product.objectClass,
         sku: this.product.sku,
         name: this.product.name,
         price: this.product.price,
@@ -133,30 +152,10 @@ export class ProductComponent implements OnInit, OnDestroy {
     };
 
     this.cs.initCart(cartItem);
-
-    const form = this.fb.group(
-      {
-        ...cartItem,
-      });
-
-    const orderItems = this.form.get('OrderItems') as FormArray;
-    orderItems.push(form);
   }
 
-  onSubmit(event?: Event): void {
-    if (event) {
-      event.preventDefault();
-    }
+  onValueChange(event, attr) {
 
-    if (!this.form.valid) {
-      return this.us.validateAllFormFields(this.form);
-    }
-
-    this.saveOrUpdate();
-  }
-
-  saveOrUpdate(): void {
-    this.isLoading = true;
   }
 
   openCarouselModal(images, slideId): void {

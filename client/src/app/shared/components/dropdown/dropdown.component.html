@@ -5,43 +5,91 @@
 <div class="dropdown" [ngClass]="dropdownClasses">
   <button type="button"
           class="close-btn btn"
-          (click)="toggleDropdown($event)">
+          (click)="onClose()">
     <i class="icon icon__plus icon__plus--close icon__plus--bright icon--large"></i>
   </button>
-  <div *ngIf="cartItems.length === 0" class="dropdown__content-empty">
+  <div *ngIf="(cartItems.length === 0 && isDropdownShowCart) || (wishlistItems.length === 0 && isDropdownShowWishlist)"
+       class="dropdown__content-empty">
     <h2>Pretty<br/>empty here</h2>
-    <h5>Add a product to your cart</h5>
-    <a routerLink="/collection/look" class="btn btn--primary btn-white" (click)="onClose()"><span>Shop Now</span></a>
+    <h5>Add a product to your {{ isDropdownShowCart ? 'cart' : 'wishlist' }}</h5>
+    <a routerLink="/" class="btn btn--primary btn-white" (click)="onClose()"><span>Shop Now</span></a>
   </div>
 
-  <div *ngIf="cartItems.length > 0" class="dropdown__content-body">
+  <div *ngIf="cartItems.length > 0 && isDropdownShowCart" class="dropdown__content-body">
     <div class="dropdown__title">
       You have ‎{{ countItems() }} in your shopping cart
     </div>
-    <ng-container *ngFor="let item of cartItems">
-      <div *ngIf="item.Product.sku" class="dropdown__item">
-        <div class="dropdown__item__image">
-          <img class="img-fluid" [src]="item.Product.baseImage" alt="">
+    <div class="row">
+      <div class="col-12" *ngFor="let item of cartItems"
+      >
+        <div *ngIf="item.Product.sku" class="dropdown__item">
+          <div class="dropdown__item__image">
+            <a [routerLink]="getDetailsUrl(item.Product.objectClass, item.Product.sku)">
+              <img class="img-fluid" [src]="item.Product.baseImage" alt="">
+            </a>
+            <button type="button"
+                    class="btn btn--link btn--link-white mt-1"
+                    (click)="removeItemFromCart(item.Product.sku, item.Color)">Remove
+            </button>
+          </div>
+          <div class="dropdown__item__info">
+            <a [routerLink]="getDetailsUrl(item.Product.objectClass, item.Product.sku)">
+              <span class="dropdown__item__info__name">{{ item.Product.name }}</span>
+            </a>
+            <span class="dropdown__item__info__price">{{ item.Product.price }} $</span>
+            <span>Color: {{ item.Color }}</span>
+            <span>Size: {{ productSize(item.Size) }}</span>
+          </div>
         </div>
-        <div class="dropdown__item__info">
-          <span class="dropdown__item__info__name">{{ item.Product.name }}</span>
-          <span class="dropdown__item__info__price">{{ item.Product.price }} $</span>
-          <span>Color: {{ item.Color }}</span>
-          <span>Size: {{ productSize(item.Size) }}</span>
-        </div>
-        <span class="dropdown__item--remove" (click)="removeItem(item.Product.sku, item.Color)"><svg-icon name="trash"></svg-icon></span>
       </div>
-    </ng-container>
+    </div>
     <section class="dropdown__total">
       <span>Subtotal:</span> <span class="dropdown__total__price">{{ cartTotal }} $</span>
     </section>
 
     <section class="dropdown__buttons">
-      <a routerLink="/cart" class="btn btn--primary btn-white no-animation" (click)="onClose()"><span>View cart</span></a>
+      <a routerLink="/cart" class="btn btn--link btn--link-white" (click)="onClose()">View Cart</a>
 
-      <button class="btn btn--secondary"
+      <button class="btn btn--primary btn-white"
               type="button"
       ><span>Proceed to purchase</span></button>
+    </section>
+  </div>
+
+
+  <div *ngIf="wishlistItems.length > 0 && isDropdownShowWishlist" class="dropdown__content-body">
+    <div class="dropdown__title">
+      You have ‎{{ countItems() }} in your favourites
+    </div>
+    <div class="row">
+      <div *ngFor="let item of wishlistItems | sliceArray"
+           [ngClass]="wishlistItems.length <= 2 ? 'col-6' : 'col-4'"
+      >
+        <div *ngIf="item.sku" class="dropdown__item dropdown__item--wishlist">
+          <div class="d-flex flex-column">
+            <div class="dropdown__item__image">
+              <a [routerLink]="getDetailsUrl(item.objectClass, item.sku)">
+                <img class="img-fluid" [src]="item.Image" alt="">
+              </a>
+            </div>
+            <div class="dropdown__item__info">
+              <div>
+                <a [routerLink]="getDetailsUrl(item.objectClass, item.sku)">
+                  <span class="dropdown__item__info__name">{{ item.Name }}</span>
+                </a>
+                <span class="dropdown__item__info__price">{{ item.Price }} $</span>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn--link btn--link-white" (click)="removeItemFromWishlist(item.sku)">
+            Remove
+          </button>
+
+        </div>
+      </div>
+    </div>
+    <section class="dropdown__buttons justify-content-end mt-3">
+      <a routerLink="/wishlist" class="btn btn--link btn--link-white" (click)="onClose()">View all favourites</a>
     </section>
 
   </div>

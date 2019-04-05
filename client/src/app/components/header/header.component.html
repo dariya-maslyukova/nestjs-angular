@@ -61,10 +61,10 @@
           </li>
 
           <li *ngFor="let item of userMenu">
-            <span class="h__menu__link" (click)="toggleDropdown($event)">
+            <span class="h__menu__link" (click)="toggleDropdown($event, item.label)">
               <svg-icon class="d-lg-none" [src]="item.icon"></svg-icon>
               <span class="d-none d-lg-inline-block">{{ item.label }}</span>
-              <span *ngIf="item.count > 0"> ({{ item.count }})</span>
+              <span class="h__menu__link__count" *ngIf="item.count > 0"> ({{ item.count }})</span>
             </span>
           </li>
         </ul>

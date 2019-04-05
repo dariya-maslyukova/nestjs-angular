@@ -108,27 +108,29 @@ export class CartService {
     this.cartProducts = [];
     const cart = JSON.parse(localStorage.getItem('Cart'));
 
-    for (let i = 0; i < cart.length; i++) {
+    if (cart) {
+      for (let i = 0; i < cart.length; i++) {
 
-      const cartItem: CartItem = JSON.parse(cart[i]);
-      this.cartProducts.push({
-        Size: cartItem.Size,
-        Color: cartItem.Color,
-        Product: cartItem.Product,
-      });
+        const cartItem: CartItem = JSON.parse(cart[i]);
+        this.cartProducts.push({
+          Size: cartItem.Size,
+          Color: cartItem.Color,
+          Product: cartItem.Product,
+        });
 
-      this.cartTotal += cartItem.Product.price * (cartItem.Size
-        .map(size => size.Qty)
-          .reduce((acc, val) => acc + val, 0)
-      );
+        this.cartTotal += cartItem.Product.price * (cartItem.Size
+            .map(size => size.Qty)
+            .reduce((acc, val) => acc + val, 0)
+        );
+      }
     }
+
 
     this.cartItems = this.cartProducts;
   }
 
   removeItemFromCart(sku: string, color: string): void {
     const cart: any = JSON.parse(localStorage.getItem('Cart'));
-    const index = -1;
 
     for (let i = 0; i < cart.length; i++) {
       const cartItem: CartItem = JSON.parse(cart[i]);

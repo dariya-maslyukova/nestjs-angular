@@ -14,6 +14,8 @@ import { ProductsFilters } from '../../../../../../interfaces/product/product-fi
 import { PaginationQueryPart } from '../../../../../../interfaces/queries/pagination-query-part.interface';
 import { DetailsPageLayoutService } from '../../../../../../services/details-page-layout.service';
 import { DocsResponse } from '../../../../../../interfaces/docs-response.interface';
+import { WishlistItem } from '../../../../../../interfaces/wishlist/wishlist-item.interface';
+import { ObjectClass } from '../../../../../../enums/object-class.enum';
 
 @Component({
   selector: 'app-women',
@@ -41,13 +43,14 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
     cs: CategoryService,
     private cdr: ChangeDetectorRef,
     private us: UtilsService,
-    private dpls: DetailsPageLayoutService
+    private dpls: DetailsPageLayoutService,
   ) {
     super(qps, cs);
   }
 
 
   ngOnInit() {
+    this.cs.objectClass = ObjectClass.WomenProducts;
     /**
      * Order is important. We need to subscribe for query changes(filter and pagination will affect it)
      * And then model will create our query from url params and emit it to this observable
@@ -95,12 +98,20 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
     }
   }
 
-  addToWishlist(product) {
-    this.ws.addToWishlist(product);
+  addToWishlist(product: Product) {
+    const wishlistItem: WishlistItem = {
+      objectClass: product.objectClass,
+      sku: product.sku,
+      Name: product.name,
+      Price: product.price,
+      Image: product.baseImage,
+    };
+
+    this.ws.initWishlist(wishlistItem);
   }
 
-  getDetailsUrl(product: Product): string {
-    return `/collection/women/product/${this.us.getProductSKU(product)}`;
+  getDetailsUrl(sku: string): string {
+    return `/collection/women/product/${this.us.getProductSKU(sku)}`;
   }
 
 

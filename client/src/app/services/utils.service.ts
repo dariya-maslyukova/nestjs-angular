@@ -8,6 +8,8 @@ import { diff } from 'deep-diff';
 import { environment } from '../../environments/environment';
 import { Model } from '../interfaces/model.interface';
 import { Product } from '../interfaces/product/product.interface';
+import { CartItem } from '../interfaces/cart/cart-item.interface';
+import { WishlistItem } from '../interfaces/wishlist/wishlist-item.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,7 @@ export class UtilsService {
     return typeof data === 'object' ? data.id : data;
   }
 
-  getProductSKU(data: Product): string {
+  getProductSKU(data: Product | string): string {
     return typeof data === 'object' ? data.sku : data;
   }
 

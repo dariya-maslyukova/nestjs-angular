@@ -39,7 +39,7 @@
                       *ngFor="let option of colorOptions;"
                       class="checkbox"
                       [disableRipple]="true"
-                      (change)="onOptionsCheckToCart($event, 'color')"
+                      (change)="onValueChange($event, 'color')"
                       [value]="option.value"
                     >{{ option.label }}</mat-radio-button>
                   </mat-radio-group>
@@ -63,7 +63,7 @@
                       *ngFor="let option of sizeOptions;"
                       class="checkbox"
                       [disableRipple]="true"
-                      (change)="onOptionsCheckToCart($event, 'size')"
+                      (change)="onValueChange($event, 'size')"
                       [value]="option.value"
                     >{{ option.label }}</mat-radio-button>
                   </mat-radio-group>
@@ -77,15 +77,18 @@
         <div class="product__buttons">
           <button class="btn btn-full btn--secondary"
                   type="button"
-                  (click)="addOptionsToCart()"
+                  (click)="addToCart()"
                   [disabled]="form.invalid"
-          ><span>Add to Shopping Bag</span>
-            <!--<loaders-css [loader]="'ball-pulse'" *ngIf="isLoading"></loaders-css>-->
+          ><span *ngIf="!isLoading">Add to Shopping Bag</span>
+            <loaders-css [loader]="'line-scale-pulse-out'" *ngIf="isLoading"></loaders-css>
           </button>
-          <button class="btn btn-full btn--primary no-animation" type="button">
-            <svg-icon name="heart" class="mr-3"></svg-icon>
+          <button type="button"
+                  class="btn btn-full btn--primary no-animation btn--to-wishlist"
+                  [ngClass]="{'active' : isAddedToWishlist[product.sku]}"
+                  (click)="addToWishlist(product)"
+          >
+            <svg-icon class="mr-3" [name]="isAddedToWishlist[product.sku] ? 'heart-black' : 'heart'"></svg-icon>
             <span>Add to Wish List</span>
-            <!--<loaders-css [loader]="'ball-pulse'" *ngIf="isLoading"></loaders-css>-->
           </button>
         </div>
       </form>

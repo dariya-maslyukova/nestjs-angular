@@ -13,16 +13,14 @@ import { DetailsPageLayoutService } from '../../../services/details-page-layout.
 import { CONFIG } from '../../../app.config';
 import { Model } from '../../../interfaces/model.interface';
 import { Product } from '../../../interfaces/product/product.interface';
+import { CategoryService } from '../../../services/category.service';
 
 export abstract class ProductDetailsLayoutClass implements OnInit, OnDestroy, OnChanges {
 
   destroyedSubject = new Subject<void>();
   isLoading;
-  sectionName = '';
-  sectionBackOption;
 
   @ViewChild('o') outlet: RouterOutlet;
-  protected abstract objectClass: ObjectClass;
 
   protected constructor(
     protected ar: ActivatedRoute,
@@ -30,7 +28,8 @@ export abstract class ProductDetailsLayoutClass implements OnInit, OnDestroy, On
     protected us: UtilsService,
     protected cdr: ChangeDetectorRef,
     protected dpls: DetailsPageLayoutService,
-    protected ts: ToasterService
+    protected ts: ToasterService,
+    protected cs: CategoryService,
   ) {
   }
 
@@ -88,7 +87,7 @@ export abstract class ProductDetailsLayoutClass implements OnInit, OnDestroy, On
               } as Toast
             );
 
-            return this.r.navigate([ routesMap[ this.objectClass ] ]);
+            return this.r.navigate([ routesMap[ this.cs.objectClass ] ]);
           }
 
           this.onGetResponse(tmpParamsSKU, response);

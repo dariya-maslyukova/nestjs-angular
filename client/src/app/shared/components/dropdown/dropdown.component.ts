@@ -1,16 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  HostListener,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/operators';
+
 import { SidebarState } from '../../../enums/sidebar-state.enum';
 import { SidebarMode } from '../../../enums/sidebar-mode.enum';
 import { ModalService } from '../../../services/modal.service';
@@ -20,6 +13,9 @@ import { DropdownService } from '../../../services/dropdown.service';
 import { CartService } from '../../../services/cart.service';
 import { CartItem } from '../../../interfaces/cart/cart-item.interface';
 import { ProductSize } from '../../../interfaces/product/product-size';
+import { WishlistService } from '../../../services/wishlist.service';
+import { UtilsService } from '../../../services/utils.service';
+import { ObjectClass } from '../../../enums/object-class.enum';
 
 @Component({
   selector: 'app-dropdown',
@@ -29,8 +25,11 @@ import { ProductSize } from '../../../interfaces/product/product-size';
 export class DropdownComponent implements OnInit, OnDestroy {
 
   cartItems: CartItem[] = [];
+  wishlistItems = [];
   cartTotal: number;
   isDisabled = true;
+  isDropdownShowCart = false;
+  isDropdownShowWishlist = false;
 
   private destroyedSubject = new Subject<void>();
   private state: SidebarState;
@@ -45,6 +44,8 @@ export class DropdownComponent implements OnInit, OnDestroy {
     private dpls: DetailsPageLayoutService,
     private cdr: ChangeDetectorRef,
     private cs: CartService,
+    private ws: WishlistService,
+    private us: UtilsService,
   ) {
 
   }
@@ -58,9 +59,12 @@ export class DropdownComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.cs.initCart();
+    this.cs.loadCart();
     this.cartItems = this.cs.cartProducts;
     this.cartTotal = this.cs.cartTotal;
+
+    this.ws.loadWishlist();
+    this.wishlistItems = this.ws.wishlistProducts;
 
     this.ds
       .mode$
@@ -76,6 +80,8 @@ export class DropdownComponent implements OnInit, OnDestroy {
       .subscribe(state => {
         this.isDisabled = state === SidebarState.CLOSED_COLLAPSED;
         this.state = state;
+        this.isDropdownShowCart = this.ds.isDropdownShowCart;
+        this.isDropdownShowWishlist = this.ds.isDropdownShowWishlist;
         this.cdr.markForCheck();
       });
 
@@ -88,6 +94,25 @@ export class DropdownComponent implements OnInit, OnDestroy {
         this.cartTotal = this.cs.cartTotal;
         this.cdr.markForCheck();
       });
+
+    this.ws
+      .wishlistItems$
+      .pipe(takeUntil(this.destroyedSubject))
+      .subscribe((wishlistRespone) => {
+        this.wishlistItems = wishlistRespone;
+        this.cdr.markForCheck();
+      });
+  }
+
+  getDetailsUrl(objectClass: ObjectClass, sku: string) {
+    const routesMap = {
+      [ObjectClass.WomenProducts]: '/collection/women/product',
+      [ObjectClass.MenProducts]: '/collection/men/product',
+    };
+    this.ds.close();
+
+    const mapUrl = routesMap[objectClass];
+    return `${mapUrl}/${this.us.getProductSKU(sku)}`;
   }
 
   toggleDropdown(event: Event): void {
@@ -99,17 +124,25 @@ export class DropdownComponent implements OnInit, OnDestroy {
     return sizes.map(size => `${size.Name} - ${size.Qty}`).join(', ');
   }
 
-  productSizeCount(sizes: ProductSize[]): string {
-    return sizes.map(size => `${size.Name} - ${size.Qty}`).join(', ');
+  removeItemFromCart(sku: string, color: string): void {
+    this.cs.removeItemFromCart(sku, color);
+    this.ds.open();
+
   }
 
-  removeItem(sku: string, color: string): void {
-    this.cs.removeItemFromCart(sku, color);
-    this.state = SidebarState.OPEN_EXPANDED;
+  removeItemFromWishlist(sku: string): void {
+    this.ws.removeItemFromWishlist(sku);
+    this.ds.open();
   }
 
   countItems(): string {
-    return this.cartItems.length > 1 ? `${this.cartItems.length} items` : `${this.cartItems.length} item`;
+    if (this.isDropdownShowCart) {
+      return this.cartItems.length > 1 ? `${this.cartItems.length} items` : `${this.cartItems.length} item`;
+    }
+
+    if (this.isDropdownShowWishlist) {
+      return this.wishlistItems.length > 1 ? `${this.wishlistItems.length} items` : `${this.wishlistItems.length} item`;
+    }
   }
 
   ngOnDestroy(): void {
@@ -119,12 +152,6 @@ export class DropdownComponent implements OnInit, OnDestroy {
 
   onClose(): void {
     this.ds.close();
-  }
-
-  @HostListener('document:click', ['$event']) documentClick(event): void {
-    if (!this.er.nativeElement.contains(event.target)) {
-      this.ds.close();
-    }
   }
 
 }

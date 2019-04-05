@@ -14,6 +14,8 @@ import { ApiService } from './api.service';
 })
 export class CategoryService {
 
+  objectClass: ObjectClass;
+
   private _selectedCategoryProducts: DocsResponse<Product[]>;
   private selectedCategoryProductsSubject = new Subject<DocsResponse<Product[]>>();
 

@@ -1,13 +1,18 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { NavItem } from '../../interfaces/nav/nav-item.interface';
-import { User } from '../../interfaces/user.interface';
-import { Subject } from 'rxjs';
-import { UserService } from '../../services/user.service';
-import { takeUntil } from 'rxjs/operators';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { NavItem } from '../../interfaces/nav/nav-item.interface';
 import { DROPDOWN_ANIMATIONS } from '../../app.animations';
 import { WishlistService } from '../../services/wishlist.service';
 import { DropdownService } from '../../services/dropdown.service';
+import { CartItem } from '../../interfaces/cart/cart-item.interface';
+import { CartService } from '../../services/cart.service';
+import { DropdownType } from '../../enums/dropdown-type.enum';
+import { WishlistItem } from '../../interfaces/wishlist/wishlist-item.interface';
+import { User } from '../../interfaces/user.interface';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -24,13 +29,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   userMenu: NavItem[] = [
     {
-      label: 'Wishlist',
+      label: DropdownType.WISHLIST,
       route: '/wishlist',
       icon: 'assets/images/icons/heart.svg',
       count: 0,
     },
     {
-      label: 'Cart',
+      label: DropdownType.CART,
       route: '/cart',
       icon: 'assets/images/icons/cart.svg',
       count: 0,
@@ -77,6 +82,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private ws: WishlistService,
     private cdr: ChangeDetectorRef,
     private ds: DropdownService,
+    private cs: CartService,
   ) {
   }
 
@@ -85,20 +91,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.us
       .currentUser$
-      .pipe(
-        takeUntil(this.destroyedSubject),
-      )
+      .pipe(takeUntil(this.destroyedSubject))
       .subscribe((newUser: User) => {
         this.currentUser = newUser;
       });
 
-    this.ws.wishlistProducts$
-      .pipe(
-        takeUntil(this.destroyedSubject),
-      )
-      .subscribe(products => {
-        this.userMenu[0].count = products.length;
-        this.cdr.detectChanges();
+    this.ws.wishlistItems$
+      .pipe(takeUntil(this.destroyedSubject))
+      .subscribe((wishlistResponse: WishlistItem[]) => {
+        this.userMenu[0].count = wishlistResponse.length;
+        this.cdr.markForCheck();
+      });
+
+    this.cs
+      .cartItems$
+      .pipe(takeUntil(this.destroyedSubject))
+      .subscribe((cartResponse: CartItem[]) => {
+        this.userMenu[1].count = cartResponse.length;
+        this.cdr.markForCheck();
       });
   }
 
@@ -106,9 +116,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this.currentUser.FullName;
   }
 
-  toggleDropdown(event: Event): void {
+  toggleDropdown(event, label?: DropdownType): void {
     event.stopPropagation();
-    this.ds.toggleDropdown();
+    this.ds.toggleDropdown(label);
   }
 
   logout(): void {

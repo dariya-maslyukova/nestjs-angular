@@ -1,4 +1,4 @@
-.page-container{
+.page-container {
   min-height: -webkit-calc(100vh - 95px);
   min-height: -moz-calc(100vh - 95px);
   min-height: calc(100vh - 95px);
@@ -22,6 +22,8 @@
 .main-content {
   padding-top: 50px;
   padding-bottom: 50px;
+  line-height: 20px;
+  font-size: 15px;
 
   &.container {
     @include media-breakpoint-up(xl) {

@@ -19,10 +19,13 @@ import { OverlayModule } from './components/overlay/overlay.module';
 import { GridPagerComponent } from './components/grid-pager/grid-pager.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { SliceArrayPipe } from './pipes/slice-array.pipe';
 
 const DIRECTIVES = [];
 
-const PIPES = [];
+const PIPES = [
+  SliceArrayPipe,
+];
 
 const COMPONENTS = [
   GridPagerComponent,

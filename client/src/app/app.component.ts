@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { DropdownService } from './services/dropdown.service';
-import { SidebarState } from './enums/sidebar-state.enum';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +10,7 @@ export class AppComponent implements OnInit {
 
   isHomePage = false;
 
-  constructor(
+  constructor (
     private r: Router,
     private ds: DropdownService
   ) {
@@ -26,9 +25,5 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.ds.isDisabled = false;
-  }
-
-  get isDropdownToggled(): boolean {
-    return this.ds.state === SidebarState.CLOSED_COLLAPSED;
   }
 }

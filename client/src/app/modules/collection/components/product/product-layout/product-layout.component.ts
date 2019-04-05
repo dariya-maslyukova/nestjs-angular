@@ -7,16 +7,14 @@ import { ProductDetailsLayoutClass } from '../../../classes/product-details-layo
 import { ProductsService } from '../../../../../services/products.service';
 import { UtilsService } from '../../../../../services/utils.service';
 import { Product } from '../../../../../interfaces/product/product.interface';
-import { ObjectClass } from '../../../../../enums/object-class.enum';
 import { DetailsPageLayoutService } from '../../../../../services/details-page-layout.service';
+import { CategoryService } from '../../../../../services/category.service';
 
 @Component({
   selector: 'app-product-layout',
   templateUrl: './product-layout.component.html',
 })
 export class ProductLayoutComponent extends ProductDetailsLayoutClass {
-
-  objectClass = ObjectClass.WomenProducts;
 
   constructor(
     private ps: ProductsService,
@@ -25,9 +23,10 @@ export class ProductLayoutComponent extends ProductDetailsLayoutClass {
     r: Router,
     cdr: ChangeDetectorRef,
     dpls: DetailsPageLayoutService,
-    ts: ToasterService
+    ts: ToasterService,
+    cs: CategoryService
   ) {
-    super(ar, r, us, cdr, dpls, ts);
+    super(ar, r, us, cdr, dpls, ts, cs);
   }
 
   get isDataLoaded(): boolean {

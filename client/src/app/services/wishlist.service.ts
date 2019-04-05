@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../interfaces/product/product.interface';
+
 import { Observable, Subject } from 'rxjs';
+
+import { WishlistItem } from '../interfaces/wishlist/wishlist-item.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WishlistService {
 
-  private _wishlistProducts: Product[] = [];
-  private wishlistProductsSubject = new Subject<Product[]>();
+  wishlistProducts: WishlistItem[] = [];
+  wishlistTotal = 0;
+
+  private _wishlistItems: WishlistItem[] = [];
+  private wishlistItemsSubject = new Subject<WishlistItem[]>();
 
   private _isAddedToWishlist = {};
   private isAddedToWishlistSubject = new Subject<object>();
@@ -16,45 +21,106 @@ export class WishlistService {
   constructor() {
   }
 
-  set wishlistProducts(wishlistProducts: Product[]) {
-    this._wishlistProducts = wishlistProducts;
-    this.wishlistProductsSubject.next(this._wishlistProducts);
+  set wishlistItems(wishlistItems: WishlistItem[]) {
+    this._wishlistItems = wishlistItems;
+    this.wishlistItemsSubject.next(this._wishlistItems);
   }
 
-  get wishlistProducts(): Product[] {
-    return this._wishlistProducts;
+  get wishlistItems(): WishlistItem[] {
+    return this._wishlistItems;
   }
 
-  addToWishlist(wishlistProduct: Product): void {
-    const productIndex = this.wishlistProducts.findIndex((product: Product) => product.id === wishlistProduct.id);
+  initWishlist(item?: WishlistItem): void {
 
-    if (productIndex > -1) {
-      const copy = this.wishlistProducts;
-      copy.splice(productIndex, 1);
-      this.isAddedToWishlist[wishlistProduct.id] = false;
+    if (item && item.sku) {
+
+      if (localStorage.getItem('Wishlist') == null) {
+        const wishlist: any = [];
+        wishlist.push(JSON.stringify(item));
+        localStorage.setItem('Wishlist', JSON.stringify(wishlist));
+      } else {
+        const wishlist: any = JSON.parse(localStorage.getItem('Wishlist'));
+        let index = -1;
+
+        for (let i = 0; i < wishlist.length; i++) {
+          const wishlistItem = JSON.parse(wishlist[i]);
+
+          if (wishlistItem.sku === item.sku) {
+            index = i;
+            break;
+          }
+        }
+
+        if (index === -1) {
+          wishlist.push(JSON.stringify(item));
+          localStorage.setItem('Wishlist', JSON.stringify(wishlist));
+          this.isAddedToWishlist[item.sku] = true;
+        } else {
+
+          if (index > -1) {
+            wishlist.splice(index, 1);
+            localStorage.setItem('Wishlist', JSON.stringify(wishlist));
+            this.isAddedToWishlist[item.sku] = false;
+          }
+        }
+      }
+      this.loadWishlist();
     } else {
-      this.wishlistProducts = this._wishlistProducts.concat([(wishlistProduct)]);
-      this.isAddedToWishlist[wishlistProduct.id] = true;
+      this.loadWishlist();
+    }
+  }
+
+  loadWishlist(): void {
+    this.wishlistTotal = 0;
+    this.wishlistProducts = [];
+    const wishlist = JSON.parse(localStorage.getItem('Wishlist'));
+
+    if (wishlist) {
+      for (let i = 0; i < wishlist.length; i++) {
+        const wishlistItem: WishlistItem = JSON.parse(wishlist[i]);
+        this.isAddedToWishlist[wishlistItem.sku] = true;
+
+        this.wishlistProducts.push({
+          objectClass: wishlistItem.objectClass,
+          sku: wishlistItem.sku,
+          Name: wishlistItem.Name,
+          Price: wishlistItem.Price,
+          Image: wishlistItem.Image,
+        });
+      }
+      this.wishlistTotal = this.wishlistProducts.length;
     }
 
-    this.wishlistProductsSubject.next(this._wishlistProducts);
+    this.wishlistItems = this.wishlistProducts;
   }
 
-  deleteWishlistFrom(position: number): void {
-    this.wishlistProducts.splice(position);
-    this.wishlistProductsSubject.next(this._wishlistProducts);
+
+  removeItemFromWishlist(sku: string): void {
+    const wishlist: any = JSON.parse(localStorage.getItem('Wishlist'));
+
+    for (let i = 0; i < wishlist.length; i++) {
+      const wishlistItem: WishlistItem = JSON.parse(wishlist[i]);
+
+      if (wishlistItem.sku === sku) {
+        wishlist.splice(i, 1);
+        this.isAddedToWishlist[wishlistItem.sku] = false;
+        break;
+      }
+    }
+    localStorage.setItem('Wishlist', JSON.stringify(wishlist));
+    this.loadWishlist();
   }
 
-  get wishlistProducts$(): Observable<Product[]> {
-    return this.wishlistProductsSubject.asObservable();
+  get wishlistItems$(): Observable<WishlistItem[]> {
+    return this.wishlistItemsSubject.asObservable();
   }
 
   get isAddedToWishlist(): object {
     return this._isAddedToWishlist;
   }
 
-  set isAddedToWishlist(wishlistProducts: object) {
-    this._isAddedToWishlist = wishlistProducts;
+  set isAddedToWishlist(wishlistItems: object) {
+    this._isAddedToWishlist = wishlistItems;
     this.isAddedToWishlistSubject.next(this.isAddedToWishlistSubject);
   }
 
