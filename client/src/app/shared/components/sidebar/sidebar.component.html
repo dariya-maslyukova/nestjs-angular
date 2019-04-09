@@ -19,9 +19,9 @@
                       class="checkbox"
                       [disableRipple]="true"
                       (change)="onValueChange($event, 'category')"
-                      [value]="option.value"
+                      [value]="option"
                       #categoryFilter
-                    >{{ option.label }}</mat-checkbox>
+                    >{{ option }}</mat-checkbox>
                   </div>
                 </div>
                 <span class="action-link" (click)="onClearFilter('category')">Clear</span>

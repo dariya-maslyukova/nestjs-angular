@@ -43,6 +43,7 @@
     "lodash-es": "^4.17.11",
     "ngx-bootstrap": "^3.2.0",
     "ngx-owl-carousel": "^2.0.7",
+    "ngx-owl-carousel-o": "^1.1.1",
     "owl.carousel": "^2.3.4",
     "rxjs": "^6.4.0",
     "rxjs-compat": "^6.4.0",

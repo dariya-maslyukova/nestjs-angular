@@ -6,11 +6,9 @@ import { QueryParamsService } from '../../../../services/query-params.service';
 import { ProductsQueryModel } from '../../../../models/products-query.model';
 import { SelectOption } from '../../../../interfaces/select-option.interface';
 import { SortDirection } from '../../../../enums/sort-direction.enum';
-import { Category } from '../../../../enums/category.enum';
 import { CategoryService } from '../../../../services/category.service';
-import { DocsResponse } from '../../../../interfaces/docs-response.interface';
-import { Product } from '../../../../interfaces/product/product.interface';
 import { SidebarService } from '../../../../services/sidebar.service';
+import { Categories } from '../../../../enums/categories.enum';
 
 @Component({
   selector: 'app-category-header',
@@ -70,7 +68,7 @@ export class CategoryHeaderComponent implements OnInit, OnDestroy {
     this.sbs.toggleSidebar();
   }
 
-  onValueChange(value: Category, attr: string): void {
+  onValueChange(value: Categories, attr: string): void {
     this.filters[attr] = value;
     this.qps.updateQueryParams(this.filters);
   }

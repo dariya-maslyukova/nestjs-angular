@@ -1,0 +1,130 @@
+//------------------Carousel
+owl-carousel {
+  height: 100%;
+  display: flex;
+}
+
+.owl-carousel{
+  height: 100%;
+
+  .owl-stage-outer{
+    background: $black;
+  }
+
+  .owl-stage,
+  .owl-stage-outer{
+    height: 100%;
+  }
+
+  .owl-nav{
+    position: absolute;
+    bottom: 11.8em;
+    left: calc(25vw - 12.3125rem/2);
+    width: rem(197);
+    height: rem(97);
+    background: $white;
+    display: flex;
+
+    .owl-prev, .owl-next{
+      width: 50%;
+      height: 100%;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .owl-item {
+    width: 50%;
+    height: calc(100% - 11.8em);
+
+    &__slide {
+      height: 100%;
+
+      &-image {
+        display: block;
+        height: 100%;
+        width: 100%;
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+      }
+
+
+      &-content {
+        color: $white;
+        min-height: 11.8em;
+        padding: em(25);
+        display: flex;
+
+        .custom_content {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          white-space: nowrap;
+          opacity: 0;
+          transform: translateY(-10px);
+          transition: 800ms ease-in;
+          transition-delay: 1000ms;
+        }
+
+        .inner {
+          padding-right: em(25);
+        }
+
+        .small-text {
+          text-transform: uppercase;
+          font-size: 18px;
+        }
+
+        .large-bold-text {
+          font-size: 34.6px;
+          line-height: 30px;
+        }
+
+        .shop-link {
+          max-width: 150px;
+          margin-top: 0;
+          justify-content: flex-end;
+
+          & > a {
+            color: $white;
+            font-size: 14px;
+          }
+
+          &:after {
+            background: rgba(255, 255, 255, 0.2);
+          }
+        }
+      }
+    }
+
+    &.active {
+      transition: 500ms ease-in-out;
+
+      .custom_content {
+        transition: 800ms ease-out;
+        transition-delay: 1000ms;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      &:nth-child(2n){
+
+        .custom_content {
+          flex-direction: row-reverse;
+        }
+
+        .inner{
+          padding-right: 0;
+          padding-left: em(25);
+        }
+
+        .shop-link{
+          justify-content: flex-start;
+        }
+      }
+    }
+  }
+
+}

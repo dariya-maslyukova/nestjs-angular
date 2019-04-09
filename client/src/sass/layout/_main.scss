@@ -8,7 +8,8 @@
   margin-left: auto;
   margin-right: auto;
   font-size: 15px;
-  padding: 100px 3px 50px 3px;
+  padding-top: 95px;
+  margin-bottom: rem(400);
 
   @include media-breakpoint-down(lg) {
     min-height: 500px;

@@ -185,7 +185,7 @@ export class ProductController {
   @ApiBadRequestResponse({ type: ApiException })
   @ApiOperation(GetOperationId(Product.modelName, 'Product Update'))
   @ApiImplicitQuery({ name: 'objectClass', enum: EnumToArray(ObjectClass), required: false })
-  @ApiImplicitQuery({ name: 'additionalImages', required: false })
+  @ApiImplicitQuery({ name: 'additionalImages', required: false, isArray: true })
   @ApiImplicitQuery({ name: 'baseImage', required: false })
   @ApiImplicitQuery({ name: 'quantity', required: false })
   @ApiImplicitQuery({ name: 'categories', enum: EnumToArray(Category), isArray: true, required: false })
@@ -196,7 +196,7 @@ export class ProductController {
   @ApiImplicitQuery({ name: 'sku', required: false })
   @ApiImplicitQuery({ name: 'id', required: true })
   async update(
-    @Body('additionalImages') additionalImages: string[],
+    @Query('additionalImages') additionalImages,
     @Query('baseImage') baseImage: string,
     @Query('quantity') quantity: number,
     @Query('categories') categories: Category[] = [],
@@ -268,7 +268,9 @@ export class ProductController {
       exist.description = description;
     }
     if (vm.additionalImages) {
-      exist.additionalImages = additionalImages.map(img => {
+      exist.additionalImages = [];
+
+      exist.additionalImages = additionalImages.split(',').map(img => {
         const addImg = `public/catalog/${sku}/${img}`;
         exist.images.push(addImg);
         return addImg;
@@ -278,6 +280,7 @@ export class ProductController {
     try {
       return await this.productService.update(id, exist);
     } catch (e) {
+      console.log(e);
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }

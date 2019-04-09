@@ -1,0 +1,105 @@
+.page-footer{
+  background: #f3f3f3;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  z-index: -1;
+  text-align: center;
+  padding: em(100) 0 em(50);
+  .social-links{
+    margin-top: em(35);
+    a{
+      display: inline-block;
+      &:hover{
+        path{
+          fill: #000;
+        }
+      }
+    }
+    a + a {
+      margin-left: rem(15);
+    }
+  }
+  path{
+    fill: $c-primary-light;
+    transition: 300ms ease-in-out;
+    &:hover{
+      fill: #000;
+    }
+  }
+  .form.subscribe, .block.newsletter .form.subscribe{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: em(575);
+    margin-bottom: em(65);
+    button[type="submit"]{
+      position: absolute;
+      top: 15px;
+      right: 0;
+      &:hover{
+        path{
+          fill: #000;
+        }
+      }
+    }
+  }
+  .footer.links{
+    margin-bottom: em(35);
+    & > li{
+      display: inline-flex;
+      margin-right: rem(28);
+      &:after{
+        content: '-';
+        font-size: rem(25);
+      }
+      & > a{
+        color: #000;
+        font-family: $f-secondary;
+        font-weight: 600;
+        font-size: rem(25);
+        margin-right: rem(28);
+        padding-bottom: rem(15);
+        cursor: pointer;
+        position: relative;
+        &:before{
+          content: '';
+          height: 1px;
+          width: 0;
+          background: #000;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          transition: 300ms ease-in-out;
+        }
+      }
+      &:hover{
+        & > a{
+          color: #000;
+          &:before{
+            width: 100%;
+            left: 0;
+            right: auto;
+          }
+        }
+      }
+      &:last-child{
+        &:after{
+          display: none;
+          margin-right: 0;
+        }
+        & > a {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  .copyright{
+    font-size: 14px;
+    font-weight: 300;
+    font-family: $f-secondary;
+    color: $c-primary-dark;
+  }
+}

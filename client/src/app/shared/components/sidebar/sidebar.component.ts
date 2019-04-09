@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChildren,
+} from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
@@ -6,7 +13,6 @@ import { ProductsFilters } from '../../../interfaces/product/product-filters.int
 import { SelectOption } from '../../../interfaces/select-option.interface';
 import { Color } from '../../../enums/color.enum';
 import { Size } from '../../../enums/size.enum';
-import { Category } from '../../../enums/category.enum';
 import { QueryParamsService } from '../../../services/query-params.service';
 import { ProductsQueryModel } from '../../../models/products-query.model';
 import { SidebarState } from '../../../enums/sidebar-state.enum';
@@ -15,6 +21,7 @@ import { SidebarService } from '../../../services/sidebar.service';
 import { WindowResizeService } from '../../../services/window-resize.service';
 import { BoxSize } from '../../../interfaces/box-size.interface';
 import { CONFIG } from '../../../app.config';
+import { SubCategories } from '../../../enums/sub-categories.enum';
 
 @Component({
   selector: 'app-sidebar',
@@ -56,21 +63,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     },
   ];
 
-  categoryOptions: SelectOption<Category>[] = [
-    {
-      value: Category.Beachwear,
-      label: 'Beachwear',
-    },
-    {
-      value: Category.BlousesTops,
-      label: 'Blouses/Tops',
-    },
-    {
-      value: Category.Dresses,
-      label: 'Dresses',
-    },
-  ];
-
+  categoryOptions = [];
   filters: ProductsFilters = {};
 
   private state: SidebarState;
@@ -85,11 +78,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private qps: QueryParamsService<ProductsQueryModel>,
     private ss: SidebarService,
     private cdr: ChangeDetectorRef,
-    private wrs: WindowResizeService,
+    private wrs: WindowResizeService
   ) {
   }
 
   ngOnInit(): void {
+    this.categoryOptions = this.ss.sidebarCategories;
+
     this.ss
       .state$
       .pipe(takeUntil(this.destroyedSubject))
@@ -110,7 +105,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
           this.ss.state = SidebarState.CLOSED_COLLAPSED;
         }
       });
-
   }
 
   onClearFilter(attr: string): void {

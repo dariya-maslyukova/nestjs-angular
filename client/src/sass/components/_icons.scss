@@ -3,6 +3,21 @@
   height: 16px;
   position: relative;
   display: inline-flex;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  &__arrow-left {
+    width: rem(37);
+    height: rem(23);
+    background-image: url("/assets/images/arrow-left.svg");
+  }
+
+  &__arrow-right {
+    width: rem(37);
+    height: rem(23);
+    background-image: url("/assets/images/arrow-right.svg");
+  }
 
   &--large {
     width: rem(30);
@@ -71,4 +86,6 @@
     border-top: 4px solid;
     color: $shark;
   }
+
+
 }

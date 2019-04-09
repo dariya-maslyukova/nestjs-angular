@@ -20,6 +20,8 @@ export class IconsService {
     { url: '/assets/images/icons/social/google.svg', name: 'google' },
     { url: '/assets/images/icons/social/twitter.svg', name: 'twitter' },
     { url: '/assets/images/icons/trash.svg', name: 'trash' },
+    { url: '/assets/images/arrow-right.svg', name: 'arrow-right' },
+    { url: '/assets/images/arrow-left.svg', name: 'arrow-left' },
   ];
 
   constructor(private iconReg: SvgIconRegistryService) {

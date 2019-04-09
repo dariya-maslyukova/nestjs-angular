@@ -1,20 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SelectOption } from '../../../../../../interfaces/select-option.interface';
+import { Color } from '../../../../../../enums/color.enum';
+import { Size } from '../../../../../../enums/size.enum';
+import { SortDirection } from '../../../../../../enums/sort-direction.enum';
 import { ProductsFilters } from '../../../../../../interfaces/product/product-filters.interface';
+import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { QueryParamsService } from '../../../../../../services/query-params.service';
 import { ProductsQueryModel } from '../../../../../../models/products-query.model';
-import { FormControl } from '@angular/forms';
 import { Categories } from '../../../../../../enums/categories.enum';
-import { SortDirection } from '../../../../../../enums/sort-direction.enum';
-import { Size } from '../../../../../../enums/size.enum';
-import { Color } from '../../../../../../enums/color.enum';
 
 @Component({
-  selector: 'app-women-filters',
-  templateUrl: './women-filters.component.html',
+  selector: 'app-men-filters',
+  templateUrl: './men-filters.component.html'
 })
-export class WomenFiltersComponent implements OnInit, OnDestroy {
+export class MenFiltersComponent implements OnInit, OnDestroy {
 
   colorOptions: SelectOption<Color>[] = [
     {
@@ -60,7 +60,7 @@ export class WomenFiltersComponent implements OnInit, OnDestroy {
   categoryOptions = [];
 
   filters: ProductsFilters = {
-    category: Categories.Women,
+    category: Categories.Men,
     size: '',
     color: '',
   };

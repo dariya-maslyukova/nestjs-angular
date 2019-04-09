@@ -9,6 +9,7 @@ import { BasicQueryModel } from '../../../models/basic-query.model';
 import { Model } from '../../../interfaces/model.interface';
 import { DocsResponse } from '../../../interfaces/docs-response.interface';
 import { CategoryService } from '../../../services/category.service';
+import { SidebarService } from '../../../services/sidebar.service';
 
 export class GridPage<T, Q extends BasicQueryModel> implements OnDestroy {
 
@@ -27,6 +28,7 @@ export class GridPage<T, Q extends BasicQueryModel> implements OnDestroy {
   constructor(
     protected qps: QueryParamsService<Q>,
     protected cs: CategoryService,
+    protected ss: SidebarService,
   ) {
   }
 
@@ -58,6 +60,9 @@ export class GridPage<T, Q extends BasicQueryModel> implements OnDestroy {
 
   ngOnDestroy(): void {
     this.cs.totalFoundProducts = 0;
+    this.cs.currCategoryCleanup();
+    this.ss.sidebarCategories = null;
+
     this.destroyedSubject.next();
     this.destroyedSubject.complete();
   }

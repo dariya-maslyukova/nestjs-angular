@@ -50,5 +50,6 @@ $app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
 @import "components/image-carousel";
 @import "components/modals";
 @import "components/dropdown";
+@import "components/owl-carousel";
 
 @import "animation";

@@ -115,11 +115,6 @@ export class DropdownComponent implements OnInit, OnDestroy {
     return `${mapUrl}/${this.us.getProductSKU(sku)}`;
   }
 
-  toggleDropdown(event: Event): void {
-    event.stopPropagation();
-    this.ds.toggleDropdown();
-  }
-
   productSize(sizes: ProductSize[]): string {
     return sizes.map(size => `${size.Name} - ${size.Qty}`).join(', ');
   }

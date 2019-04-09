@@ -10,6 +10,8 @@ import { CategoryHeaderComponent } from './components/category-header/category-h
 import { ModalService } from '../../services/modal.service';
 import { CarouselModalComponent } from './components/carousel-modal/carousel-modal.component';
 import { CarouselModule, ModalModule } from 'ngx-bootstrap';
+import { ProductComponent } from './components/product/product.component';
+import { ProductLayoutComponent } from './components/product/product-layout/product-layout.component';
 
 const MODALS = [
   CarouselModalComponent,
@@ -19,6 +21,8 @@ const COMPONENTS = [
   CollectionComponent,
   CollectionLayoutComponent,
   CategoryHeaderComponent,
+  ProductComponent,
+  ProductLayoutComponent
 ];
 
 @NgModule({

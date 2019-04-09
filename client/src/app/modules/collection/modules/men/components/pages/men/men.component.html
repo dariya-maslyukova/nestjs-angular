@@ -1,0 +1,42 @@
+<div class="grid">
+  <div class="grid__body">
+    <div class="row no-gutters">
+      <div class="col-12 col-md-4 grid__item" *ngFor="let product of response.docs">
+        <div class="">
+          <div class="grid__item__wrapper-image">
+            <carousel
+              class="grid__item__image image-carousel"
+              [showIndicators]="false"
+              [interval]="0"
+            >
+              <slide *ngFor="let image of product.images">
+                <a [routerLink]="getDetailsUrl(product.sku)">
+                  <img [src]="image" alt="">
+                </a>
+              </slide>
+            </carousel>
+            <button type="button"
+                    class="btn btn--to-wishlist"
+                    [ngClass]="{'active' : isAddedToWishlist[product.sku]}"
+                    (click)="addToWishlist(product)"
+            >
+              <svg-icon [name]="isAddedToWishlist[product.sku] ? 'heart-black' : 'heart'"></svg-icon>
+            </button>
+          </div>
+          <div class="grid__item__wrapper-content">
+            <div class="grid__item__title">
+              <a [routerLink]="getDetailsUrl(product)">{{ product.name }}</a>
+            </div>
+            <div class="grid__item__price">{{ product.price }} $</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-paginator [length]="response.totalDocs"
+                   [pageSize]="response.limit"
+                   [pageSizeOptions]="[32, 64, 96]"
+                   (page)="onPagerUpdate($event)">
+    </mat-paginator>
+  </div>
+</div>

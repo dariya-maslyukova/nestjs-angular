@@ -38,9 +38,9 @@ export class ProductVm extends ModelVm {
   @IsString()
   baseImage: string;
 
-  @ApiModelPropertyOptional()
+  @ApiModelPropertyOptional({ example: [ 'image-1.jpg', 'image-2.jpg'] })
   @IsArray()
-  additionalImages: string[];
+  additionalImages?: string[];
 
   @ApiModelPropertyOptional()
   @IsArray()

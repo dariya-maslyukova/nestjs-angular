@@ -14,21 +14,8 @@ import { WomenKnitwearComponent } from './pages/women-knitwear/women-knitwear.co
 import { WomenGymComponent } from './pages/women-gym/women-gym.component';
 import { WomenBeachwearComponent } from './pages/women-beachwear/women-beachwear.component';
 import { WomenBlousesTopsComponent } from './pages/women-blouses-tops/women-blouses-tops.component';
-import { ProductComponent } from '../../components/product/product.component';
-import { ProductLayoutComponent } from '../../components/product/product-layout/product-layout.component';
 
 const routing: Routes = [
-  {
-    path: 'product/:sku', component: ProductLayoutComponent,
-    data: { state: 'productDetails' },
-    children: [
-      {
-        path: '',
-        component: ProductComponent,
-        data: { state: 'productDetails' },
-      },
-    ],
-  },
   {
     path: '', component: WomenComponent,
     data: { state: 'women', breadcrumb: 'Women' },

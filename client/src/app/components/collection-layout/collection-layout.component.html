@@ -5,19 +5,18 @@
   'page--category' : isCategory,
   'page--product' : !isCategory,
   'page--loading': isLoading,
-  '-sidebar-collapsed': isSidebarCollapsed && isCategory
+  '-sidebar-collapsed': isSidebarCollapsed
   }"
 >
   <div [ngClass]="isCategory ? 'category': 'product'">
     <div class="category__header" *ngIf="isCategory">
-      {{ sectionName }}
       <div class="inner-container">
         <app-category-header></app-category-header>
       </div>
     </div>
     <div [ngClass]="isCategory ? 'category__container': 'product__container'">
       <div class="row no-gutters">
-        <div class="col-12 col-md-3 page__sidebar" *ngIf="isCategory">
+        <div class="col-12 col-md-3 page__sidebar" *ngIf="isDataLoaded">
           <app-sidebar></app-sidebar>
         </div>
         <div [ngClass]="{'col-md-9 page__main' : isCategory }">

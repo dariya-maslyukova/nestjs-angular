@@ -6,6 +6,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { AnimateProductsSectionComponent } from './components/animate-products-section/animate-products-section.component';
 import { OwlCarouselComponent } from '../../shared/components/owl-carousel/owl-carousel.component';
 import { OverlayModule } from '../../shared/components/overlay/overlay.module';
+import { OwlModule } from 'ngx-owl-carousel';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { OverlayModule } from '../../shared/components/overlay/overlay.module';
     CommonModule,
     FlexSliderModule,
     HomeRoutingModule,
-    OverlayModule
+    OverlayModule,
+    OwlModule
   ]
 })
 export class HomeModule {

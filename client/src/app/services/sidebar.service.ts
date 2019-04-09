@@ -3,38 +3,36 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
 import { Observable } from 'rxjs/internal/Observable';
 
-import { NavItemGroup } from '../interfaces/nav/nav-item-group.interface';
 import { SidebarState } from '../enums/sidebar-state.enum';
 import { SidebarMode } from '../enums/sidebar-mode.enum';
-import { ObjectClass } from '../enums/object-class.enum';
-import { SectionBackOption } from '../interfaces/section-back-option.interface';
+import { SubCategories } from '../enums/sub-categories.enum';
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SidebarService {
 
   isDisabled = true;
-
-  private _currentSectionNameSubject = new Subject<string>();
-
   private _stateSubject = new Subject<SidebarState>();
-  private _dropdownStateSubject = new Subject<SidebarState>();
   private _modeSubject = new Subject<SidebarMode>();
 
-  private _currentSectionName = '';
-
-  get currentSectionName(): string {
-    return this._currentSectionName;
-  }
-
-  set currentSectionName(name: string) {
-    this._currentSectionName = name;
-    this._currentSectionNameSubject.next(name);
-  }
-
   private _state: SidebarState;
-  private _dropdownState: SidebarState;
+  private _sidebarCategories: SubCategories[] = [];
+  private _sidebarCategoriesSubject = new Subject<SubCategories[]>();
+
+  get sidebarCategories(): SubCategories[] {
+    return this._sidebarCategories;
+  }
+
+  set sidebarCategories(categories: SubCategories[]) {
+    this._sidebarCategories = categories;
+    this._sidebarCategoriesSubject.next(categories);
+  }
+
+  get sidebarCategories$(): Observable<SubCategories[]> {
+    return this._sidebarCategoriesSubject.asObservable();
+  }
 
   get state(): SidebarState {
     return this._state;
@@ -83,5 +81,4 @@ export class SidebarService {
     this._state = SidebarState.CLOSED_COLLAPSED;
     this._stateSubject.next(this._state);
   }
-
 }

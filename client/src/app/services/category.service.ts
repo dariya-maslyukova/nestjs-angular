@@ -19,9 +19,6 @@ export class CategoryService {
   private _selectedCategoryProducts: DocsResponse<Product[]>;
   private selectedCategoryProductsSubject = new Subject<DocsResponse<Product[]>>();
 
-  private _currentSectionNameSubject = new Subject<string>();
-  private _currentSectionName = '';
-
   private _totalFoundProductsSubject = new Subject<number>();
   private _totalFoundProducts = 0;
 
@@ -40,15 +37,6 @@ export class CategoryService {
 
   get selectedCategoryProducts$(): Observable<DocsResponse<Product[]>> {
     return this.selectedCategoryProductsSubject.asObservable();
-  }
-
-  set currentSectionName(name: string) {
-    this._currentSectionName = name;
-    this._currentSectionNameSubject.next(name);
-  }
-
-  get currentSectionName$(): Observable<string> {
-    return this._currentSectionNameSubject.asObservable();
   }
 
   get totalFoundProducts(): number {

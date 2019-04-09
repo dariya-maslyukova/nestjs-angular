@@ -1,3 +1,9 @@
+button {
+  &:focus {
+    outline: none;
+  }
+}
+
 .btn {
   background: none;
   border: 0;

@@ -1,9 +1,4 @@
-export enum Category {
-  All = 'All',
-  Clear = 'Clear',
-  Women = 'Women',
-  Men = 'Men',
-  Collection = 'Collection',
+export enum SubCategories {
   Beachwear = 'Beachwear',
   BlousesTops = 'Blouses/Tops',
   Dresses = 'Dresses',
