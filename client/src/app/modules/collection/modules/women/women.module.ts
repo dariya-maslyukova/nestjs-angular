@@ -4,7 +4,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDropdownModule, CarouselModule } from 'ngx-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-import { WomenFiltersComponent } from './components/women-filters/women-filters.component';
 import { WomenLayoutComponent } from './components/women-layout/women-layout.component';
 import { WomenComponent } from './pages/women/women.component';
 import { WomenDressesComponent } from './pages/women-dresses/women-dresses.component';
@@ -27,7 +26,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule, MatSelectModule } from '@angular/material';
 
 const COMPONENTS = [
-  WomenFiltersComponent,
   WomenLayoutComponent,
   WomenComponent,
   WomenDressesComponent,

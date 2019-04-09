@@ -25,7 +25,7 @@
           </div>
           <div class="grid__item__wrapper-content">
             <div class="grid__item__title">
-              <a [routerLink]="getDetailsUrl(product)">{{ product.name }}</a>
+              <a [routerLink]="getDetailsUrl(product.sku)">{{ product.name }}</a>
             </div>
             <div class="grid__item__price">{{ product.price }} $</div>
           </div>

@@ -31,6 +31,52 @@
 
           <mat-expansion-panel class="accordion__panel">
             <mat-expansion-panel-header class="accordion__header">
+              <mat-panel-title class="accordion__header__title">Brand</mat-panel-title>
+              <i class="icon icon__plus"></i>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+              <section class="accordion__content d-flex justify-content-between">
+                <div class="checkbox-group">
+                  <div *ngFor="let option of brandOptions;">
+                    <mat-checkbox
+                      class="checkbox"
+                      [disableRipple]="true"
+                      (change)="onValueChange($event, 'brandName')"
+                      [value]="option"
+                      #brandFilter
+                    >{{ option }}</mat-checkbox>
+                  </div>
+                </div>
+                <span class="action-link" (click)="onClearFilter('brandName')">Clear</span>
+              </section>
+            </ng-template>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel class="accordion__panel">
+            <mat-expansion-panel-header class="accordion__header">
+              <mat-panel-title class="accordion__header__title">Country</mat-panel-title>
+              <i class="icon icon__plus"></i>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+              <section class="accordion__content d-flex justify-content-between">
+                <div class="checkbox-group">
+                  <div *ngFor="let option of countryOptions;">
+                    <mat-checkbox
+                      class="checkbox"
+                      [disableRipple]="true"
+                      (change)="onValueChange($event, 'country')"
+                      [value]="option"
+                      #countryFilter
+                    >{{ option }}</mat-checkbox>
+                  </div>
+                </div>
+                <span class="action-link" (click)="onClearFilter('country')">Clear</span>
+              </section>
+            </ng-template>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel class="accordion__panel">
+            <mat-expansion-panel-header class="accordion__header">
               <mat-panel-title class="accordion__header__title">Color</mat-panel-title>
               <i class="icon icon__plus"></i>
             </mat-expansion-panel-header>

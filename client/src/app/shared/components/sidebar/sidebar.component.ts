@@ -21,7 +21,9 @@ import { SidebarService } from '../../../services/sidebar.service';
 import { WindowResizeService } from '../../../services/window-resize.service';
 import { BoxSize } from '../../../interfaces/box-size.interface';
 import { CONFIG } from '../../../app.config';
-import { SubCategories } from '../../../enums/sub-categories.enum';
+import { Category } from '../../../enums/category.enum';
+import { Brand } from '../../../enums/brand.enum';
+import { Country } from '../../../enums/country.enum';
 
 @Component({
   selector: 'app-sidebar',
@@ -63,7 +65,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
     },
   ];
 
-  categoryOptions = [];
+  categoryOptions: Category[] = [];
+  brandOptions: Brand[] = [];
+  countryOptions: Country[] = [];
   filters: ProductsFilters = {};
 
   private state: SidebarState;
@@ -73,17 +77,21 @@ export class SidebarComponent implements OnInit, OnDestroy {
   @ViewChildren('categoryFilter') categoryFilter;
   @ViewChildren('colorFilter') colorFilter;
   @ViewChildren('sizeFilter') sizeFilter;
+  @ViewChildren('brandFilter') brandFilter;
+  @ViewChildren('countryFilter') countryFilter;
 
   constructor(
     private qps: QueryParamsService<ProductsQueryModel>,
     private ss: SidebarService,
     private cdr: ChangeDetectorRef,
-    private wrs: WindowResizeService
+    private wrs: WindowResizeService,
   ) {
   }
 
   ngOnInit(): void {
     this.categoryOptions = this.ss.sidebarCategories;
+    this.brandOptions = this.ss.brands;
+    this.countryOptions = this.ss.countries;
 
     this.ss
       .state$
@@ -114,7 +122,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     switch (attr) {
       case 'category':
-
         this.categoryFilter._results.map(checkbox => {
           checkbox.checked = false;
         });
@@ -126,6 +133,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
         break;
       case 'size':
         this.sizeFilter._results.map(checkbox => {
+          checkbox.checked = false;
+        });
+        break;
+      case 'brandName':
+        this.brandFilter._results.map(checkbox => {
+          checkbox.checked = false;
+        });
+        break;
+      case 'country':
+        this.countryFilter._results.map(checkbox => {
           checkbox.checked = false;
         });
         break;

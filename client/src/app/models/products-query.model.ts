@@ -7,6 +7,7 @@ export class ProductsQueryModel extends BasicQueryModel {
   constructor(params: any) {
     super(params);
     const attrs = [
+      'parentCategory',
       'category',
       'size',
       'color'

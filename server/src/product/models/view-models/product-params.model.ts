@@ -16,6 +16,11 @@ export class ProductParams {
   })
   description: string;
 
+  @ApiModelPropertyOptional({
+    example: 'Product short Description',
+  })
+  shortDescription: string;
+
   @ApiModelProperty()
   price: number;
 

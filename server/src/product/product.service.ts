@@ -8,6 +8,9 @@ import { MapperService } from '../shared/mapper/mapper.service';
 import { ProductParams } from './models/view-models/product-params.model';
 import { ObjectClass } from '../shared/enums/object-class.enum';
 import { Category } from '../shared/enums/category.enum';
+import { ParentCategory } from '../shared/enums/parent-category.enum';
+import { Country } from '../shared/enums/country.enum';
+import { Brand } from '../shared/enums/brand.enum';
 
 @Injectable()
 export class ProductService extends BaseService<Product> {
@@ -24,7 +27,10 @@ export class ProductService extends BaseService<Product> {
   async createProduct(
     params: ProductParams,
     objectClass: ObjectClass,
-    categories: Category[],
+    category: Category,
+    parentCategory: ParentCategory,
+    country: Country,
+    brandName: Brand,
   ): Promise<Product> {
     const {
       name,
@@ -33,6 +39,7 @@ export class ProductService extends BaseService<Product> {
       sku,
       baseImage,
       description,
+      shortDescription,
       discountPrice,
       additionalImages,
     } = params;
@@ -45,8 +52,20 @@ export class ProductService extends BaseService<Product> {
     product.sku = sku;
     product.objectClass = objectClass;
 
-    if (categories) {
-      product.categories = categories;
+    if (category) {
+      product.category = category;
+    }
+    if (parentCategory) {
+      product.parentCategory = parentCategory;
+    }
+    if (brandName) {
+      product.brandName = brandName;
+    }
+    if (country) {
+      product.country = country;
+    }
+    if (shortDescription) {
+      product.shortDescription = shortDescription;
     }
     if (baseImage) {
       product.baseImage = `public/catalog/${sku}/${baseImage}`;

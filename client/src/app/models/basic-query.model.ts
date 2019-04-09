@@ -4,7 +4,7 @@ export class BasicQueryModel implements BasicQuery {
   queryParams?: any;
   limit?: number;
   page?: number;
-  category?: string;
+  parentCategory?: string;
 
   /* tslint:enable variable-name */
 
@@ -12,7 +12,7 @@ export class BasicQueryModel implements BasicQuery {
     const attrs = [
       'limit',
       'page',
-      'category'
+      'parentCategory'
     ];
 
     attrs.forEach(attr => {

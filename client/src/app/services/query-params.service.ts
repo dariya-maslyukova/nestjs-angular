@@ -23,7 +23,7 @@ export class QueryParamsService<T extends BasicQueryModel> {
     this._query = {
       limit: query.limit,
       page: query.page,
-      category: query.category,
+      parentCategory: query.parentCategory,
       ...query.queryParams,
     };
     this.querySubject.next(this._query);
@@ -56,7 +56,7 @@ export class QueryParamsService<T extends BasicQueryModel> {
     const queryToServer = {
       limit: this._query.limit,
       page: this._query.page,
-      category: this._query.category,
+      parentCategory: this._query.parentCategory,
       ...this._query.queryParams,
     };
 
@@ -70,7 +70,7 @@ export class QueryParamsService<T extends BasicQueryModel> {
     const queryToServer = {
       limit: this._query.limit,
       page: this._query.page,
-      category: this._query.category,
+      parentCategory: this._query.parentCategory,
       ...this._query.queryParams,
     };
 
@@ -85,7 +85,7 @@ export class QueryParamsService<T extends BasicQueryModel> {
     const params: BasicQueryModel | any = {
       limit: this._query.limit,
       page: this._query.page,
-      category: this._query.category,
+      parentCategory: this._query.parentCategory,
       ...this._query.queryParams,
     };
 

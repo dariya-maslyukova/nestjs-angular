@@ -1,5 +1,5 @@
 export enum ObjectClass {
-  Products = 'cardin.store.Products',
+  CollectionProducts = 'cardin.store.CollectionProducts',
   WomenProducts = 'cardin.store.WomenProducts',
   MenProducts = 'cardin.store.MenProducts',
   Categories = 'cardin.store.Categories',

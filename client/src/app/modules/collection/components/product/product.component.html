@@ -11,14 +11,10 @@
   <div class="col-12 col-md-4">
     <section class="product__info-container">
       <div class="text-center">
-        <div class="product__brand">EMPORIO ARMANI</div>
+        <div class="product__brand">{{ product.brandName}}</div>
         <div class="product__title">{{ product.name }}</div>
         <div class="product__price">{{ product.price }} $</div>
-        <div class="product__description">
-          Between office appointments and evening plans, finding the right balance for your clothing is almost mission
-          impossible: But Emporio Armani has managed to create the perfect dress to navigate between work and play. The
-          combination of feminine lines and contemporary details is, in fact, the winning choice.
-        </div>
+        <div class="product__description">{{ product.shortDescription }}</div>
       </div>
 
       <form [formGroup]="form">
@@ -153,6 +149,7 @@
           </ng-template>
         </mat-expansion-panel>
       </mat-accordion>
+      <div class="product__code">Country: {{ product.country }}</div>
       <div class="product__code">Product code: {{ product.sku }}</div>
 
     </section>

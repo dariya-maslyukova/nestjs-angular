@@ -62,6 +62,8 @@ export class GridPage<T, Q extends BasicQueryModel> implements OnDestroy {
     this.cs.totalFoundProducts = 0;
     this.cs.currCategoryCleanup();
     this.ss.sidebarCategories = null;
+    this.ss.brands = [];
+    this.ss.countries = [];
 
     this.destroyedSubject.next();
     this.destroyedSubject.complete();

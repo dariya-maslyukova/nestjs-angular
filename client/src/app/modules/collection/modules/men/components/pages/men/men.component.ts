@@ -11,13 +11,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UtilsService } from '../../../../../../../services/utils.service';
 import { DetailsPageLayoutService } from '../../../../../../../services/details-page-layout.service';
 import { ObjectClass } from '../../../../../../../enums/object-class.enum';
-import { takeUntil } from 'rxjs/operators';
+import { first, takeUntil } from 'rxjs/operators';
 import { WishlistItem } from '../../../../../../../interfaces/wishlist/wishlist-item.interface';
 import { GridPage } from '../../../../../classes/grid-page.class';
-import { Categories } from '../../../../../../../enums/categories.enum';
 import { SidebarService } from '../../../../../../../services/sidebar.service';
 import { ProductsQuery } from '../../../../../../../interfaces/queries/products.query.interface';
-import { SubCategories } from '../../../../../../../enums/sub-categories.enum';
+import { ParentCategory } from '../../../../../../../../../../server/src/shared/enums/parent-category.enum';
+import { Category } from '../../../../../../../enums/category.enum';
+import { Brand } from '../../../../../../../enums/brand.enum';
+import { Country } from '../../../../../../../enums/country.enum';
 
 @Component({
   selector: 'app-men',
@@ -31,7 +33,7 @@ export class MenComponent extends GridPage<Product, ProductsQueryModel> implemen
   urlParams: PaginationQueryPart & ProductsFilters = {
     limit: 32,
     page: 1,
-    category: Categories.Men,
+    parentCategory: ParentCategory.Men,
   };
 
   response: DocsResponse<Product[]>;
@@ -63,7 +65,7 @@ export class MenComponent extends GridPage<Product, ProductsQueryModel> implemen
       .query$
       .pipe(takeUntil(this.destroyedSubject))
       .subscribe(query => {
-        this.r.navigate(['/collection/men'], this.qps.getParamsForUrl());
+        this.r.navigate(['/collection/men'], this.qps.getParamsForUrl(['parentCategory']));
         this.getData(query);
       });
 
@@ -75,7 +77,7 @@ export class MenComponent extends GridPage<Product, ProductsQueryModel> implemen
     this.ar
       .queryParams
       .pipe(
-        // first(),
+        first(),
         takeUntil(this.destroyedSubject),
       )
       .subscribe(params => {
@@ -96,7 +98,9 @@ export class MenComponent extends GridPage<Product, ProductsQueryModel> implemen
 
           this.cs.selectedCategoryProducts = this.response;
           this.cs.totalFoundProducts = this.response.totalDocs;
-          this.ss.sidebarCategories = this.response.docs.map(products => products.categories)[0] as SubCategories[];
+          this.ss.sidebarCategories = this.response.docs.map(products => products.category) as Category[];
+          this.ss.brands = this.response.docs.map(products => products.brandName) as Brand[];
+          this.ss.countries = this.response.docs.map(products => products.country) as Country[];
         }
         this.dpls.isLoading = false;
         this.cdr.markForCheck();

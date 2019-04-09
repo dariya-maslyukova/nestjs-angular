@@ -5,7 +5,9 @@ import { Observable } from 'rxjs/internal/Observable';
 
 import { SidebarState } from '../enums/sidebar-state.enum';
 import { SidebarMode } from '../enums/sidebar-mode.enum';
-import { SubCategories } from '../enums/sub-categories.enum';
+import { Category } from '../enums/category.enum';
+import { Brand } from '../enums/brand.enum';
+import { Country } from '../enums/country.enum';
 
 
 @Injectable({
@@ -14,23 +16,25 @@ import { SubCategories } from '../enums/sub-categories.enum';
 export class SidebarService {
 
   isDisabled = true;
+  brands: Brand[] = [];
+  countries: Country[] = [];
   private _stateSubject = new Subject<SidebarState>();
   private _modeSubject = new Subject<SidebarMode>();
 
   private _state: SidebarState;
-  private _sidebarCategories: SubCategories[] = [];
-  private _sidebarCategoriesSubject = new Subject<SubCategories[]>();
+  private _sidebarCategories: Category[] = [];
+  private _sidebarCategoriesSubject = new Subject<Category[]>();
 
-  get sidebarCategories(): SubCategories[] {
+  get sidebarCategories(): Category[] {
     return this._sidebarCategories;
   }
 
-  set sidebarCategories(categories: SubCategories[]) {
+  set sidebarCategories(categories: Category[]) {
     this._sidebarCategories = categories;
     this._sidebarCategoriesSubject.next(categories);
   }
 
-  get sidebarCategories$(): Observable<SubCategories[]> {
+  get sidebarCategories$(): Observable<Category[]> {
     return this._sidebarCategoriesSubject.asObservable();
   }
 

@@ -49,6 +49,10 @@
     color: $dusty-gray;
   }
 
+  &__code + .product__code {
+    padding: 0;
+  }
+
   .accordion {
 
     .mat-expansion-panel-header {

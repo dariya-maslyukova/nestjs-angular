@@ -3,6 +3,10 @@ import { InstanceType, ModelType, prop } from 'typegoose';
 import { Model, schemaOptions } from '../../shared/model';
 import { ObjectClass } from '../../shared/enums/object-class.enum';
 import { Category } from '../../shared/enums/category.enum';
+import { ParentCategory } from '../../shared/enums/parent-category.enum';
+import { Attribute } from '../interfaces/attribute.interface';
+import { Country } from '../../shared/enums/country.enum';
+import { Brand } from '../../shared/enums/brand.enum';
 
 export class Product extends Model<Product> {
   @prop({ required: [true, 'Name is required'] })
@@ -17,17 +21,29 @@ export class Product extends Model<Product> {
   @prop()
   description: string;
 
+  @prop()
+  shortDescription: string;
+
   @prop({ required: [true, 'Price is required'] })
   price: number;
 
   @prop()
   discountPrice: number;
 
-  @prop({
-    enum: Category,
-    default: Category.Collection,
-  })
-  categories: Category[];
+  @prop({ enum: Category })
+  category: Category;
+
+  @prop({ enum: ParentCategory })
+  parentCategory: ParentCategory;
+
+  @prop()
+  attributes: Attribute[];
+
+  @prop({ enum: Brand })
+  brandName: Brand;
+
+  @prop({ enum: Country })
+  country: Country;
 
   @prop({ required: [true, 'Quantity is required'], default: 1 })
   quantity: number;
@@ -40,8 +56,13 @@ export class Product extends Model<Product> {
 
   @prop({
     enum: ObjectClass,
-    default: ObjectClass.Products,
+    default: ObjectClass.CollectionProducts,
   }) objectClass?: ObjectClass;
+
+  @prop()
+  get urlKey(): string {
+    return `${this.name.toLowerCase().replace(/\s/g, '-')}-${this.sku}`;
+  }
 
   @prop()
   get images(): string[] {
@@ -50,7 +71,6 @@ export class Product extends Model<Product> {
     } else {
       return [this.baseImage];
     }
-
   }
 
   static get model(): ModelType<Product> {

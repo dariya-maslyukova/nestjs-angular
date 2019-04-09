@@ -15,10 +15,12 @@ import { DetailsPageLayoutService } from '../../../../../../services/details-pag
 import { DocsResponse } from '../../../../../../interfaces/docs-response.interface';
 import { WishlistItem } from '../../../../../../interfaces/wishlist/wishlist-item.interface';
 import { ObjectClass } from '../../../../../../enums/object-class.enum';
-import { Categories } from '../../../../../../enums/categories.enum';
 import { SidebarService } from '../../../../../../services/sidebar.service';
 import { ProductsQuery } from '../../../../../../interfaces/queries/products.query.interface';
-import { SubCategories } from '../../../../../../enums/sub-categories.enum';
+import { ParentCategory } from '../../../../../../../../../server/src/shared/enums/parent-category.enum';
+import { Category } from '../../../../../../enums/category.enum';
+import { Brand } from '../../../../../../enums/brand.enum';
+import { Country } from '../../../../../../enums/country.enum';
 
 @Component({
   selector: 'app-women',
@@ -32,7 +34,7 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
   urlParams: PaginationQueryPart & ProductsFilters = {
     limit: 32,
     page: 1,
-    category: Categories.Women,
+    parentCategory: ParentCategory.Women,
   };
 
   response: DocsResponse<Product[]>;
@@ -64,7 +66,7 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
       .query$
       .pipe(takeUntil(this.destroyedSubject))
       .subscribe(query => {
-        this.r.navigate(['/collection/women'], this.qps.getParamsForUrl());
+        this.r.navigate(['/collection/women'], this.qps.getParamsForUrl(['parentCategory']));
         this.getData(query);
       });
 
@@ -96,7 +98,9 @@ export class WomenComponent extends GridPage<Product, ProductsQueryModel> implem
 
           this.cs.selectedCategoryProducts = this.response;
           this.cs.totalFoundProducts = this.response.totalDocs;
-          this.ss.sidebarCategories = this.response.docs.map(products => products.categories)[0] as SubCategories[];
+          this.ss.sidebarCategories = this.response.docs.map(products => products.category) as Category[];
+          this.ss.brands = this.response.docs.map(products => products.brandName) as Brand[];
+          this.ss.countries = this.response.docs.map(products => products.country) as Country[];
         }
 
         this.dpls.isLoading = false;
