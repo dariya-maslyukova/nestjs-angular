@@ -8,6 +8,8 @@
 
   &__image-link {
     cursor: crosshair;
+    display: block;
+    margin-bottom: 3px;
   }
 
   &__brand {
@@ -69,6 +71,8 @@
     }
 
     a {
+      display: inline-flex;
+
       &:hover {
         path {
           fill: $cerise;
@@ -78,7 +82,7 @@
 
     svg-icon {
       svg {
-        height: 22px;
+        height: auto;
         width: auto;
       }
     }

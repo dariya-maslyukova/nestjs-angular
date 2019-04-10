@@ -159,5 +159,15 @@
     justify-content: center;
     z-index: 11;
     cursor: pointer;
+
+    .icon__plus {
+
+      &:hover {
+        &:before,
+        &:after {
+          background: $white-smoke;
+        }
+      }
+    }
   }
 }

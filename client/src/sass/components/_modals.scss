@@ -158,6 +158,21 @@ $ng-select-dropdown-z-index: 1050;
     justify-content: center;
     z-index: 11;
     cursor: pointer;
+
+    .icon__plus {
+
+      &--bright:before,
+      &--bright:after {
+        background: $scorpion;
+      }
+
+      &:hover {
+        &:before,
+        &:after {
+          background: $black;
+        }
+      }
+    }
   }
 }
 

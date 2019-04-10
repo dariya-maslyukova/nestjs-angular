@@ -43,10 +43,16 @@
     &__link {
       cursor: pointer;
       position: relative;
-      display: block;
+      display: flex;
+      align-items: baseline;
+
+      @include media-breakpoint-down(md) {
+        align-items: center;
+      }
 
       &__count {
         font-family: $f-main;
+        margin-left: 5px;
       }
     }
 
@@ -56,9 +62,8 @@
       padding-bottom: 21px;
       margin-right: em(45);
       font-family: $f-secondary;
-      text-transform: uppercase;
-      font-weight: 600;
-      font-size: 14px;
+      font-weight: 500;
+      font-size: 15px;
 
       @include media-breakpoint-down(lg) {
         margin-right: em(30);
@@ -191,116 +196,6 @@
           }
         }
       }
-    }
-  }
-}
-
-
-.page-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  width: 100%;
-  padding-top: em(57);
-  transition: 300ms ease-out;
-  font-family: $f-secondary;
-  background: #fff;
-  box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.3);
-
-  &.row {
-    align-items: baseline;
-  }
-
-  .logo {
-    display: block;
-    //visibility: hidden;
-    a {
-      transition: none;
-    }
-  }
-
-  a {
-    font-family: $f-secondary;
-    font-size: 14px;
-    letter-spacing: -0.5px;
-    text-transform: uppercase;
-  }
-
-  .header.panel > .header.links {
-    display: inline-block;
-    float: none;
-    vertical-align: middle;
-
-    & > li {
-      display: inline-block;
-      margin-right: em(40);
-
-      & > a {
-        &:visited {
-          color: inherit;
-        }
-      }
-    }
-  }
-
-  .minicart-wrapper {
-    display: inline-block;
-    float: none;
-    line-height: 13px;
-    vertical-align: middle;
-
-    .action.showcart {
-      &:before {
-        display: none;
-      }
-
-      .counter.qty {
-        display: inline-block;
-        height: auto;
-        min-width: auto;
-        padding: 0;
-        margin: auto;
-        overflow: auto;
-        line-height: inherit;
-        color: #000;
-        text-align: left;
-        vertical-align: middle;
-        background: transparent;
-        border-radius: 0;
-
-        .counter-label {
-          display: none;
-        }
-      }
-
-      .text {
-        display: inline-block;
-        position: relative;
-        width: auto;
-        height: auto;
-        margin: auto;
-        overflow: auto;
-        vertical-align: middle;
-      }
-    }
-
-    .action.close {
-      &:before {
-        display: none;
-      }
-    }
-
-    .block-minicart {
-      display: block;
-      position: relative;
-      top: 0;
-      width: auto;
-      min-width: 100%;
-      margin: 0;
-      background: none;
-      border: 0;
-      box-shadow: none;
     }
   }
 }

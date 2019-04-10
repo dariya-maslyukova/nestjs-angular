@@ -1,54 +1,41 @@
-<footer class="page-footer">
-  <div class="footer content">
+<footer class="f">
+  <div class="f__content">
     <div class="block newsletter">
-      <div class="content">
-        <form class="form subscribe"  method="post"
-              id="newsletter-validate-detail">
-          <div class="field newsletter">
-            <div class="control">
-              <input name="email" type="email" placeholder="Subscribe our newsletter">
-            </div>
-          </div>
-          <div class="actions">
-            <button class="action subscribe" title="Subscribe" type="submit">
-              <svg-icon name="arrow-right"></svg-icon>
-            </button>
-          </div>
-        </form>
-      </div>
+      <form class="f__subscribe-form" (submit)="onSubmit($event)" [formGroup]="form">
+        <div class="form-group">
+          <app-mat-control
+            type="email"
+            formControlName="Email"
+            [placeholder]="'Subscribe our newsletter'"
+          ></app-mat-control>
+        </div>
+
+        <button class="btn" (click)="onSubmit()" [disabled]="form.invalid">
+          <svg-icon name="arrow-right"></svg-icon>
+        </button>
+      </form>
     </div>
-    <ul class="footer links">
-      <li class="nav item"><a href="#">Deliveries</a></li>
-      <li class="nav item"><a href="#">Returns</a></li>
-      <li class="nav item"><a href="#">Terms and conditions</a></li>
-      <li class="nav item"><a href="#">Affiliate Program</a></li>
-      <li class="nav item"><a href="#">Contact Us</a></li>
+    <ul class="f__nav">
+      <li *ngFor="let navItem of navItems">
+        <a [routerLink]="navItem.route" [routerLinkActive]="'active'">{{ navItem.label }}</a>
+      </li>
     </ul>
   </div>
-  <small class="copyright">
-    <span>Copyright © 2018 E.Dress Store. All rights reserved.</span>
-  </small>
-  <nav class="social-links">
-    <a href="#">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32px"
-           height="32px">
-        <path fill-rule="evenodd" fill="rgb(0, 0, 0)"
-              d="M16.000,32.000 C7.163,32.000 -0.000,24.837 -0.000,16.000 C-0.000,7.163 7.163,-0.000 16.000,-0.000 C24.837,-0.000 32.000,7.163 32.000,16.000 C32.000,24.837 24.837,32.000 16.000,32.000 ZM16.000,2.500 C8.544,2.500 2.500,8.544 2.500,16.000 C2.500,23.456 8.544,29.500 16.000,29.500 C23.456,29.500 29.500,23.456 29.500,16.000 C29.500,8.544 23.456,2.500 16.000,2.500 ZM19.797,13.550 L19.367,16.375 L17.014,16.375 C17.014,19.960 17.014,24.000 17.014,24.000 L14.243,24.000 C14.243,24.000 14.243,20.001 14.243,16.375 L12.203,16.375 L12.203,13.550 L14.243,13.550 L14.243,11.354 C14.243,10.044 14.885,8.000 17.696,8.000 L19.757,8.010 L19.757,10.752 C19.757,10.752 18.258,10.752 17.959,10.752 C17.658,10.752 17.014,10.896 17.014,11.519 L17.014,13.550 L19.797,13.550 Z"></path>
-      </svg>
+  <div class="f__copyright">
+    <span>Copyright © 2019 Cardin Store. All rights reserved.</span>
+  </div>
+  <nav class="f__social-links">
+    <a href="">
+      <svg-icon name="facebook"></svg-icon>
     </a>
-    <a href="#">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32px"
-           height="32px">
-        <path fill-rule="evenodd" fill="rgb(0, 0, 0)"
-              d="M16.000,32.000 C7.163,32.000 -0.000,24.837 -0.000,16.000 C-0.000,7.163 7.163,-0.000 16.000,-0.000 C24.837,-0.000 32.000,7.163 32.000,16.000 C32.000,24.837 24.837,32.000 16.000,32.000 ZM16.000,2.500 C8.544,2.500 2.500,8.544 2.500,16.000 C2.500,23.456 8.544,29.500 16.000,29.500 C23.456,29.500 29.500,23.456 29.500,16.000 C29.500,8.544 23.456,2.500 16.000,2.500 ZM22.399,12.501 C22.399,12.520 22.401,12.536 22.401,12.555 C22.401,12.568 22.399,12.584 22.399,12.600 C22.399,12.605 22.401,12.612 22.401,12.618 C22.624,18.352 18.488,23.000 13.163,23.000 C11.289,23.000 9.519,22.424 8.000,21.427 C10.235,21.809 12.042,20.612 12.571,19.953 C11.086,19.953 9.727,18.586 9.621,17.539 C9.921,17.589 10.606,17.653 10.995,17.427 C8.979,16.833 8.426,15.192 8.449,13.954 C8.786,14.307 9.503,14.387 9.891,14.355 C8.755,13.599 7.890,11.525 8.890,9.659 C10.519,11.944 13.409,13.278 15.882,13.347 L15.883,13.347 C15.828,13.092 15.798,12.827 15.798,12.555 C15.798,10.591 17.276,9.000 19.099,9.000 C20.038,9.000 20.884,9.422 21.485,10.099 C21.484,10.098 21.484,10.097 21.484,10.097 C22.012,10.097 23.079,9.631 23.544,9.311 C23.367,10.042 22.651,10.961 22.168,11.242 C22.922,11.162 23.730,10.843 24.000,10.683 C23.534,11.514 22.884,12.145 22.399,12.501 Z"></path>
-      </svg>
+    <a href="" class="icon--instagram">
+      <svg-icon name="instagram"></svg-icon>
     </a>
-    <a href="#">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32px"
-           height="32px">
-        <path fill-rule="evenodd" fill="rgb(0, 0, 0)"
-              d="M16.000,32.000 C7.163,32.000 0.000,24.837 0.000,16.000 C0.000,7.163 7.163,-0.000 16.000,-0.000 C24.837,-0.000 32.000,7.163 32.000,16.000 C32.000,24.837 24.837,32.000 16.000,32.000 ZM16.000,2.500 C8.544,2.500 2.500,8.544 2.500,16.000 C2.500,23.456 8.544,29.500 16.000,29.500 C23.456,29.500 29.500,23.456 29.500,16.000 C29.500,8.544 23.456,2.500 16.000,2.500 ZM22.047,12.997 L21.029,12.997 L21.029,11.025 L19.037,11.025 L19.037,10.002 L21.029,10.002 L21.029,8.033 L22.047,8.033 L22.047,10.002 L24.006,10.002 L24.006,11.025 L22.047,11.025 L22.047,12.997 ZM15.810,8.652 C15.810,8.652 17.227,9.528 17.227,11.240 C17.227,12.953 16.398,13.700 15.354,14.622 C14.309,15.543 14.918,16.092 16.551,17.255 C18.184,18.417 18.641,20.989 16.529,22.854 C14.418,24.720 7.994,24.469 7.994,21.009 C7.994,17.548 12.828,17.495 13.221,17.495 C13.611,17.495 13.678,17.386 13.352,17.034 C13.023,16.685 12.500,16.004 13.111,15.258 C12.021,15.302 9.018,14.709 9.018,11.943 C9.018,9.177 11.914,7.993 12.957,7.993 C14.004,7.993 17.160,7.993 18.162,7.993 C18.162,7.993 17.924,8.191 17.379,8.497 C16.834,8.804 15.810,8.652 15.810,8.652 ZM9.844,20.372 C9.844,21.974 10.998,23.050 13.152,23.050 C15.305,23.050 16.572,22.326 16.572,20.833 C16.572,19.339 15.148,18.593 14.352,17.978 C11.412,17.978 9.844,18.769 9.844,20.372 ZM12.740,8.520 C9.691,8.520 10.867,14.577 13.459,14.577 C16.898,14.577 15.113,8.431 12.740,8.520 Z"></path>
-      </svg>
+    <a href="">
+      <svg-icon name="google"></svg-icon>
+    </a>
+    <a href="">
+      <svg-icon name="twitter"></svg-icon>
     </a>
   </nav>
 

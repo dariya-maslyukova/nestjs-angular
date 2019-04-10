@@ -7,6 +7,22 @@
   background-size: contain;
   background-position: center;
 
+  &--instagram {
+    display: inline-flex;
+    border: 2.4px solid $black;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    svg-icon svg {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
   &__arrow-left {
     width: rem(37);
     height: rem(23);
@@ -70,9 +86,18 @@
     }
 
     &--bright {
+
       &:before,
       &:after {
         background: $dusty-gray;
+        transition: 300ms ease-out;
+      }
+
+      &:hover {
+        &:before,
+        &:after {
+          background: $shark;
+        }
       }
     }
   }
