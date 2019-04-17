@@ -1,15 +1,15 @@
 import { Global, Module } from '@nestjs/common';
-import { ConfigurationService } from './configuration/configuration/configuration.service';
-import { MapperService } from './mapper/mapper/mapper.service';
-import { AuthService } from './auth/auth/auth.service';
-import { JwtStrategyService } from './auth/strategies/jwt-strategy/jwt-strategy.service';
+import { MapperService } from './mapper/mapper.service';
+import { AuthService } from './auth/auth.service';
+import { JwtStrategyService } from './auth/strategies/jwt-strategy.service';
 import { UserModule } from '../user/user.module';
+import { ConfigurationModule } from './configuration/configuration.model';
 
 @Global()
 @Module({
-  providers: [ConfigurationService, MapperService, AuthService, JwtStrategyService],
-  exports: [ConfigurationService, MapperService, AuthService],
-  imports: [UserModule],
+  providers: [MapperService, AuthService, JwtStrategyService],
+  exports: [MapperService, AuthService],
+  imports: [UserModule, ConfigurationModule],
 })
 export class SharedModule {
 }

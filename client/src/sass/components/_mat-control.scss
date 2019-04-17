@@ -1,0 +1,47 @@
+app-mat-control, .select {
+  .mat-form-field {
+    font-size: 14px;
+    font-family: $f-main;
+    width: 100%;
+    max-width: 450px;
+
+    &.mat-form-field-invalid {
+      .mat-form-field-label {
+        color: inherit;
+      }
+    }
+
+    &-appearance-outline {
+
+      &.mat-form-field-can-float {
+        &.mat-form-field-should-float {
+          .mat-form-field-label {
+            color: $cerise;
+          }
+        }
+      }
+
+      .mat-form-field-outline-start {
+        border-radius: 0;
+        border-color: $cerise;
+      }
+
+      .mat-form-field-outline-gap {
+        border-color: $white-smoke;
+      }
+
+      .mat-form-field-outline-end {
+        border-radius: 0;
+        border-color: $white-smoke;
+      }
+
+      .mat-form-field-outline-thick {
+        .mat-form-field-outline-start,
+        .mat-form-field-outline-gap,
+        .mat-form-field-outline-end {
+          border-width: 1px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+<owl-carousel [options]="options"
+              [items]="slides"
+              #owlCarousel>
+  <div class="owl-item__slide" *ngFor="let slide of slides">
+    <a [routerLink]="getDetailsUrl(slide.objectClass, slide.sku)">
+        <span class="owl-item__slide-image"
+              [style.background-image]="'url(' + slide.baseImage + ')'"
+        ></span>
+    </a>
+    <div class="owl-item__slide-content">
+      <div class="custom_content">
+        <div class="inner">
+          <div class="small-text">Follow you play</div>
+          <div class="large-bold-text">in Black</div>
+        </div>
+        <div class="shop-link"><a [routerLink]="getDetailsUrl(slide.objectClass, slide.sku)">Shop Now</a></div>
+      </div>
+    </div>
+  </div>
+</owl-carousel>

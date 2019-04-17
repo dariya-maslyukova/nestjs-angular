@@ -1,0 +1,42 @@
+<footer class="f">
+  <div class="f__content">
+    <div class="block newsletter">
+      <form class="f__subscribe-form" (submit)="onSubmit($event)" [formGroup]="form">
+        <div class="form-group">
+          <app-mat-control
+            type="email"
+            formControlName="Email"
+            [placeholder]="'Subscribe our newsletter'"
+          ></app-mat-control>
+        </div>
+
+        <button class="btn" (click)="onSubmit()" [disabled]="form.invalid">
+          <svg-icon name="arrow-right"></svg-icon>
+        </button>
+      </form>
+    </div>
+    <ul class="f__nav">
+      <li *ngFor="let navItem of navItems">
+        <a [routerLink]="navItem.route" [routerLinkActive]="'active'">{{ navItem.label }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="f__copyright">
+    <span>Copyright © 2019 Cardin Store. All rights reserved.</span>
+  </div>
+  <nav class="f__social-links">
+    <a href="">
+      <svg-icon name="facebook"></svg-icon>
+    </a>
+    <a href="" class="icon--instagram">
+      <svg-icon name="instagram"></svg-icon>
+    </a>
+    <a href="">
+      <svg-icon name="google"></svg-icon>
+    </a>
+    <a href="">
+      <svg-icon name="twitter"></svg-icon>
+    </a>
+  </nav>
+
+</footer>

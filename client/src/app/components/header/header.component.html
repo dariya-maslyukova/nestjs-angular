@@ -1,0 +1,79 @@
+<header class="h">
+  <div class="inner-container">
+    <div class="row align-items-center align-items-lg-baseline">
+      <div class="col-sm-4">
+        <div class=" d-none d-sm-block d-lg-none h__toggle-link"
+             (click)="toggleLink = !toggleLink">
+          <span>Collection</span>
+        </div>
+        <div class="h__menu h__menu-main" [ngClass]="{'h__menu-main--open' : toggleLink}">
+          <ul>
+            <li *ngFor="let navItem of navItems">
+              <a [routerLink]="navItem.route" [routerLinkActive]="'active'">{{ navItem.label }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-5 col-sm-4 d-flex justify-content-lg-center order-sm-first order-lg-0">
+        <a routerLink="/" class="h__logo"><img src="/assets/images/logo.png"/></a>
+      </div>
+      <div class="col-7 col-sm-4">
+        <ul class="h__menu h__menu-user justify-content-end">
+          <li class="h__menu__link">
+            <span class="h__toggle d-lg-none">
+              <button type="button"
+                      class="h__toggle__button"
+                      (click)="toggleButton = !toggleButton"
+                      [ngClass]="{'opened' : toggleButton}">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </span>
+            <span class="d-none d-lg-block">Menu</span>
+          </li>
+
+          <li class="h__menu__link" *ngIf="!currentUser">
+            <a [routerLink]="'/auth'">
+              <svg-icon class="d-lg-none" name="user"></svg-icon>
+              <span class="d-none d-lg-block">My account</span>
+            </a>
+          </li>
+
+          <li class="h__profile" *ngIf="currentUser">
+            <div class="h__menu__link" dropdown triggers="mouseover">
+              <span dropdownToggle>
+                <svg-icon class="d-lg-none" name="user"></svg-icon>
+                <span class="d-none d-lg-block">{{ userName }}</span>
+              </span>
+
+              <ul class="dropdown-menu" *dropdownMenu>
+                <li class="dropdown-item" *ngFor="let menuItem of profileMenu">
+                  <a [routerLink]="menuItem.route" [routerLinkActive]="'dropdown-item--active'">
+                    <span>{{ menuItem.label }}</span>
+                  </a>
+                </li>
+                <li class="dropdown-item logout-item" (click)="logout()">
+                  <span>Logout</span>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li *ngFor="let item of userMenu">
+            <span class="h__menu__link" (click)="toggleDropdown($event, item.label)">
+              <svg-icon class="d-lg-none" [src]="item.icon"></svg-icon>
+              <span class="d-none d-lg-inline-block">{{ item.label }}</span>
+              <span class="h__menu__link__count" *ngIf="item.count > 0"> ({{ item.count }})</span>
+            </span>
+          </li>
+        </ul>
+
+        <div class="d-sm-none h__toggle-link"
+             (click)="toggleLink = !toggleLink">
+          <span>Collection</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

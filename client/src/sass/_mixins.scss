@@ -1,0 +1,62 @@
+@mixin optional-at-root($sel) {
+  @at-root #{if(not &, $sel, selector-append(&, $sel))} {
+    @content;
+  }
+}
+
+
+@mixin placeholder {
+  @include optional-at-root("::-webkit-input-placeholder") {
+    @content;
+  }
+
+  @include optional-at-root(":-moz-placeholder") {
+    @content;
+  }
+
+  @include optional-at-root("::-moz-placeholder") {
+    @content;
+  }
+
+  @include optional-at-root(":-ms-input-placeholder") {
+    @content;
+  }
+}
+
+// sass-lint:disable no-vendor-prefixes
+@mixin scrollbars(
+  $size,
+  $foreground-color,
+  $background-color: mix($foreground-color, $white, 50%),
+  $border-radius: 2px
+) {
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+    border-radius: $border-radius;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+    border-radius: $border-radius;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background-color;
+  }
+
+  &::-webkit-scrollbar-track-piece {
+    background: $background-color;
+  }
+
+  // For Internet Explorer
+  body {
+    scrollbar-track-color: $background-color;
+    scrollbar-face-color: $foreground-color;
+  }
+}
+
+
+@mixin scrollbar($background-color: $white) {
+  @include scrollbars(5px, $light-grey, $background-color, 6px);
+}

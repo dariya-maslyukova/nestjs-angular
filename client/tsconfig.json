@@ -1,19 +1,28 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "allowJs": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "lodash/*": [
+        "node_modules/@types/lodash-es/*"
+      ]
+    },
     "lib": [
       "es2017",
+      "es2017.object",
       "dom"
     ]
   }

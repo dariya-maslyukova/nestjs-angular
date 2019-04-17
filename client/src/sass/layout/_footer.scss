@@ -1,0 +1,198 @@
+.f {
+  background: $white-smoke;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  z-index: -1;
+  text-align: center;
+  padding: em(100) 20px em(50);
+
+  .icon--instagram {
+    border-color: $c-primary-light;
+
+    &:hover{
+      border-color: $black;
+    }
+  }
+
+  &__social-links{
+    margin-top: em(35);
+    display: inline-flex;
+
+    a{
+      display: inline-flex;
+
+      &:hover{
+        path{
+          fill: $black;
+        }
+      }
+
+      .icon--instagram {
+        border: 2.4px solid $c-primary-light;
+
+        &:hover{
+          border:  2.4px solid $black;
+        }
+      }
+    }
+    a + a {
+      margin-left: rem(15);
+    }
+
+    svg-icon svg {
+      height: 32px;
+    }
+  }
+
+  path{
+    fill: $c-primary-light;
+    transition: 300ms ease-in-out;
+
+    &:hover{
+      fill: $black;
+    }
+  }
+
+  &__subscribe-form{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: em(575);
+    margin-bottom: em(65);
+
+    .btn {
+      position: absolute;
+      top: 15px;
+      right: 0;
+
+      &:hover{
+
+        path{
+          fill: $black;
+        }
+      }
+    }
+  }
+
+  &__nav{
+    margin-bottom: em(35);
+
+    & > li{
+      display: inline-flex;
+      margin-right: rem(28);
+
+      &:after{
+        content: '-';
+        font-size: rem(25);
+      }
+
+      & > a{
+        color: $black;
+        font-family: $f-secondary;
+        font-weight: 600;
+        font-size: rem(25);
+        margin-right: rem(28);
+        padding-bottom: rem(15);
+        cursor: pointer;
+        position: relative;
+
+        &:before{
+          content: '';
+          height: 1px;
+          width: 0;
+          background: $black;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          transition: 300ms ease-in-out;
+        }
+      }
+
+      &:hover{
+
+        & > a{
+          color: $black;
+
+          &:before{
+            width: 100%;
+            left: 0;
+            right: auto;
+          }
+        }
+      }
+
+      &:last-child{
+
+        &:after{
+          display: none;
+          margin-right: 0;
+        }
+        & > a {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  input[type=email],
+  input[type=password],
+  input[type=text],
+  textarea {
+    font-size: 18px;
+    font-weight: 600;
+    color: $silver-chalice;
+    font-family: $f-secondary;
+    border: 0;
+    background: 0 0;
+    border-bottom: 2px solid $c-primary-light;
+    height: 3rem;
+    width: 100%;
+    max-width: 35.9375em;
+    padding-left: 0;
+
+    @include placeholder {
+      color: $c-primary-light;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+
+  &__copyright{
+    font-size: 14px;
+    font-weight: 300;
+    font-family: $f-secondary;
+    color: $c-primary-dark;
+  }
+
+  app-mat-control {
+    .mat-form-field {
+      max-width: 100%;
+    }
+
+    .mat-form-field-infix {
+      padding: 0;
+      border-top: 0;
+    }
+
+    .mat-form-field-outline {
+      display: none;
+    }
+
+    .mat-form-field-wrapper {
+      margin: 0;
+      padding-bottom: 5px;
+    }
+
+    .mat-form-field-flex {
+      padding: 0;
+      margin-top: 0;
+    }
+
+    .mat-form-field-subscript-wrapper {
+      padding: 10px 0;
+    }
+  }
+}

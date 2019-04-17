@@ -1,0 +1,8 @@
+<div class="page page--home"
+     [ngClass]="{'page--loading': isLoading}">
+  <app-overlay [isActive]="isLoading"></app-overlay>
+  <div *ngIf="!isLoading">
+    <app-flex-slider *ngIf="!isLoading" [items]="response.docs"></app-flex-slider>
+    <app-animate-products-section></app-animate-products-section>
+  </div>
+</div>

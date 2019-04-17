@@ -1,20 +1,28 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+import { SitemapComponent } from './components/sitemap/sitemap.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { AuthorizedGuard } from './guards/authorized.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'todo', component: TodoListComponent },
+  { path: '', loadChildren: './modules/home/home.module#HomeModule' },
+  { path: 'auth', loadChildren: './modules/auth/auth.module#AuthModule' },
+  { path: 'collection', loadChildren: './modules/collection/collection.module#CollectionModule' },
+  { path: 'profile', loadChildren: './modules/profile/profile.module#ProfileModule', canActivate: [AuthorizedGuard] },
+  { path: 'sitemap', component: SitemapComponent },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  imports: [
+    CommonModule,
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+  ],
+  exports: [
+    RouterModule,
+  ],
 })
 export class AppRoutingModule {
 }

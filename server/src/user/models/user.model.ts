@@ -1,31 +1,43 @@
 import { InstanceType, ModelType, prop } from 'typegoose';
-import { BaseModel, schemaOptions } from '../../shared/base.model';
-import { UserRole } from './user-role.enum';
+import { Model, schemaOptions } from '../../shared/model';
+import { UserRole } from '../../shared/enums/user-role.enum';
 
-export class User extends BaseModel<User> {
+export class User extends Model<User> {
+  @prop()
+  success?: boolean;
+
+  @prop()
+  message?: string;
+
   @prop({
-    required: [true, 'Username is required'],
     unique: true,
-    minlength: [6, 'Must be at least 6 characters'],
+    required: true,
   })
-  username: string;
+  Email: string;
 
   @prop({
     required: [true, 'Password is required'],
     minlength: [6, 'Must be at least 6 characters'],
   })
-  password: string;
-
-  @prop() firstName?: string;
-
-  @prop() lastName?: string;
-
-  @prop({ enum: UserRole, default: UserRole.User })
-  role?: UserRole;
+  Password: string;
 
   @prop()
-  get fullName(): string {
-    return `${this.firstName} ${this.lastName}`;
+  FirstName?: string;
+
+  @prop()
+  LastName?: string;
+
+  @prop()
+  Phone?: string;
+
+  @prop({
+    enum: UserRole,
+    default: UserRole.User,
+  }) UserRole?: UserRole;
+
+  @prop()
+  get FullName(): string {
+    return `${this.FirstName} ${this.LastName}`;
   }
 
   static get model(): ModelType<User> {

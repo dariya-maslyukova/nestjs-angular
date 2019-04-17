@@ -1,0 +1,19 @@
+<mat-form-field appearance="outline" *ngIf="fcn">
+  <mat-label>{{ label }}</mat-label>
+  <ng-container *ngIf="autocomplete">
+    <input matInput [matAutocomplete]="auto" [type]="type" [placeholder]="placeholder" [disabled]="isDisabled"
+           [value]="value" (input)="autocompleteHandler($event)" (blur)="autocompleteBlur($event)">
+    <mat-autocomplete #auto [displayWith]="displayText" (optionSelected)="updateOption($event)">
+      <mat-option *ngFor="let choice of autocompleteChoices | async" [value]="choice">{{ choice.text }}</mat-option>
+    </mat-autocomplete>
+  </ng-container>
+  <input *ngIf="!autocomplete"
+         matInput
+         [placeholder]="placeholder"
+         [formControl]="control"
+         [type]="type"
+  >
+  <mat-error *ngIf="!autocomplete && control.invalid"> {{ getError() }}</mat-error>
+</mat-form-field>
+
+

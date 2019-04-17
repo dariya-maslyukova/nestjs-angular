@@ -1,0 +1,107 @@
+$browser-context: 16; // Default
+
+@function em($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}em;
+}
+
+@function rem($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}rem;
+}
+
+
+$f-primary: 'FuturaBT', sans-serif;
+$f-main: 'Source Sans Pro', sans-serif;
+$f-secondary: 'Raleway', sans-serif;
+
+// Colors
+$c-primary-light: #d1d1d1;
+$c-primary-dark: #9e9e9e;
+
+$white: #fff;
+$black: #000;
+$nero: #1f1f1f;
+$scorpion: #5a5a5a;
+$silver-chalice: #9e9e9e;
+$gray97: #f7f7f7;
+$gray98: #f8f8f8;
+$solitude: #dee0ec;
+$white-smoke: #ececec; // almost identical to #ededed
+$alabaster: #f9f9f9; // same as #fbfbfb
+$white-lilac: #f1f3fa;
+$botticelli: #9baab2;
+$zumthor: #c7ced2;
+$athens-gray: #ebecf3;
+$ziggurat: #b6e0da;
+$iron: #d4d4d8;
+$silver: #bcbcbc;
+$light-grey: #d3d3d3;
+$hint-of-red: #f9f6f6;
+$catskill-white: #f0f4f8;
+$foam: #f2f9fe;
+$submarine: #b4bfc5;
+$dark-gray: #a5a5a5; // #1f1f1f 0.4 from design
+$slate-gray: #69808c;
+$regent-gray: #82959f;
+$blue-haze: #bfc1d3;
+$lynch: #667d89;
+$waikawa-grey: #5e6592;
+$grey: #ccc;
+$manatee: #909092;
+$dusty-gray: #979797;
+$tower-gray: #afbac0;
+$suva-grey: #8f8f8f;
+$dove-gray: #6b6b6b;
+$empress: #757575;
+$charcoal: #4c4c4c; // same as #1f1f1f with 0.8 opacity
+$lavender-blue: #b4c4fb;
+$hawkes-blue: #e2eaf3;
+$hawkes-blue-1: #ebf5fd;
+$hawkes-blue-darker: #dfeffc;
+$kashmir-blue: #557896;
+$radical-red: #f36;
+$old-lace: #fdede3;
+$wisp-pink: #fdeded;
+$cinderella-red: #fde1e1;
+$cinderella-orange: #fce2d1;
+$cinderella-orange-1: #fce3d3;
+$rose-bud: #fbc19c;
+$sundown: #ffafaf;
+$mona-lisa: #ff8181;
+$mona-lisa-light: #fbe0e0;
+$wild-watermelon: #ff5382;
+$wild-watermelon-dark: #ff2863;
+$radical-red: #f36;
+$cerise: #c42594;
+$apple-green: #e0f3f0;
+$jagged-ice: #ccebe7;
+$downy: #79d0c5;
+$jade: #0b9785;
+$jade-light: #37ae92;
+$cerulean: #0092d7;
+$alice-blue: #f0faff;
+$anakiwa: #abd8ff;
+$anakiwa-light: #aabed5;
+$dodger-blue: #42bffd;
+$steel-blue: #4466b6;
+$indigo: #3d50ba;
+$egyptian-blue: #1540a4;
+$san-marino: #4264b4;
+$san-marino-light: #3697cb;
+$polo-blue: #8ea3d3;
+$selago-light: #efe7fd;
+$selago: #e5d8fc;
+$mauve: #c5a4ff;
+$blue-bell: #a098d0;
+$blue-gem: #4131a1;
+$blue-gem-light: #7f74be;
+$meteorite: #2f227e;
+$shark: #212124;
+$shark-light: #aeaeaf;
+$ebony-clay: #2b3040;
+$sapphire: #052b3f;
+$ghost: #bfc1d3;
+$san-marino: #4466b6;
+$card-border-bottom: $white-smoke;
+$hunter-lab: #e9edf0;
+$grey-20: #333;
+$san-orange: #eeba85;

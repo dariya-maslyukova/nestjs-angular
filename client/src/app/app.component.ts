@@ -1,14 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { DropdownService } from './services/dropdown.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'app';
+export class AppComponent implements OnInit {
 
-  onLogoutClick() {
-    console.log('Logged out');
+  isHomePage = false;
+
+  constructor (
+    private r: Router,
+    private ds: DropdownService
+  ) {
+
+    r.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isHomePage = event.url === '/';
+      }
+    });
+
+  }
+
+  ngOnInit(): void {
+    this.ds.isDisabled = false;
   }
 }

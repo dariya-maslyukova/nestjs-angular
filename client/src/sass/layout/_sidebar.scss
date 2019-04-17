@@ -1,0 +1,45 @@
+.sidebar {
+
+  &__section {
+
+    &__title {
+      background: $gray98;
+      padding: 25px 20px;
+      margin-bottom: 20px;
+
+      .icon {
+        &:after,
+        &:before {
+          background: $dusty-gray;
+        }
+      }
+
+      .icon__plus {
+        cursor: pointer;
+      }
+    }
+
+    &__content {
+      max-height: calc(100vh - 190px);
+      overflow: scroll;
+      @include scrollbar();
+      position: relative;
+
+      &__inner {
+        padding-left: rem(25);
+        padding-right: rem(25);
+      }
+    }
+  }
+
+  &--toggle-link {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      transform: rotate(180deg);
+      transition: 300ms ease-out;
+    }
+  }
+}

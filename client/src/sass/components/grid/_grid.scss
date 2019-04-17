@@ -1,0 +1,50 @@
+.grid {
+
+  &__item {
+
+    &__image {
+      img {
+        max-width: 100%;
+      }
+    }
+
+    &__price {
+      font-size: 20px;
+      font-family: $f-main;
+      font-weight: 600;
+      margin-top: rem(10);
+    }
+
+    &__title {
+      font-family: $f-primary;
+      font-size: 16px;
+      letter-spacing: 1.2px;
+    }
+
+    &__wrapper-image {
+      position: relative;
+
+      .btn {
+        &--to-wishlist {
+          position: absolute;
+          top: 15px;
+          left: 20px;
+          z-index: 1;
+        }
+
+        &.active {
+          svg-icon {
+            path, g {
+              fill: $black;
+            }
+          }
+        }
+      }
+    }
+
+    &__wrapper-content {
+      text-align: center;
+      margin: rem(10) 0 rem(20);
+    }
+  }
+}

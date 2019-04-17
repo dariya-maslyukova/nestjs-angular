@@ -1,0 +1,28 @@
+<div class="row no-gutters align-items-center" *ngIf="totalFound">
+  <div class="col">
+    <span class="sidebar--toggle-link" (click)="toggleSidebar($event)">Show filters <i class="icon icon__select-arrow"></i></span>
+  </div>
+  <div class="col text-center">
+    {{ totalFound }} items found
+  </div>
+  <div class="col d-flex justify-content-end">
+    <div class="form-group no-styles">
+      <label>Order by: </label>
+      <mat-form-field>
+        <mat-select
+          disableRipple
+          [value]="filters.sort"
+          (valueChange)="onValueChange($event, 'sort')"
+        >
+          <mat-option
+            *ngFor="let option of sortOptions"
+            [value]="option.value"
+          >
+            {{ option.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+

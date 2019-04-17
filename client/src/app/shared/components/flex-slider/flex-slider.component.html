@@ -1,0 +1,22 @@
+<div class="flexslider">
+  <ul class="slides" *ngIf="items.length > 0">
+    <li *ngFor="let item of items; let i = index">
+      <div class="slide-link">
+        <span class="slider-image" [ngStyle]="{'background-image': 'url(' + item.Image + ')'}">
+          <app-flex-caption
+            [slidesCount]="items.length"
+            [slideIndex]="i"
+            [slide]="item"
+            *ngIf="width < 992"
+          ></app-flex-caption>
+        </span>
+      </div>
+      <app-flex-caption
+        [slidesCount]="items.length"
+        [slideIndex]="i"
+        [slide]="item"
+        *ngIf="width > 992"
+      ></app-flex-caption>
+    </li>
+  </ul>
+</div>

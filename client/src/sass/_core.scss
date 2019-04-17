@@ -1,0 +1,151 @@
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+html {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: $f-main;
+  font-size: 1rem;
+  color: $black;
+  background-color: $white;
+  overflow-x: hidden;
+}
+
+
+a{
+  transition: 300ms ease-out;
+  color: inherit;
+  &:hover{
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &.link {
+    border-bottom: 1px solid $black;
+    padding-bottom: 2px;
+
+    &:hover {
+      color: $cerise;
+      border-color: $cerise;
+    }
+  }
+}
+
+h1, h2, h2, h3, h4, h5{
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: $f-primary;
+}
+
+h2{
+  font-family: $f-secondary;
+  font-size: rem(42);
+  letter-spacing: rem(2.5);
+}
+
+h3{
+  font-size: rem(30.7);
+}
+
+h4{
+  font-size: rem(24);
+  &.large{
+    font-size: rem(26);
+  }
+}
+
+h5{
+  font-size: rem(20);
+}
+
+h6 {
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: rem(25);
+}
+
+svg-icon {
+  display: inline-block;
+
+  svg {
+    display: block;
+    height: 18px;
+
+    path,
+    polygon {
+      transition: 0.2s linear;
+    }
+  }
+}
+
+.large-bold-text{
+  margin-left: -2.5px;
+  font-size: rem(72.65);
+  font-weight: 600;
+  line-height: rem(55);
+  text-transform: uppercase;
+}
+
+.medium-text{
+  font-size: rem(51.28);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.medium-large-text{
+  font-size: rem(60.22);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.letter-space{
+  letter-spacing: -1.5px;
+}
+
+.letter-space-m{
+  letter-spacing: -0.7px;
+}
+
+.small-text{
+  font-size: rem(28);
+}
+
+.thin-text{
+  font-weight: 300;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.text-right{
+  text-align: right;
+}
+
+.text-left{
+  text-align: left;
+}
+
+.text-uppercase{
+  text-transform: uppercase;
+}
+
+.border-column-right {
+  border-right: 1px solid $white-smoke;
+}
+
+.grey-text {
+  color: $dusty-gray;
+  font-family: $f-main;
+}

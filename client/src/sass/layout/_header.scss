@@ -1,0 +1,201 @@
+.h {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  padding-top: 25px;
+  transition: 300ms ease-out;
+  background: $white;
+  box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.3);
+  padding-left: 3px;
+  padding-right: 3px;
+
+  @include media-breakpoint-down(md) {
+    padding-top: 15px;
+
+    img {
+      max-width: 100%;
+      max-height: 40px;
+    }
+  }
+
+  &__notification-badge {
+    position: absolute;
+  }
+
+  &__logo {
+    @include media-breakpoint-down(md) {
+      padding-bottom: 17px;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+
+    &-main {
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
+    }
+
+    &__link {
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: baseline;
+
+      @include media-breakpoint-down(md) {
+        align-items: center;
+      }
+
+      &__count {
+        font-family: $f-main;
+        margin-left: 5px;
+      }
+    }
+
+    li {
+      display: inline-block;
+      position: relative;
+      padding-bottom: 21px;
+      margin-right: em(45);
+      font-family: $f-secondary;
+      font-weight: 500;
+      font-size: 15px;
+
+      @include media-breakpoint-down(lg) {
+        margin-right: em(30);
+        font-size: 15px;
+      }
+
+      @include media-breakpoint-down(md) {
+        padding-bottom: 0;
+      }
+
+      @include media-breakpoint-down(xs) {
+        padding-bottom: 10px;
+        margin-right: 15px;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 0;
+        height: 1px;
+        transition: 300ms ease-in-out;
+        background: $black;
+      }
+
+
+        &:hover {
+          &:before {
+            @include media-breakpoint-up(lg) {
+            right: auto;
+            left: 0;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  &__toggle-link {
+    font-family: 'Futura', sans-serif;
+    letter-spacing: 2.5px;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    @include media-breakpoint-down(xs) {
+      margin-bottom: 10px;
+      text-align: right;
+    }
+
+  }
+
+  &__toggle {
+    display: block;
+    position: relative;
+    z-index: 1;
+    width: 24px;
+    height: 16px;
+    text-align: center;
+
+    &__button {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      transition: 0.5s ease-in-out;
+      cursor: pointer;
+      background: transparent;
+      border: 0;
+      transform: rotate(0deg);
+      box-shadow: none;
+
+      &:focus {
+        outline: 0;
+      }
+
+      span {
+        display: block;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        transition: 0.3s ease-in-out;
+        background: #000;
+        border-radius: 1px;
+        opacity: 1;
+        transform: rotate(0deg);
+
+        &:nth-child(1) {
+          top: 0;
+          width: 50%;
+        }
+
+        &:nth-child(2) {
+          top: 6px;
+        }
+
+        &:nth-child(3) {
+          top: 12px;
+          width: 80%;
+        }
+      }
+
+      &.opened {
+        width: 22px;
+
+        span {
+          width: 100%;
+          height: 2px;
+
+          &:nth-child(1) {
+            top: 12px;
+            left: 50%;
+            width: 0;
+          }
+
+          &:nth-child(2) {
+            top: 7px;
+            transform: rotate(45deg);
+          }
+
+          &:nth-child(3) {
+            top: 7px;
+            transform: rotate(-45deg);
+          }
+        }
+      }
+    }
+  }
+}

@@ -23,9 +23,22 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "./node_modules/animate.css/animate.css",
+              "./node_modules/flexslider/flexslider.css",
+              "./node_modules/owl.carousel/dist/assets/owl.carousel.min.css",
+              "./node_modules/owl.carousel/dist/assets/owl.theme.default.min.css",
+              "src/sass/app.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/jquery.easing/jquery.easing.min.js",
+              "./node_modules/flexslider/jquery.flexslider-min.js",
+              "./node_modules/owl.carousel/dist/owl.carousel.min.js",
+              "./node_modules/gsap/src/uncompressed/TweenMax.js",
+              "./node_modules/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js",
+              "./node_modules/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js",
+              "./node_modules/scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -44,6 +57,24 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "hmr": {
+              "optimization": false,
+              "outputHashing": "none",
+              "sourceMap": true,
+              "extractCss": false,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+              "tsConfig": "src/tsconfig.dev.json",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hmr.ts"
+                }
+              ]
             }
           }
         },
@@ -56,6 +87,10 @@
           "configurations": {
             "production": {
               "browserTarget": "client:build:production"
+            },
+            "hmr": {
+              "hmr": true,
+              "browserTarget": "client:build:hmr"
             }
           }
         },

@@ -1,0 +1,200 @@
+button {
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: none;
+  transition: 300ms ease-in-out;
+
+  .line-scale-pulse-out {
+    & > div {
+      width: 1px;
+      height: 22px;
+    }
+  }
+
+  &--link {
+    position: relative;
+    padding-bottom: 5px;
+
+    &:after {
+      content: '';
+      width: 100%;
+      height: 1px;
+      background: $black;
+      opacity: 0;
+      transform: translateY(-2px);
+      transition: 300ms ease-in;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+
+    &:hover {
+      &:after {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    &-white {
+      color: $white;
+
+      &:after {
+        background: $white;
+      }
+    }
+  }
+
+
+  &:not(.--primary) {
+    box-shadow: none;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &--primary, &--secondary {
+    height: rem(56);
+    width: 100%;
+    max-width: 250px;
+    padding: 0 22px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    border: 1px solid $black;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $f-primary;
+    text-transform: uppercase;
+    margin-bottom: rem(10);
+
+    span {
+      z-index: 1;
+    }
+  }
+
+  &--primary {
+    background: $white;
+    color: $black;
+    transition: 600ms cubic-bezier(0.41, 0.02, 1, 1);
+
+    &.no-animation {
+      transition: color 300ms cubic-bezier(0.41, 0.02, 1, 1), border-color 300ms cubic-bezier(0.41, 0.02, 1, 1);
+
+      svg-icon svg {
+        g, path {
+          transition: fill 300ms cubic-bezier(0.41, 0.02, 1, 1)
+        }
+      }
+    }
+
+    &.btn-white {
+      background: $black;
+      border: 1px solid $white;
+      color: $white;
+
+      &:not(.no-animation) {
+
+        &:before {
+          background: $white;
+        }
+
+        &:hover {
+          color: $black;
+
+          span {
+            color: $black;
+            transition: 600ms cubic-bezier(0.41, 0.02, 1, 1);
+          }
+        }
+      }
+    }
+
+    &:not(.no-animation) {
+
+      &:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 100%;
+        top: 0;
+        right: 0;
+        background: $black;
+        transition: 600ms cubic-bezier(0.41, 0.02, 1, 1);
+      }
+
+      &:hover {
+        color: $white;
+        z-index: 0;
+
+        span {
+          color: $white;
+          transition: 600ms cubic-bezier(0.41, 0.02, 1, 1);
+        }
+
+        &:before {
+          width: 100%;
+          right: auto;
+          left: 0;
+        }
+      }
+    }
+
+  }
+
+  &--secondary {
+    background: $black;
+    color: $white;
+    transition: 300ms ease-in-out;
+
+    &:hover {
+      background: $cerise;
+      border: 1px solid $cerise;
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+      background: $shark;
+
+      &:hover {
+        border: 1px solid $shark;
+      }
+    }
+  }
+
+  &-full {
+    text-transform: none;
+
+    &.btn--primary,
+    &.btn--secondary {
+      height: rem(45);
+      max-width: 100%;
+    }
+
+  }
+}
+
+.login-btn {
+  text-align: center;
+
+  .btn {
+    margin-top: 9px;
+  }
+}
+
+.action-link {
+  font-family: $f-primary;
+  color: $dusty-gray;
+  font-weight: 300;
+  cursor: pointer;
+}
