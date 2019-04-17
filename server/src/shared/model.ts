@@ -13,6 +13,7 @@ export class ModelVm {
   id?: string;
 }
 
+// @ts-ignore
 @pre<T>('findOneAndUpdate', function() {
   this._update.updatedAt = new Date(Date.now());
 })

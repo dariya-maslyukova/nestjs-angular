@@ -69,7 +69,7 @@
     "@types/passport-jwt": "^3.0.1",
     "@types/supertest": "^2.0.5",
     "class-validator": "^0.9.1",
-    "jest": "^23.5.0",
+    "jest": "^24.7.1",
     "multer": "^1.4.1",
     "nodemon": "^1.18.3",
     "prettier": "^1.14.2",

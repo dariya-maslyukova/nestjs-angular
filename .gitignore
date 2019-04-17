@@ -20,7 +20,6 @@
 /server/src/upload
 
 # config
-/server/config/default.ts
 
 # IDEs and editors
 /.idea

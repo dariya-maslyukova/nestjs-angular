@@ -1,4 +1,4 @@
-import { Module, MulterModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -7,7 +7,6 @@ import { ConfigurationService } from './shared/configuration/configuration.servi
 import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
 import { SliderModule } from './slider/slider.module';
-import { UploadModule } from './upload/upload.module';
 import { ConfigurationModule } from './shared/configuration/configuration.model';
 import { ProductModule } from './product/product.module';
 
@@ -29,7 +28,6 @@ import { ProductModule } from './product/product.module';
     ConfigurationModule,
     UserModule,
     SliderModule,
-    UploadModule,
     ProductModule,
   ],
   controllers: [AppController],
