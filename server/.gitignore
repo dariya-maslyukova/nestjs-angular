@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+
+# IDE
+/.idea
+/.awcache
+/.vscode
+
+# bundle
+packages/**/*.d.ts
+packages/**/*.js
+
+# misc
+.DS_Store
+lerna-debug.log
+npm-debug.log
+yarn-error.log
+/**/npm-debug.log
+/packages/**/.npmignore
+/packages/**/LICENSE
+
+# example
+/quick-start
+/example_dist
+/example
+src/todo
+src/upload
+
+# tests
+/test
+/benchmarks/memory
+/coverage
+/.nyc_output
+build/config\.gypi
+
+# dist
+/dist
+
+# config
+config/default.ts

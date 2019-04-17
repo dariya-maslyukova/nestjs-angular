@@ -1,0 +1,59 @@
+# dependencies
+/node_modules
+/client/node_modules
+/server/node_modules
+
+# compiled output
+/client/dist
+/client/tmp
+/client/out-tsc
+
+# bundle
+/server/packages/**/*.d.ts
+/server/packages/**/*.js
+
+# dist
+/server/dist
+
+# examples
+/server/src/todo
+/server/src/upload
+
+# config
+/server/config/default.ts
+
+# IDEs and editors
+/.idea
+/client/.idea
+/server/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
